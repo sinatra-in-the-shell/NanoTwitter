@@ -1,0 +1,19 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: dev
+  pool: 2
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: test
+  pool: 2
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: sin_series_prod
+  pool: 2
+  username: ziyu
+  password:
