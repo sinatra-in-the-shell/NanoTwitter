@@ -3,34 +3,36 @@
 # ALL TABLES:
 
 ## Users
-* name:
-* profile:
-* birthday:
+* string **name**
+* text **profile**
+* date **birthday**
 
 ## Tweets
-* user_id:
-* comment_to:
-* retweet_from:
-* text:
-* post_time:
+* integer **user_id**         `foreign_key`
+* integer **comment_to**      `index` 
+* integer **retweet_from**    `index` 
+* text **contents**
+* timestamp **post_time**
 
 ## Tweets_HashTags
-* tweet_id:
-* hashtag_id:
+* integer: **tweet_id**
+* integer: **hashtag_id**
 
 ## Hashtags
-* name:
-* tweets_count:
+* string: **name**
+* integer: **tweets_count**
 
-## Followers_Followees
-* follower_user_id:
-* followee_user_id:
+## Follows
+* integer: **follower_id**    `foreign_key`
+* integer: **followee_id**    `foreign_key`
 
 ## Notificationss
-* text:
-* type:
-* tweet_id:
+* text: **contents**
+* string: **notification_type**
+* integer: **tweet_id**       `foreign_key`
+* integer: **to_user**        `foreign_key`
+* integer: **from_user**      `foreign_key`
 
-## Users_Likes
-* user_id:
-* tweet_id:
+## Likes
+* integer: **user_id**
+* integer: **tweet_id**
