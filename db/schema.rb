@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_19_185057) do
+ActiveRecord::Schema.define(version: 2019_02_19_194336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 2019_02_19_185057) do
     t.index ["to_user_id"], name: "index_follows_on_to_user_id"
   end
 
+  create_table "hashtags", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "tweet_id"
+    t.index ["tweet_id"], name: "index_likes_on_tweet_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "tweets", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "comment_to_id"
@@ -31,6 +42,13 @@ ActiveRecord::Schema.define(version: 2019_02_19_185057) do
     t.index ["comment_to_id"], name: "index_tweets_on_comment_to_id"
     t.index ["retweet_from_id"], name: "index_tweets_on_retweet_from_id"
     t.index ["user_id"], name: "index_tweets_on_user_id"
+  end
+
+  create_table "tweets_hashtags_relationships", force: :cascade do |t|
+    t.bigint "hashtag_id"
+    t.bigint "tweet_id"
+    t.index ["hashtag_id"], name: "index_tweets_hashtags_relationships_on_hashtag_id"
+    t.index ["tweet_id"], name: "index_tweets_hashtags_relationships_on_tweet_id"
   end
 
   create_table "users", force: :cascade do |t|

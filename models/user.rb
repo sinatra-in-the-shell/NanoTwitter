@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :followers, through: :passive_relationships, source: :from_user
 
   has_many :tweets
+  has_many :likes
 
 
 
