@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_many :tweets
   has_many :likes
 
+  has_many :received_notifications, class_name: 'Notification', foreign_key: 'to_user_id'
+  has_many :sent_notifications, class_name: 'Notification', foreign_key: 'from_user_id'
 
 
   # methods

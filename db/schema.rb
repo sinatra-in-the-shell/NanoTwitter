@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_19_194336) do
+ActiveRecord::Schema.define(version: 2019_02_19_222037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,16 @@ ActiveRecord::Schema.define(version: 2019_02_19_194336) do
     t.bigint "tweet_id"
     t.index ["tweet_id"], name: "index_likes_on_tweet_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "from_user_id"
+    t.bigint "to_user_id"
+    t.bigint "tweet_id"
+    t.string "notification_type"
+    t.index ["from_user_id"], name: "index_notifications_on_from_user_id"
+    t.index ["to_user_id"], name: "index_notifications_on_to_user_id"
+    t.index ["tweet_id"], name: "index_notifications_on_tweet_id"
   end
 
   create_table "tweets", force: :cascade do |t|

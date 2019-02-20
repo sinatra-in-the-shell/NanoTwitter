@@ -11,6 +11,7 @@ require './models/tweet.rb'
 require './models/like.rb'
 require './models/hashtag.rb'
 require './models/tweets_hashtags_relationship.rb'
+require './models/notification.rb'
 
 get '/' do
   "Hello Sinatra!"
