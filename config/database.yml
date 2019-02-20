@@ -15,5 +15,5 @@ production:
   encoding: unicode
   database: nt_prod
   pool: 2
-  username: ziyu
-  password:
+  username: sis
+  password: psw
