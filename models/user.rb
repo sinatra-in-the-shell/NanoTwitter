@@ -1,8 +1,8 @@
+require 'bcrypt'
 class User < ActiveRecord::Base
   # validation
   validates :email, uniqueness: true
   validates :username, uniqueness: true
-
 
   # relations
 
@@ -40,5 +40,15 @@ class User < ActiveRecord::Base
   # Returns true if the current user is following the other user.
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def password=(new_password)
+    @password = BCrypt::Password.create(new_password)
+    self.password = @oassword
+  end
+
+  def correct_password?(new_password)
+    @password = BCrypt::Password.create(new_password)
+    password == @password
   end
 end
