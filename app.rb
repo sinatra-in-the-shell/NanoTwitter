@@ -23,26 +23,27 @@ get '/' do
 end
 
 post '/register/?' do
-  @user = User.new(params[:user])
-  @user.password = params[:password]
+  @user = User.new(username: params[:username])
+  @user.password = (params[:password])
   @user.save!
   if @user.valid?
-    redirect '/', 'register succeeded'
+    'register succeeded'
   else
-    redirect '/register/', 'register failed'
+    'register failed'
   end
 end
 
 post '/login/?' do
+
   if (params[:username] =~ URI::MailTo::EMAIL_REGEXP) != nil
-    @user = User.find_by_email(params[:username])
+    @user = User.find_by_email(params)
   else
     @user = User.find_by_username(params[:username])
   end
-  redirect '/login/' unless @user.valid? && @user.correct_password?(params[:password])
-  if @user.password == params[:password]
-    session[:user] = @user.user
+  if @user.valid? && @user.password == params[:password]
+    session[:user] = @user.username
+    'Login Succeeded'
   else
-    redirect '/'
+    halt 401, 'Incorrect username or password.'
   end
 end

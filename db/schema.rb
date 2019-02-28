@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2019_02_19_222037) do
     t.string "region"
     t.date "date_of_birth"
     t.text "bio"
-    t.string "password"
+    t.string "password_hash"
   end
 
 end

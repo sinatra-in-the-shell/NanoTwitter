@@ -42,13 +42,12 @@ class User < ActiveRecord::Base
     following.include?(other_user)
   end
 
-  def password=(new_password)
-    @password = BCrypt::Password.create(new_password)
-    self.password = @oassword
+  def password
+    @password ||= BCrypt::Password.new(password_hash)
   end
 
-  def correct_password?(new_password)
+  def password=(new_password)
     @password = BCrypt::Password.create(new_password)
-    password == @password
+    self.password_hash = @password
   end
 end

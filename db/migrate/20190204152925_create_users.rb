@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
         t.string :region
         t.date :date_of_birth
         t.text :bio
-        t.string :password
+        t.string :password_hash
 
         # TODO: add timestamp
       end
