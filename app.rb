@@ -7,7 +7,7 @@ require 'json'
 
 Dir["./models/*.rb"].each {|file| require file }
 
-enable :sessions  
+enable :sessions
 
 helpers do
 end
@@ -17,7 +17,7 @@ get '/' do
 end
 
 
-post '/register/?' do
+post '/api/register/?' do
   @user = User.new(username: params[:username])
   @user.password = (params[:password])
   @user.save!
@@ -28,7 +28,7 @@ post '/register/?' do
   end
 end
 
-post '/login/?' do
+post '/api/login/?' do
 
   if (params[:username] =~ URI::MailTo::EMAIL_REGEXP) != nil
     @user = User.find_by_email(params)
