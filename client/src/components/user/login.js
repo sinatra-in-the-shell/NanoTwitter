@@ -61,9 +61,9 @@ class SignIn extends React.Component {
       method: 'POST',
       body: data,
     }).then(
-      response => response.json()
-    ).then(body => {
-      if(body.authenticated) {
+      response => response.status
+    ).then(status => {
+      if(status===200) {
         this.setState({ redirectToReferrer: true });
       }else{
         alert("Fail!")
