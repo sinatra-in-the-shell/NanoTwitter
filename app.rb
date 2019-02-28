@@ -16,7 +16,6 @@ get '/*' do
   send_file File.expand_path('index.html', settings.public_folder)
 end
 
-
 post '/api/register/?' do
   @user = User.new(username: params[:username])
   @user.password = (params[:password])
@@ -29,14 +28,11 @@ post '/api/register/?' do
 end
 
 post '/api/login/?' do
-  if (params[:username] =~ URI::MailTo::EMAIL_REGEXP) != nil
-    @user = User.find_by_email(params)
-  else
-    @user = User.find_by_username(params[:username])
-  end
+  @user = User.find_by_email(params[:email])
+  @user = User.find_by_username(params[:email]) unless @user.valid?
   if @user.valid? && @user.password == params[:password]
     session[:user] = @user.username
-    'Login Succeeded'
+    'Login succeeded'
   else
     halt 401, 'Incorrect username or password.'
   end
