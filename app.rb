@@ -29,7 +29,6 @@ post '/api/register/?' do
 end
 
 post '/api/login/?' do
-
   if (params[:username] =~ URI::MailTo::EMAIL_REGEXP) != nil
     @user = User.find_by_email(params)
   else
