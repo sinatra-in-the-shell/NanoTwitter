@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { Redirect } from 'react-router'
+import { sessionHelper } from '../../helpers/session'
 
 const styles = theme => ({
   main: {
@@ -64,6 +65,7 @@ class SignIn extends React.Component {
       response => response.status
     ).then(status => {
       if(status===200) {
+        sessionHelper.login();
         this.setState({ redirectToReferrer: true });
       }else{
         alert("Fail!")
