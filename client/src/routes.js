@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import SignIn from './components/user/login'
 import Feed from './components/user/feed'
+import Register from './components/user/register'
 import { sessionHelper } from './helpers/session'
 
 function Routes() {
@@ -9,6 +10,7 @@ function Routes() {
     <Router>
       <div>
         <Route exact path="/login" component={SignIn} />
+        <Route path='/register' component={Register} />
         <PrivateRoute path="/feed" component={Feed} />
       </div>
     </Router>

@@ -17,8 +17,8 @@ get '/*' do
 end
 
 post '/api/register/?' do
-  @user = User.new(username: params[:username])
-  @user.password = (params[:password])
+  @user = User.new(email: params[:email], username: params[:username])
+  @user.password = params[:password]
   @user.save!
   if @user.valid?
     'register succeeded'
@@ -35,5 +35,13 @@ post '/api/login/?' do
     'Login succeeded'
   else
     halt 401, 'Incorrect username or password.'
+  end
+end
+
+delete '/api/logout/?' do
+  if session[:user] == nil
+  else
+    session[:user] = nil
+    'You have logged out.'
   end
 end
