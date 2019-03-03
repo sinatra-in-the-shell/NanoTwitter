@@ -26,6 +26,7 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rake (12.3.2)
     sinatra (2.0.5)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -48,6 +49,7 @@ DEPENDENCIES
   byebug
   pg
   rack-test
+  rake
   sinatra
   sinatra-activerecord
 
