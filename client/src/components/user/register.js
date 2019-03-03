@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { Redirect } from 'react-router'
-import { sessionHelper } from '../../helpers/session'
 
 const styles = theme => ({
   main: {
