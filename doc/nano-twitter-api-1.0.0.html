@@ -1,0 +1,916 @@
+<!doctype html>
+<html>
+  <head>
+    <title>API for Nano-twitter</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>API for Nano-twitter</h1>
+    <div class="app-desc">API for Nano-twitter (sinatra-in-the-shell)</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="sits.brandeis@gmail.com">sits.brandeis@gmail.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/sinatra-in-the-shell/nano-twitter-api/1.0.0</div>
+    <div class="license-info">Apache 2.0</div>
+    <div class="license-url">http://www.apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Admins">Admins</a></h4>
+  <ul>
+  <li><a href="#apiTagsPost"><code><span class="http-method">post</span> /api/tags</code></a></li>
+  <li><a href="#apiTweetsPost"><code><span class="http-method">post</span> /api/tweets</code></a></li>
+  <li><a href="#apiUsersPost"><code><span class="http-method">post</span> /api/users</code></a></li>
+  </ul>
+  <h4><a href="#Developers">Developers</a></h4>
+  <ul>
+  <li><a href="#apiSearchTagsGet"><code><span class="http-method">get</span> /api/search/tags</code></a></li>
+  <li><a href="#apiSearchTweetsGet"><code><span class="http-method">get</span> /api/search/tweets</code></a></li>
+  <li><a href="#apiSearchUsersGet"><code><span class="http-method">get</span> /api/search/users</code></a></li>
+  <li><a href="#apiTagsGet"><code><span class="http-method">get</span> /api/tags</code></a></li>
+  <li><a href="#apiTagsTrendingGet"><code><span class="http-method">get</span> /api/tags/trending</code></a></li>
+  <li><a href="#apiTweetsGet"><code><span class="http-method">get</span> /api/tweets</code></a></li>
+  <li><a href="#apiTweetsIdGet"><code><span class="http-method">get</span> /api/tweets/{id}</code></a></li>
+  <li><a href="#apiTweetsRecentGet"><code><span class="http-method">get</span> /api/tweets/recent</code></a></li>
+  <li><a href="#apiUsersGet"><code><span class="http-method">get</span> /api/users</code></a></li>
+  <li><a href="#apiUsersIdGet"><code><span class="http-method">get</span> /api/users/{id}</code></a></li>
+  <li><a href="#apiUsersIdTweetsGet"><code><span class="http-method">get</span> /api/users/{id}/tweets</code></a></li>
+  </ul>
+
+  <h1><a name="Admins">Admins</a></h1>
+  <div class="method"><a name="apiTagsPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/tags</code></pre></div>
+    <div class="method-summary">add a tag (<span class="nickname">apiTagsPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">tag <a href="#Tag">Tag</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; the tag to create </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Created
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiTweetsPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/tweets</code></pre></div>
+    <div class="method-summary">post a tweet using current identification (<span class="nickname">apiTweetsPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">content (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; the content of the tweet to post </div><div class="param">auth_token (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; the authentication token which the tweet will use to post format: token</div>
+    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Created
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    invalid authentication token
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiUsersPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/users</code></pre></div>
+    <div class="method-summary">add an user (<span class="nickname">apiUsersPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">user <a href="#User">User</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; the user to create </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Created
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Developers">Developers</a></h1>
+  <div class="method"><a name="apiSearchTagsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/search/tags</code></pre></div>
+    <div class="method-summary">search for tags (<span class="nickname">apiSearchTagsGet</span>)</div>
+    <div class="method-notes">Return query results</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">keyword (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; keyword for searching </div><div class="param">maxResults (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; max amount of results </div><div class="param">fromDate (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; date of tags' timestamp's starting point </div><div class="param">toDate (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; date of tags' timestamp's end point </div><div class="param">next (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; next page of query result, see https://developer.twitter.com/en/docs/tweets/search/api-reference/enterprise-search#Pagination </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Tag">Tag</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>JSON</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    request succeeded
+        <a href="#Tag">Tag</a>
+    <h4 class="field-label">400</h4>
+    invalid request
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiSearchTweetsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/search/tweets</code></pre></div>
+    <div class="method-summary">search for tweets (<span class="nickname">apiSearchTweetsGet</span>)</div>
+    <div class="method-notes">Return query results</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">keyword (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; keyword for searching </div><div class="param">tag (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; tag of searching </div><div class="param">maxResults (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; max amount of results </div><div class="param">fromDate (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; date of tweets' timestamp's starting point </div><div class="param">toDate (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; date of tweets' timestamp's end point </div><div class="param">next (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; next page of query result, see https://developer.twitter.com/en/docs/tweets/search/api-reference/enterprise-search#Pagination </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Tweet">Tweet</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>JSON</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    request succeeded
+        <a href="#Tweet">Tweet</a>
+    <h4 class="field-label">400</h4>
+    invalid request
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiSearchUsersGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/search/users</code></pre></div>
+    <div class="method-summary">search for users (<span class="nickname">apiSearchUsersGet</span>)</div>
+    <div class="method-notes">Return query results</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">keyword (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; keyword for searching </div><div class="param">maxResults (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; max amount of results </div><div class="param">next (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; next page of query result, see https://developer.twitter.com/en/docs/tweets/search/api-reference/enterprise-search#Pagination </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User">User</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>JSON</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    request succeeded
+        <a href="#User">User</a>
+    <h4 class="field-label">400</h4>
+    invalid request
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiTagsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/tags</code></pre></div>
+    <div class="method-summary">get all tags (<span class="nickname">apiTagsGet</span>)</div>
+    <div class="method-notes">get all tags</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">maxResults (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; maxmimum limits of the number of tags to return. </div><div class="param">skip (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; number of records to skip for pagination </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Tag">Tag</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>JSON</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    array of tags
+        
+    <h4 class="field-label">400</h4>
+    bad input parameter
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiTagsTrendingGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/tags/trending</code></pre></div>
+    <div class="method-summary">get most trending tags (<span class="nickname">apiTagsTrendingGet</span>)</div>
+    <div class="method-notes">get most trending tags</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Tag">Tag</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>JSON</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    request succeeded
+        <a href="#Tag">Tag</a>
+    <h4 class="field-label">400</h4>
+    invalid request
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiTweetsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/tweets</code></pre></div>
+    <div class="method-summary">get all tweets (<span class="nickname">apiTweetsGet</span>)</div>
+    <div class="method-notes">Return certain amount of tweets</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">maxResults (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; maxmimum results return. </div><div class="param">skip (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; number of records to skip for pagination </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Tweet">Tweet</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    request succeeded
+        <a href="#Tweet">Tweet</a>
+    <h4 class="field-label">400</h4>
+    invalid request
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiTweetsIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/tweets/{id}</code></pre></div>
+    <div class="method-summary">get information of a certain tweet (<span class="nickname">apiTweetsIdGet</span>)</div>
+    <div class="method-notes">Return information of a certain tweet</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Tweet">Tweet</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>JSON</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    request succeeded
+        <a href="#Tweet">Tweet</a>
+    <h4 class="field-label">400</h4>
+    invalid request
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiTweetsRecentGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/tweets/recent</code></pre></div>
+    <div class="method-summary">get recent tweets (<span class="nickname">apiTweetsRecentGet</span>)</div>
+    <div class="method-notes">return the recent 50 tweets for the given user or in the system</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">auth_token (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; the authentication token which identifies the requesting user. return recent tweets in the entire system when not given. format: token</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Tweet">Tweet</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>JSON</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    request succeeded
+        
+    <h4 class="field-label">401</h4>
+    invalid authentication token
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiUsersGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/users</code></pre></div>
+    <div class="method-summary">get all users (<span class="nickname">apiUsersGet</span>)</div>
+    <div class="method-notes">Return information of a certain amount of users based on arguments passed in.</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">maxResults (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; maxmimum limits of the number of users to return. </div><div class="param">skip (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; number of records to skip for pagination </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#User">User</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>JSON</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    search results matching criteria
+        
+    <h4 class="field-label">400</h4>
+    bad input parameter
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiUsersIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/users/{id}</code></pre></div>
+    <div class="method-summary">get information of a certain user (<span class="nickname">apiUsersIdGet</span>)</div>
+    <div class="method-notes">Return information of a certain user</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User">User</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>JSON</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    request succeeded
+        <a href="#User">User</a>
+    <h4 class="field-label">400</h4>
+    invalid request
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="apiUsersIdTweetsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/users/{id}/tweets</code></pre></div>
+    <div class="method-summary">get all tweets of a given user (<span class="nickname">apiUsersIdTweetsGet</span>)</div>
+    <div class="method-notes">Return all tweets of a given user</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">maxResults (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash;  default: 100 </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Tweet">Tweet</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>JSON</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    request succeeded
+        
+    <h4 class="field-label">400</h4>
+    invalid request
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    user not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#Profile"><code>Profile</code> - </a></li>
+    <li><a href="#Tag"><code>Tag</code> - </a></li>
+    <li><a href="#Tweet"><code>Tweet</code> - </a></li>
+    <li><a href="#User"><code>User</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="Profile"><code>Profile</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">nickname </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">birthday </div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+<div class="param">region </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">bio </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: text</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Tag"><code>Tag</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">Name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">created_at (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Tweet"><code>Tweet</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">Author </div><div class="param-desc"><span class="param-type"><a href="#User">User</a></span>  </div>
+<div class="param">Comment_to_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">retweet_from_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">content (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: text</div>
+<div class="param">created_at (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="User"><code>User</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">username </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: email</div>
+<div class="param">profile </div><div class="param-desc"><span class="param-type"><a href="#Profile">Profile</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>
