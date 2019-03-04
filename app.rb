@@ -6,7 +6,6 @@ require 'byebug'
 require 'json'
 
 Dir["./models/*.rb"].each {|file| require file }
-ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/nt_dev')
 
 enable :sessions
 

@@ -13,7 +13,8 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: nt_prod
-  pool: 2
-  username: sis
-  password: psw
+  pool: 5
+  host: <%= ENV['DATABASE_HOST'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
