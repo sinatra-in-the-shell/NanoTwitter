@@ -1,6 +1,7 @@
 # app.rb
 require 'sinatra'
 require 'sinatra/activerecord'
+ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/nt_dev')
 
 require 'byebug'
 require 'json'
