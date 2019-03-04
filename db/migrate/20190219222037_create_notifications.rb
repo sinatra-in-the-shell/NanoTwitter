@@ -4,8 +4,9 @@ class CreateNotifications < ActiveRecord::Migration[5.2]
       t.references :from_user
       t.references :to_user
       t.references :tweet
+      
       t.string :notification_type
-      t.timestamp
+      t.timestamps
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_19_222037) do
+ActiveRecord::Schema.define(version: 2019_03_04_211045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,17 +18,23 @@ ActiveRecord::Schema.define(version: 2019_02_19_222037) do
   create_table "follows", force: :cascade do |t|
     t.bigint "from_user_id"
     t.bigint "to_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["from_user_id"], name: "index_follows_on_from_user_id"
     t.index ["to_user_id"], name: "index_follows_on_to_user_id"
   end
 
   create_table "hashtags", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "likes", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "tweet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["tweet_id"], name: "index_likes_on_tweet_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
@@ -38,6 +44,8 @@ ActiveRecord::Schema.define(version: 2019_02_19_222037) do
     t.bigint "to_user_id"
     t.bigint "tweet_id"
     t.string "notification_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["from_user_id"], name: "index_notifications_on_from_user_id"
     t.index ["to_user_id"], name: "index_notifications_on_to_user_id"
     t.index ["tweet_id"], name: "index_notifications_on_tweet_id"
@@ -49,6 +57,8 @@ ActiveRecord::Schema.define(version: 2019_02_19_222037) do
     t.bigint "retweet_from_id"
     t.text "text"
     t.string "tweet_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["comment_to_id"], name: "index_tweets_on_comment_to_id"
     t.index ["retweet_from_id"], name: "index_tweets_on_retweet_from_id"
     t.index ["user_id"], name: "index_tweets_on_user_id"
@@ -57,6 +67,8 @@ ActiveRecord::Schema.define(version: 2019_02_19_222037) do
   create_table "tweets_hashtags_relationships", force: :cascade do |t|
     t.bigint "hashtag_id"
     t.bigint "tweet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["hashtag_id"], name: "index_tweets_hashtags_relationships_on_hashtag_id"
     t.index ["tweet_id"], name: "index_tweets_hashtags_relationships_on_tweet_id"
   end
@@ -69,6 +81,9 @@ ActiveRecord::Schema.define(version: 2019_02_19_222037) do
     t.date "date_of_birth"
     t.text "bio"
     t.string "password_hash"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "remember_digest"
   end
 
 end

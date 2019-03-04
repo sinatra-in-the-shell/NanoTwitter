@@ -1,11 +1,12 @@
-require 'bcrypt'
 class User < ActiveRecord::Base
+  # attr
+  attr_accessor :remember_token
+
   # validation
   validates :email, uniqueness: true
   validates :username, uniqueness: true
 
   # relations
-
   has_many :active_relationships, class_name: 'Follow',
            foreign_key: 'from_user_id',
            dependent: :destroy
@@ -22,6 +23,10 @@ class User < ActiveRecord::Base
   has_many :received_notifications, class_name: 'Notification', foreign_key: 'to_user_id'
   has_many :sent_notifications, class_name: 'Notification', foreign_key: 'from_user_id'
 
+  # utils
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
 
   # methods
   def to_json
@@ -49,5 +54,20 @@ class User < ActiveRecord::Base
   def password=(new_password)
     @password = BCrypt::Password.create(new_password)
     self.password_hash = @password
+  end
+
+  def remember
+    self.remember_token = User.new_token
+    update_attribute :remember_digest, BCrypt::Password.create(remember_token)
+  end
+
+  def forget
+    return false if remember_digest.nil?
+    self.remember_token = nil
+    update_attribute(:remember_digest, nil)
+  end
+
+  def authenticated?(remember_token)
+    BCrypt::Password.new(remember_digest) == remember_token
   end
 end
