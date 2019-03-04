@@ -1,13 +1,13 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: nt_dev
+  database: development
   pool: 2
 
 test:
   adapter: postgresql
   encoding: unicode
-  database: nt_test
+  database: test
   pool: 2
 
 production:
@@ -18,3 +18,4 @@ production:
   database: <%= ENV['DATABASE_NAME'] %>
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
+# god damn it I can't stand codeship anymore
