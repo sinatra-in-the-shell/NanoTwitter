@@ -11,7 +11,4 @@ test:
   pool: 2
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
   url: <%= ENV['DATABASE_URL'] %>
