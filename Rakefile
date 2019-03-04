@@ -11,7 +11,7 @@
 #   t.test_files = FileList['test/db_test/test*.rb']
 #   t.verbose = true
 # end
-
+# damn codeship!
 
 require './app'
 require 'sinatra/activerecord/rake'
