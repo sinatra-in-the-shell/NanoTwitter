@@ -62,7 +62,7 @@ class Register extends React.Component {
     }).then(
       response => response.status
     ).then(status => {
-      if(status===200) {
+      if(status===204) {
         this.setState({ redirectToReferrer: true });
       }else{
         alert("Register Fail!")
@@ -95,7 +95,7 @@ class Register extends React.Component {
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
-            
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"

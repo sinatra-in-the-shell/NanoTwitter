@@ -7,7 +7,7 @@ class CreateTweets < ActiveRecord::Migration[5.2]
 
       t.text :text
       t.string :tweet_type
-      t.timestamp
+      t.timestamps
     end
   end
 end

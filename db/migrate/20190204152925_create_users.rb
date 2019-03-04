@@ -8,8 +8,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
         t.date :date_of_birth
         t.text :bio
         t.string :password_hash
-
-        # TODO: add timestamp
+        t.timestamps
       end
     end
 end

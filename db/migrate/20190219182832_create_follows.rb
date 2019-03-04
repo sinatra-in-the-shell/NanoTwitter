@@ -3,7 +3,8 @@ class CreateFollows < ActiveRecord::Migration[5.2]
     create_table :follows do |t|
       t.references :from_user
       t.references :to_user
-      t.timestamp
+      
+      t.timestamps
     end
   end
 end

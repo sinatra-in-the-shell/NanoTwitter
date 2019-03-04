@@ -64,7 +64,7 @@ class SignIn extends React.Component {
     }).then(
       response => response.status
     ).then(status => {
-      if(status===200) {
+      if(status===204) {
         sessionHelper.login();
         this.setState({ redirectToReferrer: true });
       }else{
