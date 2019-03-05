@@ -18,7 +18,7 @@ helpers do
 end
 
 before do
-  pass if %w[login register].include? request.path_info.split('/')[2]
+  pass if %w[login register].include? request.path_info.split('/').last
   if not logged_in?
     halt 401, 'not logged_in'
   end
