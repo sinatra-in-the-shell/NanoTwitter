@@ -1,6 +1,7 @@
 # Gemfile
 source "https://rubygems.org"
 
+ruby '2.6.0'
 # base
 gem "sinatra"
 gem 'sinatra-contrib'
