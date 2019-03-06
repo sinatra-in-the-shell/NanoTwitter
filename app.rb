@@ -10,6 +10,7 @@ require 'bcrypt'
 require 'securerandom'
 require 'csv'
 require 'faker'
+require 'activerecord-import'
 
 Dir["./models/*.rb"].each {|file| require file }
 
@@ -21,6 +22,7 @@ end
 
 before do
   pass if %w[login register].include? request.path_info.split('/').last
+  pass if request.path_info.split('/').include? 'test'
   if not logged_in?
     halt 401, 'not logged_in'
   end
@@ -58,6 +60,13 @@ post '/test/reset' do
 
 end
 
+# POST /test/user/{u}/tweets?count=n
+post '/test/user/:userid/tweets' do
+  import_tweets (userid, params['count'])
+# {u} can be the user id of some user, or the keyword testuser
+# n is how many randomly generated tweets are submitted on that users behalf
+end
+ 
 # GET /test/status implemented at ? #
 
 # Apis
