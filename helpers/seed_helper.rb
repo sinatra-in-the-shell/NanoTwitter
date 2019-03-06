@@ -1,5 +1,3 @@
-require 'csv'
-
 def load_seed_users(count, filenmame)
   data = CSV.read(filenmame)
   1..count.each do |i|

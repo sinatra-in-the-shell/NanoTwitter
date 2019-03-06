@@ -11,6 +11,7 @@ function Routes() {
       <div>
         <Route exact path="/login" component={SignIn} />
         <Route path='/register' component={Register} />
+        <Route path='/test/status' component={Status} />
         <PrivateRoute path="/feed" component={Feed} />
       </div>
     </Router>

@@ -8,6 +8,8 @@ require 'byebug'
 require 'json'
 require 'bcrypt'
 require 'securerandom'
+require 'csv'
+require 'faker'
 
 Dir["./models/*.rb"].each {|file| require file }
 
@@ -34,21 +36,29 @@ end
 # Recreates TestUser
 # Example: test/reset/all
 post '/test/reset/all' do
-
+  reset_all
+  create_test_user
 end
 
 # Deletes all users, tweets and follows
 # Recreate TestUser
-
+# Imports data from standard seed data
 post '/test/reset' do
   user_num = params[:users]
   if user_num == nil
     halt 400, "no user count specified."
   else
-    
+    reset_all
+    create_test_user
+    seed_file_path = './db/seed/'
+    load_seed_users(user_num, seed_file_path+'users.csv')
+    load_seed_follows(user_num, seed_file_path+'follows.csv')
+    load_seed_tweets(user_num, seed_file_path+'tweets.csv')
   end
 
 end
+
+# GET /test/status implemented at ? #
 
 # Apis
 Dir["./apis/*.rb"].each {|file| require file }
