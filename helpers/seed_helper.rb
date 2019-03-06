@@ -1,6 +1,6 @@
 def load_seed_users(count, filenmame)
   data = CSV.read(filenmame)
-  1..count.each do |i|
+  (1..count).each do |i|
     User.create(id: data[i][0].to_i, username: data[i][1], email: Faker::Internet.unique.email)
   end
 end
@@ -17,7 +17,7 @@ def load_seed_follows(count, filename)
   end
 end
 
-def load_tweets(count, filename)
+def load_seed_tweets(count, filename)
   data = CSV.read(filename)
   data.each do |entry|
     break if entry[0].to_i > count
@@ -31,9 +31,10 @@ def load_tweets(count, filename)
   end
 end
 
-def create_test_user
+def create_test_user(count)
   testuser = User.new(
-    name: 'testuser',
+    id: count + 1,
+    username: 'testuser',
     email: 'testuser@sample.com'
   )
   testuser.password = 'password'

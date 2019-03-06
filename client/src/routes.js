@@ -17,7 +17,7 @@ function Routes() {
     </Router>
   )
 }
-
+4/BQFLy_kO_rJ50-EMhl1WQ0_NwoYF5VFj2irDbJDGCxs38C97gdSlKm4
 function PrivateRoute({ component: Component, ...rest }) {
   return (
     <Route {...rest}

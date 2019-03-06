@@ -20,7 +20,7 @@ helpers do
 end
 
 before do
-  pass if %w[login register].include? request.path_info.split('/').last
+  pass if (%w[login register].include?(request.path_info.split('/').last)) || request.path_info.include?('test')
   if not logged_in?
     halt 401, 'not logged_in'
   end
@@ -44,18 +44,17 @@ end
 # Recreate TestUser
 # Imports data from standard seed data
 post '/test/reset' do
-  user_num = params[:users]
+  user_num = params[:users].to_i
   if user_num == nil
     halt 400, "no user count specified."
   else
     reset_all
-    create_test_user
     seed_file_path = './db/seed/'
     load_seed_users(user_num, seed_file_path+'users.csv')
     load_seed_follows(user_num, seed_file_path+'follows.csv')
     load_seed_tweets(user_num, seed_file_path+'tweets.csv')
+    create_test_user
   end
-
 end
 
 # GET /test/status implemented at ? #
