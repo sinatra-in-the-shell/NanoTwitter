@@ -28,6 +28,16 @@ before do
   end
 end
 
+get '/test/status' do
+  erb :status,
+      locals: {
+        test_id: User.find(email: "testuser@sample.com").id,
+        user_count: User.count,
+        follow_count: Follow.count,
+        tweet_count: Tweet.count
+      }
+end
+
 get '/*' do
   send_file File.expand_path('index.html', settings.public_folder)
 end
