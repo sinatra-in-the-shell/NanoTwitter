@@ -45,7 +45,8 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 * Heroko deployment experiment succeeded.
 
 ### NT0.3
-* Set up Codeship auto testing and deployment (on Heroku).
+* Set up Codeship auto testing and deployment (onto Heroku).
 * Designed [NanoTwitter API 1.0](https://app.swaggerhub.com/apis-docs/sinatra-in-the-shell/nano-twitter-api/1.0.0).(**Not implemented yet.**)
 * Added unittests on the server side of register/login/authenticate.
-* *TODO*: Implement test interface.
+* Cookie-based authentication.
+* Implemented [test interface](http://cosi105b.s3-website-us-west-2.amazonaws.com/content/topics/nt/01_nt_functionality.md/).
