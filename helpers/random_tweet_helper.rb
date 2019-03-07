@@ -1,22 +1,16 @@
 def import_tweets (userid, num_tweets)
-  # tweets = []
-  # (0..num_tweets).each do |i|
-  #   # text = 
-  #   tweets << Tweet.new(
-  #                       :text => Faker::String.random, 
-  #                       :tweet_type => 'orig',
-  #                       :user_id => userid,
-  #                       :comment_to_id => 0,
-  #                       :retweet_from_id => 0)
-  # end
-  # Tweet.import tweets
-
-  Tweet.create(
-                        :text => Faker::String.random, 
+  tweets = []
+  columns = [:text, :tweet_type, :user_id, :comment_to_id, :retweet_from_id]
+  (0..num_tweets).each do |i|
+    # text = 
+    tweets << Tweet.new(
+                        :text => 'test', 
                         :tweet_type => 'orig',
                         :user_id => userid,
                         :comment_to_id => 0,
                         :retweet_from_id => 0)
+  end
+  Tweet.import(columns, tweets)
 end
 
 
