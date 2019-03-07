@@ -10,6 +10,7 @@ require 'bcrypt'
 require 'securerandom'
 require 'csv'
 require 'faker'
+require 'activerecord-import'
 
 Dir["./models/*.rb"].each {|file| require file }
 
@@ -65,6 +66,13 @@ post '/test/reset' do
     load_seed_tweets(user_num, seed_file_path+'tweets.csv')
     create_test_user(user_num)
   end
+end
+
+# POST /test/user/{u}/tweets?count=n
+post '/test/user/:userid/tweets' do
+  import_tweets(userid, params['count'])
+# {u} can be the user id of some user, or the keyword testuser
+# n is how many randomly generated tweets are submitted on that users behalf
 end
 
 # GET /test/status implemented at ? #
