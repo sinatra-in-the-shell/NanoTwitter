@@ -36,7 +36,6 @@ def load_seed_tweets(count, filename)
 end
 
 def create_test_user(count)
-  puts "CREATE_TEST_USER"
   testuser = User.new(
     id: count + 1,
     username: 'testuser',
