@@ -72,7 +72,8 @@ end
 
 # POST /test/user/{u}/tweets?count=n
 post '/test/user/:userid/tweets' do
-  import_tweets(userid, params['count'])
+  print 'userid = ', params['userid'], ' count = ', params['count'], "\n"
+  import_tweets(params['userid'], params['count'])
 # {u} can be the user id of some user, or the keyword testuser
 # n is how many randomly generated tweets are submitted on that users behalf
 end
