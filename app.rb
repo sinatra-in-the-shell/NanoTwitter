@@ -63,7 +63,7 @@ post '/test/reset' do
     load_seed_users(user_num, seed_file_path+'users.csv')
     load_seed_follows(user_num, seed_file_path+'follows.csv')
     load_seed_tweets(user_num, seed_file_path+'tweets.csv')
-    create_test_user
+    create_test_user(user_num)
   end
 end
 
