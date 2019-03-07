@@ -2,9 +2,8 @@ def import_tweets (userid, num_tweets)
   tweets = []
   columns = [:text, :tweet_type, :user_id, :comment_to_id, :retweet_from_id]
   (0..num_tweets).each do |i|
-    # text = 
     tweets << Tweet.new(
-                        :text => 'test', 
+                        :text => Faker::String.random.gsub("\u0000", ''), 
                         :tweet_type => 'orig',
                         :user_id => userid,
                         :comment_to_id => 0,
