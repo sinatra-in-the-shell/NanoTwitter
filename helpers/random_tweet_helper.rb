@@ -10,6 +10,9 @@ def import_tweets (userid, num_tweets)
                         :retweet_from_id => 0)
   end
   Tweet.import(columns, tweets)
+
+  pp Tweet.all
+  Tweet.delete_all
 end
 
 
