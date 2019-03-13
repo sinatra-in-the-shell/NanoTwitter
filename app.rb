@@ -21,12 +21,16 @@ helpers do
 end
 
 before do
-  pass if (%w[login register].include?(request.path_info.split('/').last)) || request.path_info.include?('test')
+  pass if (%w[login register].include?(request.path_info.split('/').last)) || request.path_info.include?('test') || request.path_info.include?('loaderio-2af600f7338436626155976f76115046')
   if not logged_in?
     halt 401, 'not logged_in'
   end
 end
 
+# verification for loader.io
+get '/loaderio-2af600f7338436626155976f76115046/' do
+  send_file File.expand_path('loaderio-2af600f7338436626155976f76115046', settings.public_folder)
+end
 
 get '/test/status' do
   erb :status,
@@ -70,6 +74,7 @@ post '/test/reset' do
 end
 
 # POST /test/user/{u}/tweets?count=n
+# import_tweet is in helper/random_tweet_helper.rb
 post '/test/user/:userid/tweets' do
   print 'userid = ', params['userid'], ' count = ', params['count'], "\n"
   import_tweets(params['userid'].to_i, params['count'].to_i)
@@ -77,7 +82,6 @@ post '/test/user/:userid/tweets' do
 # n is how many randomly generated tweets are submitted on that users behalf
 end
 
-# GET /test/status implemented at ? #
 
 # Apis
 Dir["./apis/*.rb"].each {|file| require file }
