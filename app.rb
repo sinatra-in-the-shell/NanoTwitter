@@ -29,7 +29,7 @@ end
 
 # verification for loader.io
 get '/loaderio-2af600f7338436626155976f76115046/' do
-  send_file File.expand_path('loaderio-2af600f7338436626155976f76115046', settings.public_folder)
+  send_file File.expand_path('loaderio-2af600f7338436626155976f76115046.txt', settings.public_folder)
 end
 
 get '/test/status' do
