@@ -1,4 +1,4 @@
-# NanoTwitter V0.3
+# NanoTwitter V0.4
 * Course project for Cosi105b - Software Engineering for Scalability.
 * Implement an SNS website including most basic funtions of Twitter. Use [Sinatra](http://sinatrarb.com/) + [React](https://reactjs.org/) as primary tech tools.
 
@@ -50,3 +50,9 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 * Added unittests on the server side of register/login/authenticate.
 * Cookie-based authentication.
 * Implemented [test interface](http://cosi105b.s3-website-us-west-2.amazonaws.com/content/topics/nt/01_nt_functionality.md/).
+
+
+### NT0.4
+* Fix some bugs in [test interface] - Fengzhencheng Zeng, Yirun Zhou, Ziyu Liu
+* Added loader.io verification and tried some test in loader.io - Yirun Zhou
+* Separated api(twitter_api.rb, test_api.rb) from app.rb - Fengzhencheng Zeng
