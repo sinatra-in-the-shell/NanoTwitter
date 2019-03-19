@@ -21,3 +21,4 @@ gem "rack-test"
 gem "byebug"
 gem "faker"
 gem "activerecord-import"
+gem 'newrelic_rpm'
