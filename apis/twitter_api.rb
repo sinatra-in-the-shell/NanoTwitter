@@ -16,9 +16,15 @@ post '/api/tweets' do
 end
 
 get '/api/tweets' do
-  from = params['skip'].to_i
-  count = params['maxResults'].to_i
-  @tweets = Tweet.offset(from).limit(count).to_json
+  skip = params['skip'].to_i
+  max_results = params['maxResults'].to_i
+  @tweets = Tweet.offset(skip).limit(max_results)
+  if @tweets
+    status 200
+    @tweets.to_json
+  else
+    status 404
+  end
 end
 
 get '/api/tweets/:id' do
