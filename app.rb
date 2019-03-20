@@ -15,6 +15,8 @@ require 'newrelic_rpm'
 
 Dir["./models/*.rb"].each {|file| require file }
 
+set :server, "thin"
+
 enable :sessions
 
 helpers do
