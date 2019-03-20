@@ -15,8 +15,8 @@ post '/api/tweets' do
 end
 
 get '/api/tweets' do
-  skip = params['skip'].to_i
-  max_results = params['maxResults'].to_i
+  skip = params.key?(:skip) ? params['skip'].to_i : 0
+  max_results = params.key(:maxresults) ? params['maxresults'].to_i : 1000
   @tweets = Tweet.offset(skip).limit(max_results)
   if @tweets
     json_response 200, @tweets.to_a
@@ -28,7 +28,7 @@ end
 get '/api/tweets/:id' do
   @tweet = Tweet.find(params[:id])
   if @tweet
-    json_response 200, @tweet.to_a
+    json_response 200, @tweet
   else
     json_response 404, nil
   end
