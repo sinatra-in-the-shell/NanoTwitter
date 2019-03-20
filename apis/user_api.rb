@@ -18,8 +18,8 @@ post '/api/users' do
 end
 
 get '/api/users' do
-  skip = params['skip'].to_i
-  max_results = params['maxResults'].to_i
+  skip = params.key?(:skip) ? params['skip'].to_i : 0
+  max_results = pramas.key?(:maxresults) ? params['maxresults'].to_i : 0
   @users = User.offset(skip).limit(max_results)
   if @users
     json_response 200, @users.to_a
