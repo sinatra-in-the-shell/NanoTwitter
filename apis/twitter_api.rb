@@ -5,7 +5,7 @@ post '/api/tweets' do
     comment_to_id: params['comment_to_id'],
     retweet_from_id: params['retweet_from_id'],
     text: params['text'],
-    params['tweet_type']
+    tweet_type: params['tweet_type']
   )
   if @tweet.save
     status 201

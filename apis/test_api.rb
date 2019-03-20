@@ -16,7 +16,7 @@ end
 # Example: test/reset/all
 post '/test/reset/all' do
   reset_all
-  create_test_user
+  create_test_user 0
 end
 
 # Deletes all users, tweets and follows

@@ -26,6 +26,7 @@ GEM
     minitest (5.11.3)
     multi_json (1.13.1)
     mustermann (1.0.3)
+    newrelic_rpm (6.2.0.354)
     pg (1.1.4)
     rack (2.0.6)
     rack-protection (2.0.5)
@@ -62,6 +63,7 @@ DEPENDENCIES
   bcrypt
   byebug
   faker
+  newrelic_rpm
   pg
   rack-test
   rake
