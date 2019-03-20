@@ -1,6 +1,5 @@
 # Test Interfaces
 
-# GET /test/status implemented at ? #
 get '/test/status' do
   erb :status,
       locals: {
@@ -29,17 +28,17 @@ post '/test/reset' do
   else
     reset_all
     seed_file_path = './db/seed/'
-    load_seed_users(user_num, seed_file_path+'users.csv')
-    load_seed_follows(user_num, seed_file_path+'follows.csv')
-    load_seed_tweets(user_num, seed_file_path+'tweets.csv')
+    load_seed_users(user_num, seed_file_path + 'users.csv')
+    load_seed_follows(user_num, seed_file_path + 'follows.csv')
+    load_seed_tweets(user_num, seed_file_path + 'tweets.csv')
     create_test_user(user_num)
   end
 end
 
 # POST /test/user/{u}/tweets?count=n
+# {u} can be the user id of some user, or the keyword testuser
+# n is how many randomly generated tweets are submitted on that users behalf
 post '/test/user/:userid/tweets' do
   print 'userid = ', params['userid'], ' count = ', params['count'], "\n"
   import_tweets(params['userid'].to_i, params['count'].to_i)
-# {u} can be the user id of some user, or the keyword testuser
-# n is how many randomly generated tweets are submitted on that users behalf
 end

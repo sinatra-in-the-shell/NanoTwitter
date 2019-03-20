@@ -1,8 +1,10 @@
 def load_seed_users(count, filenmame)
   data = CSV.read(filenmame)
   users = []
-  (0..count-1).each do |i|
-    users << User.new(id: data[i][0].to_i, username: data[i][1], email: Faker::Internet.unique.email)
+  (0..count - 1).each do |i|
+    users << User.new(id: data[i][0].to_i,
+                      username: data[i][1],
+                      email: Faker::Internet.unique.email)
   end
   User.import users
 end
