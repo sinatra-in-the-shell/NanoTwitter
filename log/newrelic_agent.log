@@ -1,0 +1,24 @@
+# Logfile created on 2019-03-20 15:36:57 -0400 by logger.rb/66358
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Starting the New Relic agent version 6.2.0.354 in "development" environment.
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Reading configuration from config/newrelic.yml (/Users/yirunzhou/Documents/COURSE/NanoTwitter)
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Environment: development
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : No known dispatcher detected.
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Application: My Application (Development)
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] WARN : No license key found. This often means your newrelic.yml file was not found, or it lacks a section for the running environment, 'development'. You may also want to try linting your newrelic.yml to ensure it is valid YML.
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Installing ActiveRecord 5 instrumentation
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Installing Sinatra instrumentation
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Installing Net instrumentation
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Installing deferred Rack::Builder instrumentation
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Installing Rack::Builder middleware instrumentation
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Finished instrumentation
+[2019-03-20 15:36:57 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Doing deferred dependency-detection before Rack startup
+[2019-03-20 15:37:31 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2019-03-20 15:37:31 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : NewRelic::Agent::UnrecoverableServerException: 400: Bad Request
+[2019-03-20 15:37:31 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Will re-attempt in 15 seconds
+[2019-03-20 15:37:48 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2019-03-20 15:37:48 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : NewRelic::Agent::UnrecoverableServerException: 400: Bad Request
+[2019-03-20 15:37:48 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Will re-attempt in 30 seconds
+[2019-03-20 15:38:19 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2019-03-20 15:38:19 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : NewRelic::Agent::UnrecoverableServerException: 400: Bad Request
+[2019-03-20 15:38:19 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Will re-attempt in 60 seconds

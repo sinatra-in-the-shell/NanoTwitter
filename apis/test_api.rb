@@ -42,5 +42,5 @@ end
 post '/test/user/:userid/tweets' do
   print 'userid = ', params['userid'], ' count = ', params['count'], "\n"
   import_tweets(params['userid'].to_i, params['count'].to_i)
-  status 200, OK
+  status 200
 end
