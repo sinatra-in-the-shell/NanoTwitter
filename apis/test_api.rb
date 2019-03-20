@@ -1,5 +1,4 @@
 # Test Interfaces
-
 get '/test/status' do
   erb :status,
       locals: {
@@ -40,5 +39,10 @@ end
 # n is how many randomly generated tweets are submitted on that users behalf
 post '/test/user/:userid/tweets' do
   print 'userid = ', params['userid'], ' count = ', params['count'], "\n"
-  import_tweets(params['userid'].to_i, params['count'].to_i)
+  begin
+    import_tweets(params['userid'].to_i, params['count'].to_i)
+    200
+  rescue
+    halt 400, "server error"
+  end
 end
