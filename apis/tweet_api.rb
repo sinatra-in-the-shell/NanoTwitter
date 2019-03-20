@@ -8,10 +8,9 @@ post '/api/tweets' do
     tweet_type: params['tweet_type']
   )
   if @tweet.save
-    status 201
+    json_response 201, nil
   else
-    status 400
-    @tweet.errors.messages.to_json
+    json_response 400, nil, @tweet.errors.messages
   end
 end
 
@@ -20,19 +19,17 @@ get '/api/tweets' do
   max_results = params['maxResults'].to_i
   @tweets = Tweet.offset(skip).limit(max_results)
   if @tweets
-    status 200
-    @tweets.to_json
+    json_response 200, @tweets.to_a
   else
-    status 404
+    json_response 404, nil
   end
 end
 
 get '/api/tweets/:id' do
   @tweet = Tweet.find(params[:id])
   if @tweet
-    status 200
-    @tweet.to_json
+    json_response 200, @tweet.to_a
   else
-    status 404
+    json_response 404, nil
   end
 end

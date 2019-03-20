@@ -4,13 +4,18 @@ get '/api/search/tags' do
   max_results = params['maxResults'].to_i
   from_date = params['fromDate']
   to_date = params['toDate']
-  @tags = Tag.where("name LIKE ?", "%#{keyword}%")
-             .offset(skip).limit(max_results)
-             .where(
+  @tags = Tag.where(
                "created_at > ? AND created_at < ?",
                DateTime.new(from_date),
                DateTime.new(to_date)
-             ).to_json
+             )
+             .where("name LIKE ?", "%#{keyword}%")
+             .offset(skip).limit(max_results)
+  if @tags
+    json_response 200, @tags.to_a
+  else
+    json_response 404, nil
+  end
 end
 
 get '/api/search/tweets' do
@@ -19,19 +24,29 @@ get '/api/search/tweets' do
   max_results = params['maxResults'].to_i
   from_date = params['fromDate']
   to_date = params['toDate']
-  @tweets = Tweet.where("name LIKE ?", "%#{keyword}%")
-                 .offset(skip).limit(max_results)
-                 .where(
+  @tweets = Tweet.where(
                    "created_at > ? AND created_at < ?",
                    DateTime.new(from_date),
                    DateTime.new(to_date)
-                 ).to_json
+                 )
+                 .where("text LIKE ?", "%#{keyword}%")
+                 .offset(skip).limit(max_results)
+  if @tweets
+    json_response 200, @tweets.to_a
+  else
+    json_response 404, nil
+  end
 end
 
 get '/api/search/users' do
   keyword = params['keyword']
   skip = params['skip'].to_i
   max_results = params['maxResults'].to_i
-  @tweets = Tweet.where("name LIKE ?", "%#{keyword}%")
-                 .offset(skip).limit(max_results).to_json
+  @users = User.where("username LIKE ?", "%#{keyword}%")
+               .offset(skip).limit(max_results)
+  if @users
+    json_response 200, @users.to_a
+  else
+    json_response 404, nil
+  end
 end
