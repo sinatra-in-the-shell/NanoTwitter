@@ -16,6 +16,7 @@ end
 post '/test/reset/all' do
   reset_all
   create_test_user 0
+  status 200, OK
 end
 
 # Deletes all users, tweets and follows
@@ -23,7 +24,7 @@ end
 # Imports data from standard seed data
 post '/test/reset' do
   user_num = params[:users].to_i
-  if user_num == nil
+  if user_num.nil?
     halt 400, "no user count specified."
   else
     reset_all
@@ -32,6 +33,7 @@ post '/test/reset' do
     load_seed_follows(user_num, seed_file_path + 'follows.csv')
     load_seed_tweets(user_num, seed_file_path + 'tweets.csv')
     create_test_user(user_num)
+    status 200, OK
   end
 end
 
@@ -41,4 +43,5 @@ end
 post '/test/user/:userid/tweets' do
   print 'userid = ', params['userid'], ' count = ', params['count'], "\n"
   import_tweets(params['userid'].to_i, params['count'].to_i)
+  status 200, OK
 end
