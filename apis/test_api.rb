@@ -15,7 +15,7 @@ end
 post '/test/reset/all' do
   reset_all
   create_test_user 0
-  status 200, OK
+  status 200
 end
 
 # Deletes all users, tweets and follows
@@ -32,7 +32,7 @@ post '/test/reset' do
     load_seed_follows(user_num, seed_file_path + 'follows.csv')
     load_seed_tweets(user_num, seed_file_path + 'tweets.csv')
     create_test_user(user_num)
-    status 200, OK
+    status 200
   end
 end
 

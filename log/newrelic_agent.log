@@ -22,3 +22,9 @@
 [2019-03-20 15:38:19 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
 [2019-03-20 15:38:19 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : NewRelic::Agent::UnrecoverableServerException: 400: Bad Request
 [2019-03-20 15:38:19 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Will re-attempt in 60 seconds
+[2019-03-20 15:39:21 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2019-03-20 15:39:21 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : NewRelic::Agent::UnrecoverableServerException: 400: Bad Request
+[2019-03-20 15:39:21 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Will re-attempt in 120 seconds
+[2019-03-20 15:41:23 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2019-03-20 15:41:23 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] ERROR : NewRelic::Agent::UnrecoverableServerException: 400: Bad Request
+[2019-03-20 15:41:23 -0400 yiruns-mbp.dyn.brandeis.edu (44263)] INFO : Will re-attempt in 300 seconds
