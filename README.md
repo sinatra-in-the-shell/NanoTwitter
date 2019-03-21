@@ -56,3 +56,10 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 * Fix some bugs in [test interface] - Fengzhencheng Zeng, Yirun Zhou, Ziyu Liu
 * Added loader.io verification and tried some test in loader.io - Yirun Zhou
 * Separated api(twitter_api.rb, test_api.rb) from app.rb - Fengzhencheng Zeng
+
+### NT0.5
+* Implemented [NanoTwitter API 1.0](https://app.swaggerhub.com/apis-docs/sinatra-in-the-shell/nano-twitter-api/1.0.0). - Fengzhencheng Zeng, Yirun Zhou, Ziyu Liu
+* Start using new relic to collect internal performance data. - Yirun Zhou, Ziyu Liu
+* Created basic load experiments. Created a [doc file](/doc/LOAD_EXPERIMENT.md) to describe each test. - Ziyu Liu, Yirun Zhou
+* Switched to using scope to handle queries with options. See in [user.rb](models/user.rb) and [tweet.rb](models/tweet.rb). - Fengzhencheng Zeng, Ziyu Liu
+* Switched web server from `WebBrick` to `thin`. Observed a significant performance improvement. - Fengzhencheng Zeng, Yirun Zhou
