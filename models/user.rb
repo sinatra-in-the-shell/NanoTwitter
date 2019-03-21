@@ -23,6 +23,23 @@ class User < ActiveRecord::Base
   has_many :received_notifications, class_name: 'Notification', foreign_key: 'to_user_id'
   has_many :sent_notifications, class_name: 'Notification', foreign_key: 'from_user_id'
 
+  # scopes
+  scope :with_keyword, lambda { |keyword|
+    unless keyword.nil?
+      where("username LIKE ? or display_name LIKE ?", "%#{keyword}%", "%#{keyword}%")
+    end
+  }
+  scope :with_skip, lambda { |skip|
+    unless skip.nil?
+      offset(skip.to_i)
+    end
+  }
+  scope :with_max, lambda { |max|
+    unless max.nil?
+      limit(max.to_i)
+    end
+  }
+
   # utils
   def User.new_token
     SecureRandom.urlsafe_base64

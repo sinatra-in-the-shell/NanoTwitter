@@ -18,9 +18,9 @@ post '/api/users' do
 end
 
 get '/api/users' do
-  skip = params.key?(:skip) ? params['skip'].to_i: 0
-  max_results = params.key?(:maxresults) ? params['maxresults'].to_i : 1000
-  @users = User.offset(skip).limit(max_results)
+  skip = params['skip']
+  max_results = params['maxresults']
+  @users = User.with_skip(skip).with_max(max_results)
   if @users
     json_response 200, @users.to_a
   else
@@ -38,9 +38,9 @@ get '/api/users/:id' do
 end
 
 get '/api/users/:id/tweets' do
-  @tweet = User.find(params[:id]).tweets
-  if @tweet
-    json_response 200, @tweet
+  @tweets = User.find(params[:id]).tweets
+  if @tweets
+    json_response 200, @tweets
   else
     json_response 404, nil
   end
