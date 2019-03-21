@@ -11,7 +11,7 @@ end
 
 get '/api/tags' do
   skip = params['skip']
-  max_results = params['maxResults']
+  max_results = params['maxresults']
   @tags = Tag.with_skip(skip).with_max(max_results)
   if @tags
     json_response 200, @tags.to_a

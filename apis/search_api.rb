@@ -1,7 +1,7 @@
 get '/api/search/tags' do
   keyword = params['keyword']
   skip = params['skip']
-  max_results = params['maxResults']
+  max_results = params['maxresults']
   from_date = params['fromDate']
   to_date = params['toDate']
   @tags = Tag.with_keyword(keyword)
@@ -19,7 +19,7 @@ end
 get '/api/search/tweets' do
   keyword = params['keyword']
   skip = params['skip']
-  max_results = params['maxResults']
+  max_results = params['maxresults']
   from_date = params['fromDate']
   to_date = params['toDate']
   @tweets = Tweet.with_keyword(keyword)
@@ -37,7 +37,7 @@ end
 get '/api/search/users' do
   keyword = params['keyword']
   skip = params['skip']
-  max_results = params['maxResults']
+  max_results = params['maxresults']
   @users = User.with_keyword(keyword)
                .with_skip(skip)
                .with_max(max_results)
