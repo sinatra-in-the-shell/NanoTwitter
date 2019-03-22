@@ -1,11 +1,11 @@
 export const sessionHelper = {
   isLoggedIn() {
-    return sessionStorage.getItem('isLoggedIn');
+    return localStorage.getItem('isLoggedIn');
   },
   login() {
-    sessionStorage.setItem('isLoggedIn', true);
+    localStorage.setItem('isLoggedIn', true);
   },
   logout() {
-    sessionStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('isLoggedIn');
   }
 };

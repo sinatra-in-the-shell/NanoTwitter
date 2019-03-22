@@ -14,6 +14,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { Redirect } from 'react-router'
 import { sessionHelper } from '../../helpers/session'
+import { nanoAPI } from '../../nanoAPI'
 
 const styles = theme => ({
   main: {
@@ -58,20 +59,16 @@ class SignIn extends React.Component {
     event.preventDefault();
     const data = new FormData(event.target);
 
-    fetch('/api/login', {
-      method: 'POST',
-      body: data,
-    }).then(
-      response => response.status
-    ).then(status => {
-      if(status===204) {
+    nanoAPI.login(
+      data,
+      function() {
         sessionHelper.login();
         this.setState({ redirectToReferrer: true });
-      }else{
-        // TODO: message
-        alert("Fail!")
+      },
+      function() {
+        alert("Fail!");
       }
-    });
+    )
   }
 
   render() {

@@ -11,13 +11,12 @@ function Routes() {
       <div>
         <Route exact path="/login" component={SignIn} />
         <Route path='/register' component={Register} />
-        <Route path='/test/status' component={Status} />
         <PrivateRoute path="/feed" component={Feed} />
       </div>
     </Router>
   )
 }
-4/BQFLy_kO_rJ50-EMhl1WQ0_NwoYF5VFj2irDbJDGCxs38C97gdSlKm4
+
 function PrivateRoute({ component: Component, ...rest }) {
   return (
     <Route {...rest}

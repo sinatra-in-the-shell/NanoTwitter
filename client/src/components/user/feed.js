@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 
 import { sessionHelper } from '../../helpers/session';
 import { withRouter } from "react-router-dom";
+import { nanoAPI } from '../../nanoAPI'
 
 function Feed() {
   return (
@@ -14,28 +15,29 @@ function Feed() {
 }
 
 const LogoutButton = withRouter(
-  ({ history }) =>
-    sessionHelper.isLoggedIn() ? (
+  function({ history }) {
+    return (
       <Button
         type="submit"
         variant="contained"
         color="primary"
         onClick={(e)=>{
           e.preventDefault();
-          sessionHelper.logout();
-          history.push("/login");
+          nanoAPI.logout(
+            function() {
+              sessionHelper.logout();
+              history.push("/login");
+            },
+            function() {
+              alert("Fail!");
+            }
+          )
         }}
       >
         Sign out
       </Button>
-    ) : (
-      <Button
-        variant="contained"
-        color="primary"
-      >
-        Sign out
-      </Button>
     )
+  }
 );
 
 export default Feed;
