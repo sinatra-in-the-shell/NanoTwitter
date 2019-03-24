@@ -12,7 +12,6 @@ def import_tweets (userid, num_tweets)
   Tweet.import(columns, tweets)
 
   pp Tweet.all
-  Tweet.delete_all
 end
 
 
