@@ -9,6 +9,7 @@ get '/api/timeline' do
       Tweets.user_id = Follows.to_user_id OR
       Tweets.user_id = ?
     ORDER BY Tweets.updated_at DESC
+    LIMIT 20
   ", user_id, user_id])
 
   if @timeline
