@@ -1,39 +1,37 @@
+function errorHandler(response) {
+  if(response.ok) {
+    return response.json();
+  }
+  throw new Error(response.json().errors);
+}
+
 export const nanoAPI = {
-  signup() {
-
-  },
-
-  login(data, onSuccess, onFail) {
-    fetch('/api/login', {
+  signup(data) {
+    return fetch('/api/register', {
       method: 'POST',
       body: data,
-    }).then(
-      response => response.status
-    ).then(status => {
-      if(status===204) {
-        onSuccess();
-      }else{
-        onFail();
-      }
-    });
+    }).then(errorHandler);
   },
 
-  logout(onSuccess, onFail) {
-    fetch('/api/logout', {
-      method: 'DELETE'
-    }).then(
-      response => response.status
-    ).then(status => {
-      if(status===204) {
-        onSuccess();
-      }else{
-        onFail();
-      }
-    });
+  login(data) {
+    return fetch('/api/login', {
+      method: 'POST',
+      body: data,
+    }).then(errorHandler);
   },
 
-  timeline(onSuccess, onFail) {
+  logout() {
+    return fetch('/api/logout', {
+      method: 'DELETE',
+      credentials: 'same-origin'
+    }).then(errorHandler);
+  },
 
+  timeline() {
+    return fetch('/api/user/timeline', {
+      method: 'GET',
+      credentials: 'same-origin'
+    }).then(errorHandler);
   },
 
   userTweets() {

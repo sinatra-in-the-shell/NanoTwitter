@@ -13,7 +13,7 @@ post '/api/users' do
     remember @user
     json_response 201, nil
   else
-    json_response 400, nil, @user.errors.messages
+    json_response 400, nil, @user.errors.full_messages
   end
 end
 
@@ -40,8 +40,13 @@ end
 get '/api/users/:id/tweets' do
   @tweets = User.find(params[:id]).tweets
   if @tweets
-    json_response 200, @tweets
+    json_response 200, @tweets.to_a
   else
     json_response 404, nil
   end
+end
+
+
+get '/api/user/timeline' do
+  @user = current_user
 end

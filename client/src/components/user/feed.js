@@ -23,15 +23,14 @@ const LogoutButton = withRouter(
         color="primary"
         onClick={(e)=>{
           e.preventDefault();
-          nanoAPI.logout(
-            function() {
-              sessionHelper.logout();
-              history.push("/login");
-            },
-            function() {
-              alert("Fail!");
-            }
-          )
+          nanoAPI.logout()
+          .then(function(json) {
+            sessionHelper.logout();
+            history.push("/login");
+          })
+          .catch(function(error) {
+            alert("Fail!");
+          })
         }}
       >
         Sign out

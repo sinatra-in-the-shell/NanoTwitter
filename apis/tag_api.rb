@@ -5,7 +5,7 @@ post '/api/tags' do
   if @tag.save
     json_response 201, nil
   else
-    json_response 400, nil, @tag.errors.messages
+    json_response 400, nil, @tag.errors.full_messages
   end
 end
 

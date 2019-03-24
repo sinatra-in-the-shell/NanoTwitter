@@ -59,16 +59,14 @@ class SignIn extends React.Component {
     event.preventDefault();
     const data = new FormData(event.target);
 
-    nanoAPI.login(
-      data,
-      function() {
-        sessionHelper.login();
-        this.setState({ redirectToReferrer: true });
-      },
-      function() {
-        alert("Fail!");
-      }
-    )
+    nanoAPI.login(data)
+    .then(function(json) {
+      sessionHelper.login();
+      this.setState({ redirectToReferrer: true });
+    })
+    .catch(function(error) {
+      alert(error.message);
+    });
   }
 
   render() {

@@ -3,11 +3,9 @@ post '/api/register/?' do
   @user.password = params[:password]
   if @user.save
     login @user
-    status 204
+    json_response 204
   else
-    status 400
-    content_type :json
-    @user.errors.to_json
+    json 400, nil, @user.errors.full_messages
   end
 end
 
@@ -17,13 +15,13 @@ post '/api/login/?' do
     login @user
     puts params[:remember_me]
     params[:remember_me] == '1' ? remember(@user) : forget(@user)
-    status 204
+    json_response 204
   else
-    halt 401, 'incorrect username or password'
+    json_response 401, nil, 'incorrect username or password'
   end
 end
 
 delete '/api/logout/?' do
   log_out if logged_in?
-  status 204
+  json_response 204
 end
