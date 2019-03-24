@@ -1,5 +1,6 @@
 get '/api/timeline' do
-  user_id = params['user_id'].to_i
+  #
+  user = current_user
 
   @timeline = Tweet.find_by_sql(["
     SELECT Tweets.*
@@ -10,7 +11,7 @@ get '/api/timeline' do
       Tweets.user_id = ?
     ORDER BY Tweets.updated_at DESC
     LIMIT 20
-  ", user_id, user_id])
+  ", user.id, user.id])
 
   if @timeline
     json_response 200, @timeline.to_a
