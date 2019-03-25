@@ -1,5 +1,4 @@
 get '/api/timeline' do
-  #
   user = current_user
 
   @timeline = Tweet.find_by_sql(["
