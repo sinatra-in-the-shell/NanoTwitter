@@ -11,7 +11,11 @@ def import_tweets (userid, num_tweets)
   end
   Tweet.import(columns, tweets)
 
-  pp Tweet.all
+  # # fanout each tweet
+  # user = User.find(userid)
+  # saved_tweets.each do |s_tweet|
+  #   fanout_helper(user, s_tweet)
+  # end
 end
 
 

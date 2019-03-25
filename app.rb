@@ -12,6 +12,8 @@ require 'csv'
 require 'faker'
 require 'activerecord-import'
 require 'newrelic_rpm'
+require 'redis'
+require 'securerandom'
 
 Dir["./models/*.rb"].each {|file| require file }
 

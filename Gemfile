@@ -13,6 +13,7 @@ gem "thin"
 
 # util
 gem "bcrypt"
+gem "redis"
 
 # db
 gem "pg"

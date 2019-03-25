@@ -1,5 +1,6 @@
 post '/api/tweets' do
-  @user = current_user
+  # if we do not have current user (testing cases)
+  @user = current_user || User.find(params['user_id'])
   @tweet = Tweet.new(
     user: @user,
     comment_to_id: params['comment_to_id'],
@@ -7,7 +8,10 @@ post '/api/tweets' do
     text: params['text'],
     tweet_type: params['tweet_type']
   )
+
   if @tweet.save
+    # fanout after save 
+    fanout_helper(@user, @tweet)
     json_response 201, nil
   else
     json_response 400, nil, @tweet.errors.messages
