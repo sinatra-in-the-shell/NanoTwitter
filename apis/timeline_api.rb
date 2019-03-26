@@ -20,14 +20,18 @@ get '/api/timeline' do
 end
 
 get '/api/timeline/cached' do
-  user = current_user
+  user = current_user 
+
   redis_client = Redis.new(url: ENV['REDIS_URL'] || 'redis://localhost:6379')
-  
   timeline = []
   cached = redis_client.lrange(user.id, 0, -1)
-  cached.each do |c|
-    timeline << JSON.parse(c)
-  end
 
-  json_response 200, timeline
+  if cached
+    cached.each do |c|
+      timeline << JSON.parse(c)
+    end
+    json_response 200, timeline
+  else 
+    json_response 404, nil
+  end
 end
