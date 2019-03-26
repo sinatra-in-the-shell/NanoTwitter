@@ -18,3 +18,9 @@ get '/api/timeline' do
     json_response 404, nil
   end
 end
+
+get '/api/timeline/cached' do
+
+  
+
+end
