@@ -1,4 +1,4 @@
-# NanoTwitter V0.4
+# NanoTwitter V0.5
 * Course project for Cosi105b - Software Engineering for Scalability.
 * Implement an SNS website including most basic funtions of Twitter. Use [Sinatra](http://sinatrarb.com/) + [React](https://reactjs.org/) as primary tech tools.
 
@@ -63,3 +63,4 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 * Created basic load experiments. Created a [doc file](/doc/LOAD_EXPERIMENT.md) to describe each test. - Ziyu Liu, Yirun Zhou
 * Switched to using scope to handle queries with options. See in [user.rb](models/user.rb) and [tweet.rb](models/tweet.rb). - Fengzhencheng Zeng, Ziyu Liu
 * Switched web server from `WebBrick` to `thin`. Observed a significant performance improvement. - Fengzhencheng Zeng, Yirun Zhou
+* Add tweet fanout functionality when a user post a new tweet - Yirun Zhou
