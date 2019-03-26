@@ -20,7 +20,5 @@ get '/api/timeline' do
 end
 
 get '/api/timeline/cached' do
-
   
-
 end
