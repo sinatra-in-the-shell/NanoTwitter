@@ -29,7 +29,11 @@ before do
            || request.path_info.include?('loaderio-b2296ad8f5d2ab4dfcc4ce34a0d36fa8')\
            || request.path_info.include?('testing-token=sits-testing')
   if not logged_in?
-    halt 401, 'not logged_in'
+    if request.get?
+      redirect '/login', 303
+    else
+      halt 401, 'not logged in'
+    end
   end
 end
 
@@ -37,5 +41,6 @@ end
 Dir["./apis/*.rb"].each {|file| require file }
 
 get '/*' do
+  puts "logged in"
   send_file File.expand_path('index.html', settings.public_folder)
 end

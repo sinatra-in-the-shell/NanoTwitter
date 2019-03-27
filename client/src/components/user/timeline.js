@@ -25,7 +25,7 @@ function UserTimeline(props) {
           <Paper className={classes.paper}>xs=12</Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>xs=6</Paper>
+          <Paper className={classes.paper}>xs=4</Paper>
         </Grid>
       </Grid>
     </div>

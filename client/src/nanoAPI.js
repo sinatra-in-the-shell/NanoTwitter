@@ -24,15 +24,13 @@ export const nanoAPI = {
 
   logout() {
     return fetch('/api/logout', {
-      method: 'DELETE',
-      credentials: 'include'
+      method: 'DELETE'
     }).then(errorHandler);
   },
 
   timeline() {
     return fetch('/api/user/timeline', {
-      method: 'GET',
-      credentials: 'include'
+      method: 'GET'
     }).then(errorHandler);
   },
 
