@@ -58,11 +58,12 @@ class SignIn extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
+    const me = this;
 
     nanoAPI.login(data)
     .then(function(json) {
       sessionHelper.login();
-      this.setState({ redirectToReferrer: true });
+      me.setState({ redirectToReferrer: true });
     })
     .catch(function(error) {
       alert(error.message);
@@ -71,7 +72,7 @@ class SignIn extends React.Component {
 
   render() {
     const { classes } = this.props;
-    if(this.state.redirectToReferrer) return <Redirect to="/feed" />;
+    if(this.state.redirectToReferrer) return <Redirect to="/" />;
     return (
       <main className={classes.main}>
         <CssBaseline />

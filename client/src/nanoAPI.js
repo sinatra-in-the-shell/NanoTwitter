@@ -1,8 +1,10 @@
 function errorHandler(response) {
-  if(response.ok) {
-    return response.json();
-  }
-  throw new Error(response.json().errors);
+  return response.json().then(function(json) {
+    if(response.ok) {
+      return json;
+    }
+    throw new Error(json.errors);
+  });
 }
 
 export const nanoAPI = {
@@ -23,14 +25,14 @@ export const nanoAPI = {
   logout() {
     return fetch('/api/logout', {
       method: 'DELETE',
-      credentials: 'same-origin'
+      credentials: 'include'
     }).then(errorHandler);
   },
 
   timeline() {
     return fetch('/api/user/timeline', {
       method: 'GET',
-      credentials: 'same-origin'
+      credentials: 'include'
     }).then(errorHandler);
   },
 
