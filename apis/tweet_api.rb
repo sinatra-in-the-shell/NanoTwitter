@@ -14,7 +14,7 @@ post '/api/tweets' do
     fanout_helper(@user, @tweet)
     json_response 201, nil
   else
-    json_response 400, nil, @tweet.errors.messages
+    json_response 400, nil, @tweet.errors.full_messages
   end
 end
 

@@ -1,6 +1,7 @@
 def json_response status_code, data=nil, errors=nil
   status status_code
-  meta = nil
+  content_type :json
+  meta = { time: Time.now }
   res = {
     meta: meta,
     data: data,
