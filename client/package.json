@@ -9,6 +9,7 @@
     "@types/node": "^11.9.5",
     "@types/react": "^16.8.5",
     "@types/react-dom": "^16.8.2",
+    "http-proxy-middleware": "^0.19.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-router": "^4.3.1",
@@ -25,7 +26,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:4567",
   "browserslist": [
     ">0.2%",
     "not dead",
