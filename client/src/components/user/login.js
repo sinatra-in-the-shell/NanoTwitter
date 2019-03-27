@@ -51,14 +51,20 @@ const styles = theme => ({
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { redirectToReferrer: false };
+    this.state = { redirectToReferrer: false, rememberMe: false };
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleRemember() {
+    this.setState({ rememberMe: !this.state.rememberMe })
   }
 
   handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
     const me = this;
+
+    data.append('remember_me', this.state.rememberMe);
 
     nanoAPI.login(data)
     .then(function(json) {
@@ -92,7 +98,15 @@ class SignIn extends React.Component {
               <Input name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={
+                <Checkbox
+                  value="remember"
+                  color="primary"
+                  onChange={e => {
+                    e.preventDefault();
+                    this.handleRemember();
+                  }} />
+              }
               label="Remember me"
             />
             <Button
