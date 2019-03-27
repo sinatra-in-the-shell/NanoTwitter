@@ -26,6 +26,7 @@ get '/api/timeline/cached' do
   timeline = []
   cached = redis_client.lrange(user.id, 0, -1)
 
+  # any better idea?
   if cached
     cached.each do |c|
       timeline << JSON.parse(c)

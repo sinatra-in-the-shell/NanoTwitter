@@ -1,5 +1,7 @@
 ### Redis fanout problems
 
+0. consistency issue with database
+
 1. where to instantiate `redis client`, 
 	in `app.rb`? `fanout_helper.rb`?
 
@@ -11,3 +13,7 @@
 
 5. test interface integration with `tweet_api`, now they are separated, only `tweet_api` will fanout to redis
 
+
+### Redis friendship problems
+
+0. consistency issue
