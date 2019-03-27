@@ -9,6 +9,10 @@ def remember(user)
 end
 
 def current_user
+  puts "session"
+  puts session[:user_id]
+  puts "cookies"
+  puts cookies[:user_id]
   if (user_id = session[:user_id])
     @current_user ||= User.find_by(id: user_id)
   elsif (user_id = cookies[:user_id])
