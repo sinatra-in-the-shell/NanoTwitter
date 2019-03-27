@@ -1,13 +1,14 @@
 import React from 'react';
-import AppContainer from './general/appContainer'
+import Navbar from './general/navbar'
 import UserTimeline from './user/timeline'
 
 function UserHome(props) {
 
   return (
-    <AppContainer>
+    <div>
+      <Navbar />
       <UserTimeline />
-    </AppContainer>
+    </div>
   );
 }
 
