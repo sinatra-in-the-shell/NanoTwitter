@@ -1,11 +1,11 @@
-def import_tweets (userid, num_tweets)
+def import_tweets (user_id, num_tweets)
   tweets = []
   columns = [:text, :tweet_type, :user_id, :comment_to_id, :retweet_from_id]
-  (0..num_tweets).each do |i|
+  (0..num_tweets-1).each do |i|
     tweets << Tweet.new(
                         :text => Faker::String.random.gsub("\u0000", ''), 
                         :tweet_type => 'orig',
-                        :user_id => userid,
+                        :user_id => user_id,
                         :comment_to_id => 0,
                         :retweet_from_id => 0)
   end
@@ -18,6 +18,21 @@ def import_tweets (userid, num_tweets)
   # end
 end
 
+# change from user to user_id
+def import_tweets_fanout(user_id, num_tweets)
+  user = User.find(user_id)
+  (0..num_tweets-1).each do |i|
+    tweet = Tweet.new(
+                      :text => Faker::String.random.gsub("\u0000", ''), 
+                      :tweet_type => 'orig',
+                      :user_id => user_id,
+                      :comment_to_id => 0,
+                      :retweet_from_id => 0)
+    if tweet.save
+      fanout_helper(user, tweet)
+    end
+  end
+end
 
 # create_table "tweets", force: :cascade do |t|
 #   t.bigint "user_id"

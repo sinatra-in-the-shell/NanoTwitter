@@ -7,7 +7,6 @@ get '/api/followers' do
   cached = friendship_redis.lrange(@user.id, 0, -1)
 
   if cached
-    pp '*** GET ITEM FROM REDIS CACHE ***'
     @followers = []
     cached.each do |c|
       @followers << JSON.parse(c)
@@ -25,13 +24,14 @@ end
 
 post '/api/follows' do
   @user = current_user || User.find(params['user_id'])
-  @follow = Follow.new(from_user_id: @user.id, to_user_id: params['to_user_id'])
-  @followed = User.find(params['user_id'])
+  @follow = Follow.new(
+    from_user_id: @user.id, 
+    to_user_id: params['to_user_id'])
 
   if @follow.save
     redis_client = Redis.new(url: ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
-    redis_client.lpush(@user.id, @followed.to_json)
-    pp redis_client.lrange(@user.id, 0, -1)
+    redis_client.lpush(params['to_user_id'], @user)
+    
     json_response 201, @follow
   else
     json_response 404, @follow.error_message

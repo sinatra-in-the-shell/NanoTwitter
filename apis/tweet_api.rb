@@ -12,7 +12,7 @@ post '/api/tweets' do
   if @tweet.save
     # fanout after save 
     fanout_helper(@user, @tweet)
-    json_response 201, nil
+    json_response 200, @tweet
   else
     json_response 400, nil, @tweet.errors.full_messages
   end

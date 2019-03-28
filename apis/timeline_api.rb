@@ -1,5 +1,6 @@
 get '/api/timeline' do
-  user = current_user
+  user = current_user || User.find(params['user_id'])
+  limit = params['limit'] || 20
 
   @timeline = Tweet.find_by_sql(["
     SELECT Tweets.*
@@ -9,8 +10,8 @@ get '/api/timeline' do
       Tweets.user_id = Follows.to_user_id OR
       Tweets.user_id = ?
     ORDER BY Tweets.updated_at DESC
-    LIMIT 20
-  ", user.id, user.id])
+    LIMIT ?
+  ", user.id, user.id, limit])
 
   if @timeline
     json_response 200, @timeline.to_a
@@ -20,7 +21,7 @@ get '/api/timeline' do
 end
 
 get '/api/timeline/cached' do
-  user = current_user 
+  user = current_user || User.find(params['user_id'])
 
   redis_client = Redis.new(url: ENV['REDIS_URL'] || 'redis://localhost:6379')
   timeline = []

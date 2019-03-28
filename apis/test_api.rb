@@ -41,6 +41,6 @@ end
 # n is how many randomly generated tweets are submitted on that users behalf
 post '/test/user/:userid/tweets' do
   print 'userid = ', params['userid'], ' count = ', params['count'], "\n"
-  import_tweets(params['userid'].to_i, params['count'].to_i)
+  import_tweets_fanout(params['userid'].to_i, params['count'].to_i)
   status 200
 end

@@ -1,10 +1,10 @@
 def fanout_helper(user, tweet)
   redis_client = Redis.new(url: ENV['REDIS_URL'] || 'redis://localhost:6379')
-
+  
   user_id = user.id
   tweet_id = tweet.id
   followers = user.followers
-
+  
   pp '**** User with id = ', user_id, 'followers are: ****'
   pp followers
   pp '**** followers over ****'
