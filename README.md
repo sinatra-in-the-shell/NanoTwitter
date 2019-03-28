@@ -1,6 +1,22 @@
-# NanoTwitter V0.4
+# NanoTwitter
 * Course project for Cosi105b - Software Engineering for Scalability.
 * Implement an SNS website including most basic funtions of Twitter. Use [Sinatra](http://sinatrarb.com/) + [React](https://reactjs.org/) as primary tech tools.
+
+## Table of Contents
+- [NanoTwitter](#nanotwitter)
+  - [Table of Contents](#table-of-contents)
+  - [Team Member](#team-member)
+  - [To Build and Run](#to-build-and-run)
+    - [Build](#build)
+    - [Run](#run)
+  - [Deployment:](#deployment)
+  - [Documentations:](#documentations)
+  - [Version Changelogs](#version-changelogs)
+    - [NT0.1](#nt01)
+    - [NT0.2](#nt02)
+    - [NT0.3](#nt03)
+    - [NT0.4](#nt04)
+    - [NT0.5](#nt05)
 
 ## Team Member
 * Fengzhencheng Zeng fzeng@brandeis.edu
@@ -30,6 +46,7 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 * [Route](/doc/ROUTE.md)
 * [Schema](/doc/SCHEMADB.md)
 * [API 1.0](https://app.swaggerhub.com/apis-docs/sinatra-in-the-shell/nano-twitter-api/1.0.0)
+* [loadio experiments](/doc/LOAD_EXPERIMENT.md)
 
 ## Version Changelogs
 
