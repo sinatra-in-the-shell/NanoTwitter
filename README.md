@@ -88,5 +88,5 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 
 ### NT0.6
 * Updated [NanoTwitter API 1.0](https://app.swaggerhub.com/apis-docs/sinatra-in-the-shell/nano-twitter-api/1.0.0). - Fengzhencheng Zeng, Yirun Zhou, Ziyu Liu
-* Implemented user interface of timeline and fix login/logout session issue - Fengzhengcheng Zeng
+* Implemented user interface of timeline and fix login/logout session issue - Fengzhengcheng Zeng, Ziyu Liu
 * Added Redis caching for users' timeline and followers to speed up timeline api - Yirun Zhou
