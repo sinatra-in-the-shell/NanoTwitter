@@ -5,7 +5,7 @@ import SignIn from './components/user/login'
 import Register from './components/user/register'
 import UserHome from './components/home'
 
-function Routes() {
+function App() {
   return (
     <Router>
       <div>
@@ -36,4 +36,4 @@ function PrivateRoute({ component: Component, ...rest }) {
   );
 }
 
-export default Routes;
+export default App;
