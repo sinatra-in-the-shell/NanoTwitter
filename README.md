@@ -39,6 +39,11 @@ npm run build
 ruby app.rb
 ```
 
+### Test
+```
+rake test
+```
+
 ## Deployment:
 The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-sits.herokuapp.com/).
 
@@ -80,3 +85,8 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 * Created basic load experiments. Created a [doc file](/doc/LOAD_EXPERIMENT.md) to describe each test. - Ziyu Liu, Yirun Zhou
 * Switched to using scope to handle queries with options. See in [user.rb](models/user.rb) and [tweet.rb](models/tweet.rb). - Fengzhencheng Zeng, Ziyu Liu
 * Switched web server from `WebBrick` to `thin`. Observed a significant performance improvement. - Fengzhencheng Zeng, Yirun Zhou
+
+### NT0.6
+* Updated [NanoTwitter API 1.0](https://app.swaggerhub.com/apis-docs/sinatra-in-the-shell/nano-twitter-api/1.0.0). - Fengzhencheng Zeng, Yirun Zhou, Ziyu Liu
+* Implemented user interface of timeline and fix login/logout session issue - Fengzhengcheng Zeng, Ziyu Liu
+* Added Redis caching for users' timeline and followers to speed up timeline api - Yirun Zhou
