@@ -45,8 +45,3 @@ get '/api/users/:id/tweets' do
     json_response 404, nil
   end
 end
-
-
-get '/api/user/timeline' do
-  @user = current_user
-end
