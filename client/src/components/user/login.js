@@ -66,7 +66,7 @@ class SignIn extends React.Component {
       me.setState({ redirectToReferrer: true });
     })
     .catch(function(error) {
-      alert(error.message);
+      alert('login failed!\n' + error.message);
     });
   }
 
