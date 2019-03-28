@@ -68,7 +68,7 @@ class SignIn extends React.Component {
 
     nanoAPI.login(data)
     .then(function(json) {
-      sessionHelper.login();
+      sessionHelper.login(me.state.rememberMe);
       me.setState({ redirectToReferrer: true });
     })
     .catch(function(error) {
