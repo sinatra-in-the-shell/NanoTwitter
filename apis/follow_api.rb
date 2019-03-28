@@ -30,8 +30,8 @@ post '/api/follows' do
 
   if @follow.save
     redis_client = Redis.new(url: ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
+    ENV['HEROKU_REDIS_COBALT_URL']
     redis_client.lpush(params['to_user_id'], @user)
-    
     json_response 201, @follow
   else
     json_response 404, @follow.error_message
