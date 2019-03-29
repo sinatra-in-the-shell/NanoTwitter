@@ -1,5 +1,5 @@
 get '/api/timeline' do
-  user = current_user || User.find(params['user_id'])
+  user = current_user
   limit = params['limit'] || 20
 
   @timeline = Tweet.find_by_sql(["
@@ -21,7 +21,7 @@ get '/api/timeline' do
 end
 
 get '/api/timeline/cached' do
-  user = current_user || User.find(params['user_id'])
+  user = current_user
 
   redis_client = Redis.new(url: ENV['REDIS_URL'] || 'redis://localhost:6379')
   timeline = []

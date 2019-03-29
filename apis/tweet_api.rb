@@ -1,6 +1,6 @@
 post '/api/tweets' do
   # if we do not have current user (testing cases)
-  @user = current_user || User.find(params['user_id'])
+  @user = current_user
   @tweet = Tweet.new(
     user: @user,
     comment_to_id: params['comment_to_id'],

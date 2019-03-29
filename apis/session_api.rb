@@ -9,7 +9,7 @@ post '/api/register/?' do
   end
 end
 
-post '/api/login/?' do
+post '/api/login/?' do 
   @user = User.find_by(email: params[:email])
   if @user && @user.password == params[:password]
     login @user

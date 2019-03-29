@@ -1,6 +1,6 @@
 get '/api/followers' do
   #if current_user and params['user_id'] not valid, will give 500
-  @user = current_user || User.find(params['user_id'])
+  @user = current_user
   @followers = nil
 
   friendship_redis = Redis.new(url: ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
@@ -23,7 +23,7 @@ get '/api/followers' do
 end
 
 post '/api/follows' do
-  @user = current_user || User.find(params['user_id'])
+  @user = current_user
   @follow = Follow.new(
     from_user_id: @user.id, 
     to_user_id: params['to_user_id'])
