@@ -21,7 +21,7 @@ class RedisClient
     json_array
   end
 
-  def push_db_results(key, db_results)
+  def push_results(key, db_results)
     db_results.each do |r|
       @redis_client.lpush(key, r.to_json)
     end
