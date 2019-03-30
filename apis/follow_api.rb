@@ -1,24 +1,33 @@
 get '/api/followers' do
-  #if current_user and params['user_id'] not valid, will give 500
   @user = current_user
   @followers = nil
 
-  friendship_redis = Redis.new(url: ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
-  cached = friendship_redis.lrange(@user.id, 0, -1)
+  redis_client = Redis.new(url: ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
 
-  if cached
-    @followers = []
+  if redis_client.exists(@user.id)
+    pp '*** CACHED ***'
+    cached = redis_client.lrange(@user.id, 0, -1)
+    followers = []
     cached.each do |c|
-      @followers << JSON.parse(c)
+      followers << JSON.parse(c)
     end
-    json_response 200, @followers
-  end
+    json_response 200, followers
+  else 
+    @followers = @user.followers
+    begin
+      @followers.each do |f|
+        redis_client.lpush(@user.id, f.to_json)
+      end
+    rescue StandardError => e
+      puts e.message
+      puts e.backtrace.inspect
+    end
 
-  @followers = @user.followers
-  if @followers
-    json_response 200, @followers.to_a
-  else
-    json_response 404, nil
+    if @followers
+      json_response 200, @followers.to_a
+    else
+      json_response 404, nil
+    end
   end
 end
 
