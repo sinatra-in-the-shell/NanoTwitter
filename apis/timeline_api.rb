@@ -4,9 +4,11 @@ get '/api/timeline' do
 
   redis_client = Redis.new(url: ENV['REDIS_URL'] || 'redis://localhost:6379')
   timeline = []
-  cached = redis_client.lrange(user.id, 0, -1)
-
-  if cached
+  
+  if redis_client.exists(user.id) == 1
+    pp '*** CACHED ***'
+    pp cached
+    cached = redis_client.lrange(user.id, 0, -1)
     cached.each do |c|
       timeline << JSON.parse(c)
     end
@@ -22,6 +24,15 @@ get '/api/timeline' do
       ORDER BY Tweets.updated_at DESC
       LIMIT ?
     ", user.id, user.id, limit])
+
+    begin 
+      @timeline.each do |t|
+        redis_client.rpush(user.id, t)
+      end
+    rescue StandardError => e
+      puts e.message
+      puts e.backtrace.inspect
+    end
 
     if @timeline
       json_response 200, @timeline.to_a

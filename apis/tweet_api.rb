@@ -1,5 +1,4 @@
 post '/api/tweets' do
-  # if we do not have current user (testing cases)
   @user = current_user
   @tweet = Tweet.new(
     user: @user,

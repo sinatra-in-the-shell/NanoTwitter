@@ -4,7 +4,8 @@ def load_seed_users(count, filenmame)
   (0..count - 1).each do |i|
     users << User.new(id: data[i][0].to_i,
                       username: data[i][1],
-                      email: Faker::Internet.unique.email)
+                      email: Faker::Internet.unique.email,
+                      password: '1234567')
   end
   User.import users
 end
@@ -14,8 +15,11 @@ def load_seed_follows(count, filename)
   data.each do |entry|
     break if entry[0] > count
     next if entry[1] > count
-
-    Follow.create(from_user_id: entry[0], to_user_id: entry[1])
+    begin
+      Follow.create(from_user_id: entry[0], to_user_id: entry[1])
+    rescue
+      puts 'data voilated unique follow constrain, skiped'
+    end
   end
 end
 
