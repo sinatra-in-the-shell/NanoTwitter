@@ -5,7 +5,6 @@ get '/api/followers' do
   redis_client = Redis.new(url: ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
 
   if redis_client.exists(@user.id)
-    pp '*** CACHED ***'
     cached = redis_client.lrange(@user.id, 0, -1)
     followers = []
     cached.each do |c|
@@ -38,7 +37,6 @@ post '/api/follows' do
     to_user_id: params['to_user_id'])
 
   if @follow.save
-    pp ENV['HEROKU_REDIS_COBALT_URL']
     redis_client = Redis.new(url: ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
     redis_client.lpush(params['to_user_id'], @user)
     json_response 201, @follow
