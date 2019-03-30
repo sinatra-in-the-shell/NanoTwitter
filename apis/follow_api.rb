@@ -20,7 +20,7 @@ get '/api/followers' do
 end
 
 post '/api/follows' do
-  user = current_user || User.find(12)
+  user = current_user
   @follow = Follow.new(
     from_user_id: user.id, 
     to_user_id: params['to_user_id'])
