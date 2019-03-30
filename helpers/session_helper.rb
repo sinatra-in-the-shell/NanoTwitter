@@ -10,8 +10,6 @@ def remember(user)
 end
 
 def current_user
-  pp '*** TESTMODE params ***:'
-  pp params['test_mode']
   if (user_id = session[:user_id])
     @current_user ||= User.find_by(id: user_id)
   elsif (user_id = cookies[:user_id])

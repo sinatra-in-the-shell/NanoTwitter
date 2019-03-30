@@ -5,15 +5,15 @@ get '/api/timeline' do
   redis_client = Redis.new(url: ENV['REDIS_URL'] || 'redis://localhost:6379')
   timeline = []
   
-  if redis_client.exists(user.id) == 1
-    pp '*** CACHED ***'
-    pp cached
+  if redis_client.exists(user.id)
     cached = redis_client.lrange(user.id, 0, -1)
     cached.each do |c|
       timeline << JSON.parse(c)
     end
     json_response 200, timeline
-  else 
+  else
+    # TODO: sometimes duplicate tweets from this query? inside DB there is only one such tweet
+    # id 1684, tweet content is: The SMS sensor is down, program the virtual program so we can connect the USB bus!
     @timeline = Tweet.find_by_sql(["
       SELECT Tweets.*
       FROM Tweets, Follows
@@ -27,7 +27,7 @@ get '/api/timeline' do
 
     begin 
       @timeline.each do |t|
-        redis_client.rpush(user.id, t)
+        redis_client.rpush(user.id, t.to_json)
       end
     rescue StandardError => e
       puts e.message
