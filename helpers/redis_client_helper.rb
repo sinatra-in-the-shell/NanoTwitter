@@ -1,7 +1,6 @@
 require 'redis'
 require 'json'
 
-
 class RedisClient
 
   def initialize(redis_url)

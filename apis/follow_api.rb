@@ -1,4 +1,4 @@
-get '/api/followers' do
+get '/api/followers/?' do
   user = current_user
   redis_client = RedisClient.new(ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
   if redis_client.cached?(user.id)
@@ -19,7 +19,7 @@ get '/api/followers' do
   end
 end
 
-post '/api/follows' do
+post '/api/follows/?' do
   user = current_user
   @follow = Follow.new(
     from_user_id: user.id, 
