@@ -1,7 +1,5 @@
 get '/api/followers' do
   @user = current_user
-  @followers = nil
-
   redis_client = Redis.new(url: ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
 
   if redis_client.exists(@user.id)
@@ -38,7 +36,7 @@ post '/api/follows' do
 
   if @follow.save
     redis_client = Redis.new(url: ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
-    redis_client.lpush(params['to_user_id'], @user)
+    redis_client.lpush(params['to_user_id'], @user.to_json)
     json_response 201, @follow
   else
     json_response 404, @follow.error_message
