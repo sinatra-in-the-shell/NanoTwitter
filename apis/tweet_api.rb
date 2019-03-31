@@ -1,4 +1,4 @@
-post '/api/tweets' do
+post '/api/tweets/?' do
   @user = current_user
   @tweet = Tweet.new(
     user: @user,
@@ -17,7 +17,7 @@ post '/api/tweets' do
   end
 end
 
-get '/api/tweets' do
+get '/api/tweets/?' do
   skip = params['skip']
   max_results = params['maxresults']
   @tweets = Tweet.with_skip(skip).with_max(max_results)
@@ -28,7 +28,7 @@ get '/api/tweets' do
   end
 end
 
-get '/api/tweets/:id' do
+get '/api/tweets/:id/?' do
   @tweet = Tweet.find(params[:id])
   if @tweet
     json_response 200, @tweet
