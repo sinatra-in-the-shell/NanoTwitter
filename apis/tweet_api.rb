@@ -7,7 +7,12 @@ post '/api/tweets/?' do
     text: params['text'],
     tweet_type: params['tweet_type']
   )
-
+  #find hashtags in the tweet
+  params['text'].scan(/#\w+/).flatten.each do |tag|
+    @tag = Hashtag.find_by_name(tag)
+    @tag = Hashtag.create(name: tag) if @tag == nil
+    @tweet.hashtags << @tag
+  end
   if @tweet.save
     # fanout after save 
     fanout_helper(@user, @tweet)

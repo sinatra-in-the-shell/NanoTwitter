@@ -29,6 +29,6 @@ post '/api/follows/?' do
     redis_client.push_single(params['to_user_id'], user)
     json_response 200, @follow
   else
-    json_response 404, @follow.error_message
+    json_response 404, @follow.error.full_messages
   end
 end
