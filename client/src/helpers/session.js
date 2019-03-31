@@ -1,7 +1,7 @@
 export const sessionHelper = {
   isLoggedIn() {
     if(localStorage.getItem('isLoggedIn')) {
-      sessionStorage.setItem('isLoggedIn');
+      sessionStorage.setItem('isLoggedIn', true);
     }
     return sessionStorage.getItem('isLoggedIn');
   },
