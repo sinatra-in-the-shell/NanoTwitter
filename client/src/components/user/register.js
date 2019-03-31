@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { Redirect } from 'react-router'
+import { sessionHelper } from '../../helpers/session'
+import { nanoAPI } from '../../nanoAPI'
 
 const styles = theme => ({
   main: {
@@ -56,17 +58,15 @@ class Register extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
-    fetch('/api/register', {
-      method: 'POST',
-      body: data,
-    }).then(
-      response => response.status
-    ).then(status => {
-      if(status===204) {
-        this.setState({ redirectToReferrer: true });
-      }else{
-        alert("Register Fail!")
-      }
+    const me = this;
+
+    nanoAPI.signup(data)
+    .then(function(json) {
+      sessionHelper.login();
+      me.setState({ redirectToReferrer: true });
+    })
+    .catch(function(error) {
+      alert(error.message);
     });
   }
 

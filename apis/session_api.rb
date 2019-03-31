@@ -13,9 +13,7 @@ post '/api/login/?' do
   @user = User.find_by(email: params[:email])
   if @user && @user.password == params[:password]
     login @user
-    remember(@user) if params[:remember_me] == '1'
-    # puts "logged in"
-    # puts session[:user_id]
+    params[:remember_me] == "true" ? remember(@user) : forget(@user)
     return json_response 200
   else
     json_response 401, nil, 'incorrect username or password'
