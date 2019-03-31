@@ -4,6 +4,7 @@ import { sessionHelper } from './helpers/session'
 import SignIn from './components/user/login'
 import Register from './components/user/register'
 import UserHome from './components/home'
+import Status from './components/test/status'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <PrivateRoute exact path="/" component={UserHome} />
         <Route path="/login" component={SignIn} />
         <Route path='/register' component={Register} />
+        <Route path='/test/status' component={Status} />
       </div>
     </Router>
   )

@@ -1,12 +1,15 @@
 # Test Interfaces
-get '/test/status/?' do
-  erb :status,
-      locals: {
-        test_id: User.find(email: "testuser@sample.com").id,
-        user_count: User.count,
-        follow_count: Follow.count,
-        tweet_count: Tweet.count
-      }
+get '/api/status/?' do
+  @testuser = User.find_by(email: "testuser@sample.com")
+  @res = {
+    test_id: @testuser.id,
+    user_count: User.count,
+    follow_count: Follow.count,
+    tweet_count: Tweet.count
+  }
+  status 200
+  content_type :json
+  @res.to_json
 end
 
 # If needed deletes all users, tweets, follows
