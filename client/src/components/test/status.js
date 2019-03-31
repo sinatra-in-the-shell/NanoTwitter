@@ -31,22 +31,18 @@ class Status extends React.Component {
   }
 
   render() {
-    return <ChildComponent {...this.state} />
+    const {status} = this.state
+    return (
+      <div>
+        <ul>
+          <li>Test User ID: {status.test_id}</li>
+          <li>User Count: {status.user_count}</li>
+          <li>Follow Count: {status.follow_count}</li>
+          <li>Tweet Count: {status.tweet_count}</li>
+        </ul>
+      </div>
+    )
   }
-};
-
-const ChildComponent = (props) => {
-  console.log(props)
-  return(
-    <div>
-      <ul>
-        <li>Test User ID: {props.status.test_id}</li>
-        <li>User Count: {props.status.user_count}</li>
-        <li>Follow Count: {props.status.follow_count}</li>
-        <li>Tweet Count: {props.status.tweet_count}</li>
-      </ul>
-    </div>
-  );
 };
 
 export default Status
