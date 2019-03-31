@@ -11,6 +11,9 @@ end
 
 describe "test timeline" do
   before do
+    redis_client = RedisClient.new(ENV['REDIS_URL'] || 'redis://localhost:6379')
+    redis_client.clear
+
     User.delete_all
     Follow.delete_all
     Tweet.delete_all
@@ -46,6 +49,7 @@ describe "test timeline" do
                         tweet_type: 'orig'}
   end
 
+  # TODO: should add a redis for testing
   it 'timeline testing' do
     get '/api/timeline', {test_user: @user1.id}
     timeline = JSON.parse(last_response.body)['data']
@@ -54,6 +58,6 @@ describe "test timeline" do
     assert_equal 'this is a testing tweet sent in an even later time', timeline[0]['text']
 
     get '/api/timeline', {test_user: @user2.id}
-    assert_equal timeline.length, JSON.parse(last_response.body)['data'].length
+    assert_equal 3, JSON.parse(last_response.body)['data'].length
   end
 end

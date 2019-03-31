@@ -29,4 +29,8 @@ class RedisClient
   def push_single(key, result)
     @redis_client.lpush(key, result.to_json)
   end
+
+  def clear
+    @redis_client.flushall
+  end
 end

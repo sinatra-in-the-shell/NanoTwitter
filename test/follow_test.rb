@@ -11,6 +11,9 @@ end
 
 describe "test new tweets" do
   before do
+    redis_client = RedisClient.new(ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
+    redis_client.clear
+
     User.delete_all
     Follow.delete_all
 
