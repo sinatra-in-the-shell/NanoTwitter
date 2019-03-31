@@ -1,6 +1,5 @@
-post '/api/tweets' do
-  # if we do not have current user (testing cases)
-  @user = current_user || User.find(params['user_id'])
+post '/api/tweets/?' do
+  @user = current_user
   @tweet = Tweet.new(
     user: @user,
     comment_to_id: params['comment_to_id'],
@@ -8,17 +7,22 @@ post '/api/tweets' do
     text: params['text'],
     tweet_type: params['tweet_type']
   )
-
+  #find hashtags in the tweet
+  params['text'].scan(/#\w+/).flatten.each do |tag|
+    @tag = Hashtag.find_by_name(tag)
+    @tag = Hashtag.create(name: tag) if @tag == nil
+    @tweet.hashtags << @tag
+  end
   if @tweet.save
     # fanout after save 
     fanout_helper(@user, @tweet)
-    json_response 201, nil
+    json_response 200, @tweet
   else
     json_response 400, nil, @tweet.errors.full_messages
   end
 end
 
-get '/api/tweets' do
+get '/api/tweets/?' do
   skip = params['skip']
   max_results = params['maxresults']
   @tweets = Tweet.with_skip(skip).with_max(max_results)
@@ -29,7 +33,7 @@ get '/api/tweets' do
   end
 end
 
-get '/api/tweets/:id' do
+get '/api/tweets/:id/?' do
   @tweet = Tweet.find(params[:id])
   if @tweet
     json_response 200, @tweet

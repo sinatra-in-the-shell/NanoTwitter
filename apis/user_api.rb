@@ -1,4 +1,4 @@
-post '/api/users' do
+post '/api/users/?' do
   @user = User.new(
     username: params['username'],
     email: params['email'],
@@ -17,7 +17,7 @@ post '/api/users' do
   end
 end
 
-get '/api/users' do
+get '/api/users/?' do
   skip = params['skip']
   max_results = params['maxresults']
   @users = User.with_skip(skip).with_max(max_results)
@@ -28,7 +28,7 @@ get '/api/users' do
   end
 end
 
-get '/api/users/:id' do
+get '/api/users/:id/?' do
   @user = User.find(params[:id])
   if @user
     json_response 200, @user
@@ -37,16 +37,11 @@ get '/api/users/:id' do
   end
 end
 
-get '/api/users/:id/tweets' do
+get '/api/users/:id/tweets/?' do
   @tweets = User.find(params[:id]).tweets
   if @tweets
     json_response 200, @tweets.to_a
   else
     json_response 404, nil
   end
-end
-
-
-get '/api/user/timeline' do
-  @user = current_user
 end

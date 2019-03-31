@@ -1,4 +1,4 @@
-post '/api/tags' do
+post '/api/tags/?' do
   @tag = Tag.new(
     name: params['name']
   )
@@ -9,7 +9,7 @@ post '/api/tags' do
   end
 end
 
-get '/api/tags' do
+get '/api/tags/?' do
   skip = params['skip']
   max_results = params['maxresults']
   @tags = Tag.with_skip(skip).with_max(max_results)
@@ -20,7 +20,7 @@ get '/api/tags' do
   end
 end
 
-get '/api/tags/trending' do
+get '/api/tags/trending/?' do
   @tags = Tag.all
   if @tags
     json_response 200, @tags.to_a

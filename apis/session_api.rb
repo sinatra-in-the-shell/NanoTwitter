@@ -5,11 +5,11 @@ post '/api/register/?' do
     login @user
     json_response 200
   else
-    json 400, nil, @user.errors.full_messages
+    json_response 400, nil, @user.errors.full_messages
   end
 end
 
-post '/api/login/?' do
+post '/api/login/?' do 
   @user = User.find_by(email: params[:email])
   if @user && @user.password == params[:password]
     login @user
