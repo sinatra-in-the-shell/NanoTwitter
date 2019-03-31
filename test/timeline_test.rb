@@ -54,6 +54,6 @@ describe "test timeline" do
     assert_equal 'this is a testing tweet sent in an even later time', timeline[0]['text']
 
     get '/api/timeline', {test_user: @user2.id}
-    assert_equal 3, JSON.parse(last_response.body)['data'].length
+    assert_equal timeline.length, JSON.parse(last_response.body)['data'].length
   end
 end
