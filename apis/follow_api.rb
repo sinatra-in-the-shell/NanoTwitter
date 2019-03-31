@@ -24,7 +24,6 @@ post '/api/follows/?' do
   @follow = Follow.new(
     from_user_id: user.id, 
     to_user_id: params['to_user_id'])
-
   if @follow.save
     redis_client = RedisClient.new(ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
     redis_client.push_single(params['to_user_id'], user)

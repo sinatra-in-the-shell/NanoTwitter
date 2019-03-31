@@ -14,28 +14,30 @@ describe "test new tweets" do
     User.delete_all
     Follow.delete_all
 
-    post '/api/users', {email: 'frank@brandeis.edu', username: 'frank', password: '123456'}
-    @user1 = User.find_by_username('frank')
+    post '/api/users', { email: 'frank@brandeis.edu', username: 'frank', password: '123456'}
+    @user1 = User.find_by(username: 'frank')
 
-    post '/api/users', {email: 'yirunzhou@brandeis.edu', username: 'yirun', password: 'dfssdfdsf'}
+    post '/api/users', {email: 'yirunzhou@brandeis.edu', username: 'yirun', password: '123456'}
     @user2 = User.find_by(username: 'yirun')
 
-    post '/api/users', {email: 'ziyuliu@brandeis.edu', username: 'ziyu', password: 'sdfsfsfsdf'}
-    @user3 = User.find_by_username('ziyu')
-    pp @user3
-    delete '/api/logout/'
+    post '/api/users', {email: 'ziyuliu@brandeis.edu', username: 'ziyu', password: '123456'}
+    @user3 = User.find_by(username: 'ziyu')
+
+    delete '/api/logout'
+
+    post '/api/follows', {test_user: @user1.id, to_user_id: @user3.id}
+    assert_equal @user3.id, JSON.parse(last_response.body)['data']['to_user_id']
+
+    post '/api/follows', {test_user: @user2.id, to_user_id: @user3.id}
+    assert_equal @user2.id, JSON.parse(last_response.body)['data']['from_user_id']
   end
 
   it 'new follow' do
-    # post '/api/follows', {user_id: @user1.id, to_user_id: @user3.id}
-    # assert_equal @user3.id, JSON.parse(last_response.body)['data']['to_user_id']
-
-    # post '/api/follows', {user_id: @user2.id, to_user_id: @user3.id}
-    # assert_equal @user2.id, JSON.parse(last_response.body)['data']['from_user_id']
-
-    # assert_equal 2, Follow.all.length
-    # pp last_response.body
+    assert_equal 2, Follow.all.length
   end
 
-
+  it 'followers' do
+    get '/api/followers', {test_user: @user3.id}
+    assert_equal 2, JSON.parse(last_response.body)['data'].length
+  end
 end
