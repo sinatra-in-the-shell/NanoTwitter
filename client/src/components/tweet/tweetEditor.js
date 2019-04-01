@@ -50,6 +50,8 @@ const styles = theme => ({
 class TweetEditor extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {text: ""}
+    this.handleTextChange = this.handleTextChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -58,7 +60,20 @@ class TweetEditor extends React.Component {
     const data = new FormData(event.target);
     const me = this;
 
+    data.append('tweet_type', 'tweet');
 
+    nanoAPI.postTweets(data)
+    .then(function(json) {
+      me.setState({text: ""});
+      alert('Success');
+    })
+    .catch(function(error) {
+      alert(error.message);
+    });
+  }
+
+  handleTextChange(event) {
+    this.setState({text: event.target.value});
   }
 
   render() {
@@ -68,12 +83,14 @@ class TweetEditor extends React.Component {
         <form className={classes.form} onSubmit={this.handleSubmit}>
           <FormControl margin="normal" required fullWidth>
             <OutlinedInput
-              name="content"
+              name="text"
               multiline
               rows="3"
               placeholder="Tweet comes here"
               className={classes.textField}
               margin="normal"
+              value={this.state.text}
+              onChange={this.handleTextChange}
             />
           </FormControl>
           <div className={classes.buttons} >
