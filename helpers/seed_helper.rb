@@ -38,9 +38,9 @@ def load_seed_tweets(count, filename)
       tweet_type: 'orig',
       created_at: entry[2],
       updated_at: entry[2]
-    )
+    )    
   end
-  Tweet.import(columns, tweets)
+
 end
 
 def create_test_user(count)
