@@ -28,16 +28,17 @@ end
 def load_seed_tweets(count, filename)
   data = CSV.read(filename)
   tweets = []
-  columns = [:user_id, :text, :tweet_type, :created_at, :updated_at]
+  # columns = [:user_id, :text, :tweet_type, :created_at, :updated_at]
+  columns = [:user_id, :text, :tweet_type]
   data.each do |entry|
     break if entry[0].to_i > count
 
     tweets << Tweet.new(
       user_id: entry[0].to_i,
       text: entry[1],
-      tweet_type: 'orig',
-      created_at: entry[2],
-      updated_at: entry[2]
+      tweet_type: 'orig'
+      # created_at: entry[2],
+      # updated_at: entry[2]
     )
   end
   Tweet.import(columns, tweets)
