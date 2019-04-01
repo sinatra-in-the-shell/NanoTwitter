@@ -9,6 +9,7 @@ import Profile from './user/profile'
 import TweetCollection from './tweet/tweetCollection'
 import TweetEditor from './tweet/tweetEditor'
 import Recommend from './user/recommend'
+import { nanoAPI } from '../nanoAPI'
 
 const styles = theme => ({
   navbar: {
@@ -54,7 +55,10 @@ function UserHome(props) {
 
           <Grid item xs={4} md={4} lg={6}>
             <TweetEditor className={classes.editor} />
-            <TweetCollection className={classes.tcollection}/>
+            <TweetCollection
+              className={classes.tcollection}
+              sourceAPI={nanoAPI.timeline}
+            />
           </Grid>
 
           <Grid item xs={4} md={4} lg={3}>
