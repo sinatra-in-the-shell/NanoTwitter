@@ -17,6 +17,8 @@ def load_seed_follows(count, filename)
     next if entry[1] > count
     begin
       Follow.create(from_user_id: entry[0], to_user_id: entry[1])
+      redis_client = RedisClient.new(ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
+      redis_client.push_single(entry[1], User.find(entry[0]))
     rescue
       puts 'data voilated unique follow constrain, skiped'
     end
