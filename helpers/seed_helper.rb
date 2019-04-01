@@ -36,8 +36,8 @@ def load_seed_tweets(count, filename)
       user_id: entry[0].to_i,
       text: entry[1],
       tweet_type: 'orig',
-      created_at: entry[2],
-      updated_at: entry[2]
+      # created_at: entry[2],
+      # updated_at: entry[2]
     )
   end
   Tweet.import(columns, tweets)
