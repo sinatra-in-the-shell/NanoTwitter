@@ -28,7 +28,8 @@ end
 def load_seed_tweets(count, filename)
   data = CSV.read(filename)
   tweets = []
-  columns = [:user_id, :text, :tweet_type, :created_at, :updated_at]
+  # columns = [:user_id, :text, :tweet_type, :created_at, :updated_at]
+  columns = [:user_id, :text, :tweet_type]
   data.each do |entry|
     break if entry[0].to_i > count
 
