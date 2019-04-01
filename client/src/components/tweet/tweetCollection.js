@@ -20,16 +20,50 @@ const styles = theme => ({
   },
 });
 
-function TweetCollection(props) {
-  const { classes } = props;
+class TweetCollection extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { tweets: [] };
+    this.fetchTweets();
+  }
 
-  return (
-    <div className={props.className}>
-      <Tweet className={classes.paper} />
-      <Tweet className={classes.paper} />
-      <Tweet className={classes.paper} />
-    </div>
-  );
+  fetchTweets() {
+    const sourceAPI = this.props.sourceAPI;
+    const { classes } = this.props;
+    const me = this;
+
+    sourceAPI()
+    .then(function(json) {
+      let tweets = json.data.map(function(tweet) {
+        return (
+          <Tweet
+            className={classes.paper}
+            text={tweet.text}
+          />
+        )
+      });
+      tweets.push(
+        <Tweet
+          className={classes.paper}
+          text="Test text"
+        />
+      );
+      me.setState({ tweets: tweets });
+    })
+    .catch(function(error) {
+      alert(error.message);
+    });
+  }
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <div className={this.props.className}>
+        {this.state.tweets}
+      </div>
+    );
+  };
 }
 
 TweetCollection.propTypes = {

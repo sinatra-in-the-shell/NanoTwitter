@@ -29,12 +29,19 @@ export const nanoAPI = {
   },
 
   timeline() {
-    return fetch('/api/user/timeline', {
+    return fetch('/api/timeline', {
       method: 'GET'
     }).then(errorHandler);
   },
 
   userTweets() {
 
-  }
+  },
+
+  postTweets(data) {
+    return fetch('/api/tweets', {
+      method: 'POST',
+      body: data,
+    }).then(errorHandler);
+  },
 };
