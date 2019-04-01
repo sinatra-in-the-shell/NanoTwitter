@@ -31,7 +31,6 @@ def load_seed_tweets(count, filename)
   columns = [:user_id, :text, :tweet_type, :created_at, :updated_at]
   data.each do |entry|
     break if entry[0].to_i > count
-
     tweets << Tweet.new(
       user_id: entry[0].to_i,
       text: entry[1],
@@ -39,10 +38,6 @@ def load_seed_tweets(count, filename)
       created_at: entry[2],
       updated_at: entry[2]
     )
-
-    author = User.find(entry[0].to_i)
-    followers = author.followers
-    
   end
   Tweet.import(columns, tweets)
 end

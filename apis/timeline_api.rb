@@ -31,7 +31,6 @@ get '/api/timeline/?' do
   end
 end
 
-
 get '/api/timeline/uncached/?' do
   user = current_user
   limit = params['limit'] || 20

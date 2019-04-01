@@ -19,6 +19,16 @@ get '/api/followers/?' do
   end
 end
 
+get '/api/followers/uncached?' do
+  user = current_user
+  @followers = user.followers
+  if @followers
+    json_response 200, @followers.to_a
+  else 
+    json_response 400, e.message
+  end
+end
+
 post '/api/follows/?' do
   user = current_user
   @follow = Follow.new(
