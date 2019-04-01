@@ -36,7 +36,7 @@ def load_seed_tweets(count, filename)
     tweets << Tweet.new(
       user_id: entry[0].to_i,
       text: entry[1],
-      tweet_type: 'orig',
+      tweet_type: 'orig'
       # created_at: entry[2],
       # updated_at: entry[2]
     )
