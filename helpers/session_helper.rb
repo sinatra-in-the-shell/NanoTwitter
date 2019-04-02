@@ -1,5 +1,4 @@
 def login user
-  puts "logging in"
   session[:user_id] = user.id
 end
 
@@ -34,7 +33,6 @@ def forget(user)
 end
 
 def log_out
-  puts "logging out"
   forget(current_user)
   session.delete(:user_id)
   @current_user = nil
