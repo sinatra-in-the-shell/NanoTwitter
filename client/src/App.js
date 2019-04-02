@@ -1,14 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { Router, Route, Redirect } from 'react-router';
+import { createBrowserHistory } from "history";
+
 import { sessionHelper } from './helpers/session'
 import SignIn from './components/user/login'
 import Register from './components/user/register'
 import UserHome from './components/home'
 import Status from './components/test/status'
 
+export const history = createBrowserHistory();
+
 function App() {
   return (
-    <Router>
+    <Router history={history}>
       <div>
         <PrivateRoute exact path="/" component={UserHome} />
         <Route path="/login" component={SignIn} />
