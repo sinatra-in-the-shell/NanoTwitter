@@ -1,22 +1,3 @@
-post '/api/users/?' do
-  @user = User.new(
-    username: params['username'],
-    email: params['email'],
-    display_name: params['display_name'],
-    region: params['region'],
-    date_of_birth: params['date_of_birth'],
-    bio: params['bio']
-  )
-  @user.password = params['password']
-  if @user.save
-    login @user
-    remember @user
-    json_response 201, nil
-  else
-    json_response 400, nil, @user.errors.full_messages
-  end
-end
-
 get '/api/users/?' do
   skip = params['skip']
   max_results = params['maxresults']
