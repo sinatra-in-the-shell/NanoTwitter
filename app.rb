@@ -14,6 +14,7 @@ require 'activerecord-import'
 require 'newrelic_rpm'
 require 'redis'
 require 'securerandom'
+require 'dotenv/load'
 
 Dir["./models/*.rb"].each {|file| require file }
 
@@ -21,9 +22,15 @@ set :server, "thin"
 
 enable :sessions
 
+
 helpers do
   Dir["./helpers/*.rb"].each {|file| require file }
 end
+
+pp ENV['HEROKU_REDIS_COBALT_URL']
+
+$friendship_redis = RedisClient.new(ENV['HEROKU_REDIS_COBALT_URL'])
+$timeline_redis = RedisClient.new(ENV['REDIS_URL'])
 
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
