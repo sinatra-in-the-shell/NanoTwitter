@@ -10,7 +10,8 @@ get '/api/users/?' do
 end
 
 get '/api/users/:id/?' do
-  @user = User.find(params[:id])
+  @user = (params[:id]=='current') ?
+    current_user : User.find(params[:id])
   if @user
     json_response 200, @user
   else

@@ -42,7 +42,7 @@ const styles = theme => ({
 class Tweet extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tweets: [], expanded: false };
+    this.state = { expanded: false };
   }
 
   handleExpandClick = () => {

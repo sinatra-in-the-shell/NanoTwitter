@@ -1,7 +1,12 @@
+import { sessionHelper } from "./helpers/session"
+
 function errorHandler(response) {
   return response.json().then(function(json) {
     if(response.ok) {
       return json;
+    }
+    if(response.status==401) {
+      return sessionHelper.logout();
     }
     throw new Error(json.errors);
   });
@@ -28,14 +33,22 @@ export const nanoAPI = {
     }).then(errorHandler);
   },
 
+  userProfile(id) {
+    return fetch('/api/users/'+id, {
+      method: 'GET'
+    }).then(errorHandler);
+  },
+
   timeline() {
     return fetch('/api/timeline', {
       method: 'GET'
     }).then(errorHandler);
   },
 
-  userTweets() {
-
+  userTweets(id) {
+    return fetch('/api/users/'+id+'/tweets', {
+      method: 'GET'
+    }).then(errorHandler);
   },
 
   postTweets(data) {

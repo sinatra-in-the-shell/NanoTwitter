@@ -50,7 +50,11 @@ function UserHome(props) {
       <main className={classes.layout}>
         <Grid container className={classes.root} spacing={24}>
           <Grid item xs={4} md={4} lg={3}>
-            <Profile className={classes.profile}/>
+            <Profile
+              className={classes.profile}
+              sourceAPI={nanoAPI.userProfile}
+              userId={'current'}
+            />
           </Grid>
 
           <Grid item xs={4} md={4} lg={6}>
