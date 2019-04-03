@@ -13,6 +13,7 @@ require 'faker'
 require 'activerecord-import'
 require 'newrelic_rpm'
 require 'redis'
+require 'sidekiq'
 require 'securerandom'
 require 'dotenv/load'
 
@@ -22,12 +23,13 @@ set :server, "thin"
 
 enable :sessions
 
-
 helpers do
   Dir["./helpers/*.rb"].each {|file| require file }
 end
 
-pp ENV['HEROKU_REDIS_COBALT_URL']
+Sidekiq.configure_client do |config|
+  config.redis = { url: ENV['SIDEKIQ_URL'] }
+end
 
 $friendship_redis = RedisClient.new(ENV['HEROKU_REDIS_COBALT_URL'])
 $timeline_redis = RedisClient.new(ENV['REDIS_URL'])
