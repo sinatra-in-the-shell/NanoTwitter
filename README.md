@@ -96,3 +96,6 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 * Add index for user and follow relationships. - Yirun Zhou
 * Settting up Redis, adding cache retrieving and fanout logics on timeline and post tweet apis. - Yirun Zhou, Ziyu Liu
 * Clean code, test and correct minor bugs of apis and tests. - Ziyu Liu
+
+### NT0.7
+* Updated fanout and follow api to allow only one global Redis client, passed load testing with multiple clients at a time - Yirun Zhou
