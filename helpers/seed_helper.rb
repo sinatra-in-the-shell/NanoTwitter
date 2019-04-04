@@ -28,6 +28,7 @@ def load_seed_tweets(count, filename)
   data = CSV.read(filename)
   tweets = []
   columns = [:user_id, :text, :tweet_type, :created_at, :updated_at]
+  author_ids = []
   data.each do |entry|
     break if entry[0].to_i > count
     tweets << Tweet.new(
@@ -37,10 +38,17 @@ def load_seed_tweets(count, filename)
       created_at: entry[2],
       updated_at: entry[2]
     )
+    author_ids << entry[0].to_i
   end
   r = Tweet.import(columns, tweets)
-  ids = r.ids
-  pp Tweet.where(id: ids)
+  # created_tweets = Tweet.where(id: r.ids)
+  # authors = User.where(id: author_ids)
+  # pp '*** CREATED TWEETS AND IDS ***'
+  # pp created_tweets.first
+  # pp authors.first
+  # authors.zip(created_tweets).each do |a, t|
+  #   fanout_helper(a, t)
+  # end
 end
 
 def create_test_user(count)
