@@ -21,8 +21,6 @@ post '/test/reset/all/?' do
   status 200
 end
 
-
-
 # Deletes all users, tweets and follows
 # Recreate TestUser
 # Imports data from standard seed data
@@ -45,9 +43,13 @@ end
 # {u} can be the user id of some user, or the keyword testuser
 # n is how many randomly generated tweets are submitted on that users behalf
 post '/test/user/:userid/tweets/?' do
-  print 'userid = ', params['userid'], ' count = ', params['count'], "\n"
   import_tweets_fanout(params['userid'].to_i, params['count'].to_i)
   status 200
 end
 
+
+post '/test/user/:userid/tweets/import?' do
+  import_tweets(params['userid'].to_i, params['count'].to_i)
+  status 200
+end
 

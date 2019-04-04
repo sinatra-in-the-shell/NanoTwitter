@@ -44,3 +44,10 @@ split to a user&follow service?
 		follow_api -> current_user, json the whole user
 
 replicate db to different services?
+
+
+
+### Redis ttl 
+
+1. Fanout ttl? 
+2. Friendship ttl should not be set
