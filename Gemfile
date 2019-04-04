@@ -14,6 +14,8 @@ gem "thin"
 # util
 gem "bcrypt"
 gem "redis"
+gem "sidekiq"
+gem  "dotenv"
 
 # db
 gem "pg"

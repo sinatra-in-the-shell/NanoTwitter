@@ -17,13 +17,13 @@ describe "test new tweets" do
     User.delete_all
     Follow.delete_all
 
-    post '/api/users', { email: 'frank@brandeis.edu', username: 'frank', password: '123456'}
+    post '/api/register', { email: 'frank@brandeis.edu', username: 'frank', password: '123456'}
     @user1 = User.find_by(username: 'frank')
 
-    post '/api/users', {email: 'yirunzhou@brandeis.edu', username: 'yirun', password: '123456'}
+    post '/api/register', {email: 'yirunzhou@brandeis.edu', username: 'yirun', password: '123456'}
     @user2 = User.find_by(username: 'yirun')
 
-    post '/api/users', {email: 'ziyuliu@brandeis.edu', username: 'ziyu', password: '123456'}
+    post '/api/register', {email: 'ziyuliu@brandeis.edu', username: 'ziyu', password: '123456'}
     @user3 = User.find_by(username: 'ziyu')
 
     delete '/api/logout'

@@ -1,3 +1,5 @@
+import { history } from "../App.js";
+
 export const sessionHelper = {
   isLoggedIn() {
     if(localStorage.getItem('isLoggedIn')) {
@@ -5,14 +7,20 @@ export const sessionHelper = {
     }
     return sessionStorage.getItem('isLoggedIn');
   },
+
   login(rememberMe) {
     sessionStorage.setItem('isLoggedIn', true);
     if(rememberMe) {
       localStorage.setItem('isLoggedIn', true);
     }
   },
-  logout() {
+
+  logout(location = null) {
     sessionStorage.removeItem('isLoggedIn');
     localStorage.removeItem('isLoggedIn');
-  }
+    history.push({
+      pathname: "/login",
+      state: { from: location }
+    });
+  },
 };

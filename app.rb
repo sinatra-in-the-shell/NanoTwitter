@@ -13,7 +13,9 @@ require 'faker'
 require 'activerecord-import'
 require 'newrelic_rpm'
 require 'redis'
+require 'sidekiq'
 require 'securerandom'
+require 'dotenv/load'
 
 Dir["./models/*.rb"].each {|file| require file }
 
@@ -25,13 +27,21 @@ helpers do
   Dir["./helpers/*.rb"].each {|file| require file }
 end
 
+Sidekiq.configure_client do |config|
+  config.redis = { url: ENV['SIDEKIQ_URL'] }
+end
+
+$friendship_redis = RedisClient.new(ENV['HEROKU_REDIS_COBALT_URL'])
+$timeline_redis = RedisClient.new(ENV['REDIS_URL'])
+
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
            || request.path_info.include?('test')\
-           || request.path_info.include?('api') \
            || request.path_info.include?('loaderio-b2296ad8f5d2ab4dfcc4ce34a0d36fa8')
   if not logged_in?
-    if request.get?
+    if request.path_info.include?('api')
+      halt 401, {errors: 'not logged in'}.to_json
+    elsif request.get?
       redirect '/login', 303
     else
       halt 401, 'not logged in'

@@ -18,35 +18,28 @@ describe "test timeline" do
     Follow.delete_all
     Tweet.delete_all
 
-    post '/api/users', { email: 'frank@brandeis.edu', username: 'frank', password: '123456'}
-    @user1 = User.find_by(username: 'frank')
-    post '/api/users', {email: 'yirunzhou@brandeis.edu', username: 'yirun', password: '123456'}
-    @user2 = User.find_by(username: 'yirun')
-    post '/api/users', {email: 'ziyuliu@brandeis.edu', username: 'ziyu', password: '123456'}
-    @user3 = User.find_by(username: 'ziyu')
+    @user1 = User.new(email: 'frank@brandeis.edu', username: 'frank')
+    @user1.password = '123456'
+    @user1.save!
+    @user2 = User.new(email: 'yirunzhou@brandeis.edu', username: 'yirun')
+    @user2.password = '123456'
+    @user2.save!
+    @user3 = User.new(email: 'ziyuliu@brandeis.edu', username: 'ziyu')
+    @user3.password = '123456'
+    @user3.save!
 
-    delete '/api/logout'
+    @user1.follow @user3
+    @user2.follow @user3
 
-    post '/api/follows', {test_user: @user1.id, to_user_id: @user3.id}
-    post '/api/follows', {test_user: @user2.id, to_user_id: @user3.id}
-  
-    post '/api/tweets', {test_user: @user3.id, 
-                        comment_to_id: 0,
-                        retweet_from_id: 0,
-                        text: 'this is a testing tweet',
-                        tweet_type: 'orig'}
-
-    post '/api/tweets', {test_user: @user3.id, 
-                        comment_to_id: 0,
-                        retweet_from_id: 0,
-                        text: 'this is a testing tweet sent in a later time',
-                        tweet_type: 'orig'}
-
-    post '/api/tweets', {test_user: @user3.id, 
-                        comment_to_id: 0,
-                        retweet_from_id: 0,
-                        text: 'this is a testing tweet sent in an even later time',
-                        tweet_type: 'orig'}
+    Tweet.create user_id: @user3.id,
+                 text: 'this is a testing tweet',
+                 tweet_type: 'orig'
+    Tweet.create user_id: @user3.id,
+                 text: 'this is a testing tweet sent in a later time',
+                 tweet_type: 'orig'
+    Tweet.create user_id: @user3.id,
+                 text: 'this is a testing tweet sent in an even later time',
+                 tweet_type: 'orig'
   end
 
   # TODO: should add a redis for testing

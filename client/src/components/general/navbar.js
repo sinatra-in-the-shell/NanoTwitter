@@ -116,6 +116,18 @@ class Navbar extends React.Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
+  handleSignOut = () => {
+    this.handleMenuClose();
+
+    nanoAPI.logout()
+    .then(function(json) {
+      sessionHelper.logout();
+    })
+    .catch(function(error) {
+      alert("Fail!");
+    });
+  }
+
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
@@ -132,7 +144,7 @@ class Navbar extends React.Component {
       >
         <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
-        <MenuItem onClick={this.handleMenuClose}><LogoutButton /></MenuItem>
+        <MenuItem onClick={this.handleSignOut}>Sign out</MenuItem>
       </Menu>
     );
 
@@ -231,28 +243,3 @@ Navbar.propTypes = {
 };
 
 export default withStyles(styles)(Navbar);
-
-const LogoutButton = withRouter(
-  function({ history }) {
-    return (
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        onClick={(e)=>{
-          e.preventDefault();
-          nanoAPI.logout()
-          .then(function(json) {
-            sessionHelper.logout();
-            history.push("/login");
-          })
-          .catch(function(error) {
-            alert("Fail!");
-          });
-        }}
-      >
-        Sign out
-      </Button>
-    )
-  }
-);

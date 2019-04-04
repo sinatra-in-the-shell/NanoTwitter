@@ -1,12 +1,15 @@
 def login user
-  puts "logging in"
   session[:user_id] = user.id
 end
 
 def remember(user)
   user.remember
-  cookies[:user_id] = user.id
-  cookies[:remember_token] = user.remember_token
+  response.set_cookie :user_id,
+                      value: user.id,
+                      expires: Time.now + 3600*24*365
+  response.set_cookie :remember_token,
+                      value: user.remember_token,
+                      expires: Time.now + 3600*24*365
 end
 
 def current_user
@@ -34,7 +37,6 @@ def forget(user)
 end
 
 def log_out
-  puts "logging out"
   forget(current_user)
   session.delete(:user_id)
   @current_user = nil

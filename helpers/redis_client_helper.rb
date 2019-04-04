@@ -22,7 +22,7 @@ class RedisClient
 
   def push_results(key, db_results)
     db_results.each do |r|
-      @redis_client.lpush(key, r.to_json)
+      @redis_client.rpush(key, r.to_json)
     end
   end
 
