@@ -99,3 +99,6 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 
 ### NT0.7
 * Updated fanout and follow api to allow only one global Redis client, passed load testing with multiple clients at a time - Yirun Zhou
+* Implemented multiple api call method for frontend api library [nanoAPI](https://github.com/sinatra-in-the-shell/NanoTwitter/blob/master/client/src/nanoAPI.js) - Fengzhencheng Zeng
+* Fixed credential system so that advanced login are fully functional - Fengzhencheng Zeng
+* Added test status page at frontend - Ziyu Liu
