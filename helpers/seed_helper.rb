@@ -10,6 +10,7 @@ def load_seed_users(count, filenmame)
   User.import users
 end
 
+# TODO: friendship redis should have all info or just ids?
 
 def load_seed_follows(count, filename)
   data = CSV.read(filename, converters: :numeric)
@@ -19,6 +20,7 @@ def load_seed_follows(count, filename)
     begin
       Follow.create(from_user_id: entry[0], to_user_id: entry[1])
       $followers_redis.push_single(entry[1], User.find(entry[0]))
+      $leaders_redis.push_single(entry[0], User.find(entry[1]))
     rescue
       puts 'data voilated unique follow constrain, skiped'
     end
@@ -26,12 +28,10 @@ def load_seed_follows(count, filename)
 end
 
 # TODO: seed fanout
-
 def load_seed_tweets(count, filename)
   data = CSV.read(filename)
   tweets = []
   columns = [:user_id, :text, :tweet_type, :created_at, :updated_at]
-  author_ids = []
   data.each do |entry|
     break if entry[0].to_i > count
     tweets << Tweet.new(
@@ -41,7 +41,6 @@ def load_seed_tweets(count, filename)
       created_at: entry[2],
       updated_at: entry[2]
     )
-    author_ids << entry[0].to_i
   end
   r = Tweet.import(columns, tweets)
   imported_tweets = Tweet.find(r.ids)
