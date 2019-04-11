@@ -11,8 +11,7 @@ end
 
 describe "test timeline" do
   before do
-    redis_client = RedisClient.new(ENV['TEST_TIMELINE_REDIS'])
-    redis_client.clear
+    $timeline_redis.clear
 
     User.delete_all
     Follow.delete_all
@@ -54,5 +53,9 @@ describe "test timeline" do
 
     get '/api/timeline', {test_user: @user2.id}
     assert_equal 3, JSON.parse(last_response.body)['data'].length
+  end
+
+  after do
+    $timeline_redis.clear
   end
 end

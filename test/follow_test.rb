@@ -11,9 +11,8 @@ end
 
 describe "test new tweets" do
   before do
-    redis_client = RedisClient.new(ENV['TEST_FOLLOWERS_REDIS'])
-    redis_client.clear
-
+    $followers_redis.clear
+    
     User.delete_all
     Follow.delete_all
 
@@ -45,5 +44,9 @@ describe "test new tweets" do
 
     get '/api/followers', {test_user: @user3.id}
     assert_equal 2, JSON.parse(last_response.body)['data'].length
+  end
+
+  after do
+    $followers_redis.clear
   end
 end

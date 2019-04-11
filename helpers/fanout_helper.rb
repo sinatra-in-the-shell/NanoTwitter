@@ -5,7 +5,6 @@
 # fanout including username, or denormalize Tweet
 
 def fanout_helper(user_id, tweet)
-  # when no cache, do nothing
   return unless $timeline_redis.cached? user_id
 
   followers_ids = get_followers_ids user_id
