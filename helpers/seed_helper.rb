@@ -10,7 +10,6 @@ def load_seed_users(count, filenmame)
   User.import users
 end
 
-# TODO: friendship redis should have all info or just ids?
 def load_seed_follows(count, filename)
   data = CSV.read(filename, converters: :numeric)
   data.each do |entry|
@@ -26,7 +25,6 @@ def load_seed_follows(count, filename)
   end
 end
 
-# TODO: seed fanout
 def load_seed_tweets(count, filename)
   data = CSV.read(filename)
   tweets = []
@@ -41,14 +39,7 @@ def load_seed_tweets(count, filename)
       updated_at: entry[2]
     )
   end
-  r = Tweet.import(columns, tweets)
-  imported_tweets = Tweet.find(r.ids)
-
-  # TODO: fanout
-  imported_tweets.each do |it|
-    pp "fanout with author_id: #{it.user_id}, tweet_id: #{it.id}"
-    fanout_helper(it.user_id, it)
-  end
+  Tweet.import(columns, tweets)
 end
 
 def create_test_user(count)
