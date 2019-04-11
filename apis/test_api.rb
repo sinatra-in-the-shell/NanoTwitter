@@ -47,7 +47,6 @@ post '/test/user/:userid/tweets/?' do
   status 200
 end
 
-
 post '/test/user/:userid/tweets/import?' do
   import_tweets(params['userid'].to_i, params['count'].to_i)
   status 200

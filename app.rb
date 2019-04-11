@@ -16,6 +16,8 @@ require 'redis'
 require 'sidekiq'
 require 'securerandom'
 require 'dotenv/load'
+require 'bunny'
+require 'securerandom'
 
 Dir["./models/*.rb"].each {|file| require file }
 
@@ -31,8 +33,9 @@ Sidekiq.configure_client do |config|
   config.redis = { url: ENV['SIDEKIQ_URL'] }
 end
 
-$friendship_redis = RedisClient.new(ENV['HEROKU_REDIS_COBALT_URL'])
-$timeline_redis = RedisClient.new(ENV['REDIS_URL'])
+$followers_redis = RedisClient.new(ENV['FOLLOWERS_REDIS'])
+$leaders_redis = RedisClient.new(ENV['LEADERS_REDIS'])
+$timeline_redis = RedisClient.new(ENV['TIMELINE_REDIS'])
 
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
