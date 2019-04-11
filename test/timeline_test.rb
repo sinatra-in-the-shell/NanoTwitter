@@ -42,13 +42,15 @@ describe "test timeline" do
                  tweet_type: 'orig'
   end
 
-  # TODO: should add a redis for testing
   it 'timeline testing' do
     get '/api/timeline', {test_user: @user1.id}
     timeline = JSON.parse(last_response.body)['data']
     assert_equal 'this is a testing tweet', timeline[2]['text']
     assert_equal 'this is a testing tweet sent in a later time', timeline[1]['text']
     assert_equal 'this is a testing tweet sent in an even later time', timeline[0]['text']
+
+    get '/api/timeline', {test_user: @user2.id}
+    assert_equal 3, JSON.parse(last_response.body)['data'].length
 
     get '/api/timeline', {test_user: @user2.id}
     assert_equal 3, JSON.parse(last_response.body)['data'].length

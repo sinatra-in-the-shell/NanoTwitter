@@ -42,5 +42,8 @@ describe "test new tweets" do
   it 'followers' do
     get '/api/followers', {test_user: @user3.id}
     assert_equal 2, JSON.parse(last_response.body)['data'].length
+
+    get '/api/followers', {test_user: @user3.id}
+    assert_equal 2, JSON.parse(last_response.body)['data'].length
   end
 end
