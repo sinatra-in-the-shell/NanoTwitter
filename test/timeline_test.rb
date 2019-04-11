@@ -11,7 +11,7 @@ end
 
 describe "test timeline" do
   before do
-    redis_client = RedisClient.new(ENV['REDIS_URL'] || 'redis://localhost:6379')
+    redis_client = RedisClient.new(ENV['TIMELINE_REDIS'])
     redis_client.clear
 
     User.delete_all
