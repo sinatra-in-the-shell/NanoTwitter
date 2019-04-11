@@ -14,8 +14,7 @@ post '/api/tweets/?' do
     @tweet.hashtags << @tag
   end
   if @tweet.save
-    # fanout after save 
-    fanout_helper(@user, @tweet)
+    fanout_helper(@user.id, @tweet)
     json_response 200, @tweet
   else
     json_response 400, nil, @tweet.errors.full_messages

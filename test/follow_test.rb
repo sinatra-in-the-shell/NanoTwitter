@@ -11,7 +11,7 @@ end
 
 describe "test new tweets" do
   before do
-    redis_client = RedisClient.new(ENV['FOLLOWERS_REDIS'])
+    redis_client = RedisClient.new(ENV['TEST_FOLLOWERS_REDIS'])
     redis_client.clear
 
     User.delete_all
