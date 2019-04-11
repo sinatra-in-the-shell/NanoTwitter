@@ -1,6 +1,6 @@
 get '/api/timeline/?' do
   user = current_user
-  limit = params['limit'] || 20
+  limit = params['limit'] || 50
 
   if $timeline_redis.cached?(user.id)
     begin
@@ -32,7 +32,7 @@ end
 
 get '/api/timeline/uncached/?' do
   user = current_user
-  limit = params['limit'] || 20
+  limit = params['limit'] || 50
   @timeline = Tweet.find_by_sql(["
       SELECT DISTINCT tweets.*
       FROM tweets, follows

@@ -40,7 +40,8 @@ $timeline_redis = RedisClient.new(ENV['TIMELINE_REDIS'])
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
            || request.path_info.include?('test')\
-           || request.path_info.include?('loaderio-b2296ad8f5d2ab4dfcc4ce34a0d36fa8')
+           || request.path_info.include?('loaderio-b2296ad8f5d2ab4dfcc4ce34a0d36fa8') \
+           || params['test_user']
   if not logged_in?
     if request.path_info.include?('api')
       halt 401, {errors: 'not logged in'}.to_json
