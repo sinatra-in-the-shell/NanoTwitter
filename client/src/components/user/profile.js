@@ -9,6 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 import indigo from '@material-ui/core/colors/indigo';
 import Grid from '@material-ui/core/Grid';
 
+import Link from '../general/link'
+
 const styles = theme => ({
     media: {
       height: 110,
@@ -54,9 +56,9 @@ class Profile extends React.Component {
       me.setState({
         username: user.username,
         displayname: user.displayname,
-        tweets: 0,
-        followers: 0,
-        followings: 0,
+        tweets: user.tweet_number,
+        followers: user.follower_number,
+        followings: user.following_number,
       });
     })
     .catch(function(error) {
@@ -82,7 +84,9 @@ class Profile extends React.Component {
               </Grid>
               <Grid item xs={8} md={8} lg={8}>
                 <Typography variant="title">
-                  {this.state.username}
+                  <Link to="/fake">
+                    {this.state.username}
+                  </Link>
                 </Typography>
                 <Typography gutterBottom variant="caption">
                   {this.state.displayname}

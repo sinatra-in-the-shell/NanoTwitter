@@ -39,15 +39,11 @@ class TweetCollection extends React.Component {
           <Tweet
             className={classes.paper}
             text={tweet.text}
+            userDisplayname={tweet.user.displayname}
+            createdAt={tweet.created_at}
           />
         )
       });
-      tweets.push(
-        <Tweet
-          className={classes.paper}
-          text="Test text"
-        />
-      );
       me.setState({ tweets: tweets });
     })
     .catch(function(error) {

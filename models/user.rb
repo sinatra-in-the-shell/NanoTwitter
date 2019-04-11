@@ -40,14 +40,28 @@ class User < ActiveRecord::Base
     end
   }
 
+  # aux fields
+  def follower_number
+    self.followers.count
+  end
+
+  def following_number
+    self.following.count
+  end
+
+  def tweet_number
+    self.tweets.count
+  end
+
   # utils
   def User.new_token
     SecureRandom.urlsafe_base64
   end
 
   # methods
-  def to_json
-    super(except: :password)
+  def to_json options
+    options[:except] = :password
+    super(options)
   end
 
   def follow(other_user)

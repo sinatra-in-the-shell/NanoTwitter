@@ -65,8 +65,8 @@ class Tweet extends React.Component {
               <MoreVertIcon />
             </IconButton>
           }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
+          title={this.props.userDisplayname}
+          subheader={this.props.createdAt}
         />
         <CardContent>
           <Typography component="p">

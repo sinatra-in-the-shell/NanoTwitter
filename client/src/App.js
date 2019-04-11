@@ -6,15 +6,18 @@ import { sessionHelper } from './helpers/session'
 import SignIn from './components/user/login'
 import Register from './components/user/register'
 import UserHome from './components/home'
+import UserMain from './components/userMain'
 import Status from './components/test/status'
 
 export const history = createBrowserHistory();
 
 function App() {
+  console.log(history);
   return (
     <Router history={history}>
       <div>
         <PrivateRoute exact path="/" component={UserHome} />
+        <PrivateRoute path="/user/:username" component={UserMain} />
         <Route path="/login" component={SignIn} />
         <Route path='/register' component={Register} />
         <Route path='/test/status' component={Status} />
