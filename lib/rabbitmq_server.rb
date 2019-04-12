@@ -91,7 +91,7 @@ class TimelineServer
       leaders_tweets.concat Tweet.where('user.id' => leader_id).desc(:created_at).limit(limit)
     end
     leaders_tweets.sort_by { |t| t[:created_at] }.reverse!
-    leaders_tweets
+    leaders_tweets.slice(0, 50)
   end
 
   # TODO: create leaders_redis

@@ -12,6 +12,8 @@ end
 describe "test timeline" do
   before do
     $timeline_redis.clear
+    $leaders_redis.clear
+    $followers_redis.clear
 
     User.delete_all
     Follow.delete_all
@@ -27,9 +29,8 @@ describe "test timeline" do
     @user3.password = '123456'
     @user3.save!
 
-    @user1.follow @user3
-    @user2.follow @user3
-
+    post '/api/follows', {test_user: @user1.id, to_user_id: @user3.id}
+    post '/api/follows', {test_user: @user2.id, to_user_id: @user3.id}
     Tweet.create user_id: @user3.id,
                  text: 'this is a testing tweet',
                  tweet_type: 'orig'
@@ -57,5 +58,7 @@ describe "test timeline" do
 
   after do
     $timeline_redis.clear
+    $leaders_redis.clear
+    $followers_redis.clear
   end
 end
