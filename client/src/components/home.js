@@ -53,7 +53,7 @@ function UserHome(props) {
             <Profile
               className={classes.profile}
               sourceAPI={nanoAPI.userProfile}
-              userId={'current'}
+              username={'i'}
             />
           </Grid>
 

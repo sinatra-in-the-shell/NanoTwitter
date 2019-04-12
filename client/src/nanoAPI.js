@@ -33,8 +33,8 @@ export const nanoAPI = {
     }).then(errorHandler);
   },
 
-  userProfile(id) {
-    return fetch('/api/users/'+id, {
+  userProfile(username) {
+    return fetch('/api/users/'+username, {
       method: 'GET'
     }).then(errorHandler);
   },
@@ -45,8 +45,8 @@ export const nanoAPI = {
     }).then(errorHandler);
   },
 
-  userTweets(id) {
-    return fetch('/api/users/'+id+'/tweets', {
+  userTweets(username) {
+    return fetch('/api/users/'+username+'/tweets', {
       method: 'GET'
     }).then(errorHandler);
   },

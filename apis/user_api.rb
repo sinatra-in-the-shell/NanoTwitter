@@ -9,20 +9,30 @@ get '/api/users/?' do
   end
 end
 
-get '/api/users/:id/?' do
-  @user = (params[:id]=='current') ?
-    current_user : User.find(params[:id])
+get '/api/users/:username/?' do
+  @user = (params[:username]=='i') ?
+    current_user : User.find_by(username: params[:username])
   if @user
-    json_response 200, @user
+    json_response 200, @user.as_json(
+      methods: [
+        :follower_number,
+        :following_number,
+        :tweet_number
+      ]
+    )
   else
     json_response 404, nil
   end
 end
 
-get '/api/users/:id/tweets/?' do
-  @tweets = User.find(params[:id]).tweets
+get '/api/users/:username/tweets/?' do
+  @tweets = User.find_by(username: params[:username]).tweets
   if @tweets
-    json_response 200, @tweets.to_a
+    json_response 200, @tweets.as_json(include:
+      {
+        user: { only: [:username, :display_name] }
+      }
+    )
   else
     json_response 404, nil
   end

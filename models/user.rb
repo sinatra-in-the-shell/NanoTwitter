@@ -60,7 +60,22 @@ class User < ActiveRecord::Base
 
   # methods
   def to_json options
-    options[:except] = :password
+    options[:except] = [
+      :password,
+      :password_hash,
+      :remember_token,
+      :remember_digest
+    ]
+    super(options)
+  end
+
+  def as_json options
+    options[:except] = [
+      :password,
+      :password_hash,
+      :remember_token,
+      :remember_digest
+    ]
     super(options)
   end
 

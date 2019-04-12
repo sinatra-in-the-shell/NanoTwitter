@@ -39,7 +39,7 @@ class TweetCollection extends React.Component {
           <Tweet
             className={classes.paper}
             text={tweet.text}
-            userDisplayname={tweet.user.displayname}
+            userDisplayname={tweet.user.display_name}
             createdAt={tweet.created_at}
           />
         )

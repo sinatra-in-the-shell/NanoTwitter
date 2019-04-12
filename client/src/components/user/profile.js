@@ -50,7 +50,7 @@ class Profile extends React.Component {
     const userProfile = this.props.sourceAPI;
     const me = this;
 
-    userProfile(this.props.userId)
+    userProfile(this.props.username)
     .then(function(json) {
       let user = json.data
       me.setState({
@@ -84,7 +84,7 @@ class Profile extends React.Component {
               </Grid>
               <Grid item xs={8} md={8} lg={8}>
                 <Typography variant="title">
-                  <Link to="/fake">
+                  <Link to={"/u/"+this.state.username}>
                     {this.state.username}
                   </Link>
                 </Typography>

@@ -17,7 +17,7 @@ function App() {
     <Router history={history}>
       <div>
         <PrivateRoute exact path="/" component={UserHome} />
-        <PrivateRoute path="/user/:username" component={UserMain} />
+        <PrivateRoute path="/u/:username" component={UserMain} />
         <Route path="/login" component={SignIn} />
         <Route path='/register' component={Register} />
         <Route path='/test/status' component={Status} />

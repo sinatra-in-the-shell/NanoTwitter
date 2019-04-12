@@ -9,7 +9,7 @@ get '/api/timeline/?' do
     rescue StandardError => e
       json_response 400, e.message
     end
-  else 
+  else
     @timeline = Tweet.find_by_sql(["
       SELECT DISTINCT tweets.*
       FROM tweets, follows
@@ -22,8 +22,19 @@ get '/api/timeline/?' do
     ", user.id, user.id, limit])
 
     begin
-      $timeline_redis.push_results(user.id, @timeline)
-      json_response 200, @timeline
+      $timeline_redis.push_results(
+        user.id,
+        @timeline.as_json(include:
+          {
+            user: { only: [:username, :display_name] }
+          }
+        )
+      )
+      json_response 200, @timeline.as_json(include:
+        {
+          user: { only: [:username, :display_name] }
+        }
+      )
     rescue StandardError => e
       json_response 400, e.message
     end
@@ -43,7 +54,7 @@ get '/api/timeline/uncached/?' do
       ORDER BY tweets.updated_at DESC
       LIMIT ?
     ", user.id, user.id, limit])
-  
+
   if @timeline
     json_response 200, @timeline
   else

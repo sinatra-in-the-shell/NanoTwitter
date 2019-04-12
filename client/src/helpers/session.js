@@ -20,7 +20,7 @@ export const sessionHelper = {
     localStorage.removeItem('isLoggedIn');
     history.push({
       pathname: "/login",
-      state: { from: location }
+      state: { from: history.location }
     });
   },
 };
