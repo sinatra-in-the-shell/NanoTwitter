@@ -31,6 +31,10 @@ describe "test timeline" do
 
     post '/api/follows', {test_user: @user1.id, to_user_id: @user3.id}
     post '/api/follows', {test_user: @user2.id, to_user_id: @user3.id}
+
+    pp "user3 followers"
+    pp @user3.followers
+
     Tweet.create user_id: @user3.id,
                  text: 'this is a testing tweet',
                  tweet_type: 'orig'
