@@ -10,6 +10,8 @@ get '/api/timeline/?' do
       json_response 400, e.message
     end
   else 
+    # change from SQL to get_timeline methods in timeline_helper.rb
+    # has been prepared for separating services
     @timeline = get_timeline(user.id, limit)
     return if params['uncached']
     begin

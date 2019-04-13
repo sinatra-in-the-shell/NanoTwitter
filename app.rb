@@ -33,9 +33,13 @@ Sidekiq.configure_client do |config|
   config.redis = { url: ENV['SIDEKIQ_URL'] }
 end
 
+# init redis client, maybe put into another file for cleaness
 $followers_redis = RedisClient.new(ENV['FOLLOWERS_REDIS'])
 $leaders_redis = RedisClient.new(ENV['LEADERS_REDIS'])
 $timeline_redis = RedisClient.new(ENV['TIMELINE_REDIS'])
+$followers_redis.clear
+$leaders_redis.clear
+$timeline_redis.clear
 
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \

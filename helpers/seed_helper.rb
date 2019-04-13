@@ -10,6 +10,7 @@ def load_seed_users(count, filenmame)
   User.import users
 end
 
+# add to leaders and followers buckets in corresponding redis
 def load_seed_follows(count, filename)
   data = CSV.read(filename, converters: :numeric)
   data.each do |entry|

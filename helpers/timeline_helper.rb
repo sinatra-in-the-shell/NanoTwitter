@@ -1,3 +1,4 @@
+# get leaders ids from redis and then get leaders tweet, then sort
 def get_timeline(user_id, limit)
   leaders_ids = get_leaders_ids(user_id)
   return [] if leaders_ids.nil?
