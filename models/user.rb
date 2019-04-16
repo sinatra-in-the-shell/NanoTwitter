@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :active_relationships, class_name: 'Follow',
            foreign_key: 'from_user_id',
            dependent: :destroy
-  has_many :following, through: :active_relationships, source: :to_user
+  has_many :followings, through: :active_relationships, source: :to_user
 
   has_many :passive_relationships, class_name: 'Follow',
            foreign_key: 'to_user_id',
@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   end
 
   def following_number
-    self.following.count
+    self.followings.count
   end
 
   def tweet_number
@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   end
 
   # methods
-  def to_json options
+  def to_json options={}
     options[:except] = [
       :password,
       :password_hash,
@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
     super(options)
   end
 
-  def as_json options
+  def as_json options={}
     options[:except] = [
       :password,
       :password_hash,

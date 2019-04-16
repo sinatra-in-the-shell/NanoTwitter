@@ -27,8 +27,6 @@ helpers do
   Dir["./helpers/*.rb"].each {|file| require file }
 end
 
-pp ENV['HEROKU_REDIS_COBALT_URL']
-
 $friendship_redis = RedisClient.new(ENV['HEROKU_REDIS_COBALT_URL'])
 $timeline_redis = RedisClient.new(ENV['REDIS_URL'])
 
