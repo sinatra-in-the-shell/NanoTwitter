@@ -1,5 +1,5 @@
 # Test Interfaces
-get '/api/status/?' do
+get '/test/status/?' do
   @testuser = User.find_by(email: "testuser@sample.com")
   @res = {
     test_id: @testuser.id,
@@ -7,9 +7,7 @@ get '/api/status/?' do
     follow_count: Follow.count,
     tweet_count: Tweet.count
   }
-  status 200
-  content_type :json
-  @res.to_json
+  json_response 200, @res
 end
 
 # If needed deletes all users, tweets, follows
