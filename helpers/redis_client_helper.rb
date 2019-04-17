@@ -16,22 +16,15 @@ class RedisClient
   end
 
   def get_list(key, lrange, rrange)
-    @redis_client.lrange(key, lrange, rrange)
+    @redis_client.get(key)
   end
 
   def get_json_list(key, lrange, rrange)
-    cached = @redis_client.lrange(key, lrange, rrange)
-    json_array = []
-    cached.each do |c|
-      json_array << JSON.parse(c)
-    end
-    json_array
+    JSON.parse @redis_client.get(key)
   end
 
   def push_results(key, db_results)
-    db_results.each do |r|
-      @redis_client.rpush(key, r.to_json)
-    end
+    @redis_client.set(key, db_results.to_json)
   end
 
   def push_single(key, result)
@@ -40,6 +33,10 @@ class RedisClient
 
   def pop_single(key)
     @redis_client.rpop(key)
+  end
+
+  def del(key)
+    @redis_client.del(key)
   end
 
   def clear
