@@ -92,14 +92,14 @@ class Register extends React.Component {
               <Input id="username" name="username" autoComplete="username" autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="display_name">Your Display Name</InputLabel>
+              <Input id="display_name" name="display_name" autoComplete="display_name" autoFocus />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
 
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth

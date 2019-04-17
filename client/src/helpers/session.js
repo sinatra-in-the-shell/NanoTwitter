@@ -1,4 +1,4 @@
-import { history } from "../App.js";
+import { history } from "../App";
 
 export const sessionHelper = {
   isLoggedIn() {
@@ -20,7 +20,7 @@ export const sessionHelper = {
     localStorage.removeItem('isLoggedIn');
     history.push({
       pathname: "/login",
-      state: { from: location }
+      state: { from: history.location }
     });
   },
 };

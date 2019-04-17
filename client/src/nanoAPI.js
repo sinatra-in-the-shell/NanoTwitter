@@ -5,7 +5,7 @@ function errorHandler(response) {
     if(response.ok) {
       return json;
     }
-    if(response.status==401) {
+    if(response.status===401) {
       return sessionHelper.logout();
     }
     throw new Error(json.errors);
@@ -33,8 +33,8 @@ export const nanoAPI = {
     }).then(errorHandler);
   },
 
-  userProfile(id) {
-    return fetch('/api/users/'+id, {
+  userProfile(username) {
+    return fetch('/api/users/'+username, {
       method: 'GET'
     }).then(errorHandler);
   },
@@ -45,8 +45,8 @@ export const nanoAPI = {
     }).then(errorHandler);
   },
 
-  userTweets(id) {
-    return fetch('/api/users/'+id+'/tweets', {
+  userTweets(username) {
+    return fetch('/api/users/'+username+'/tweets', {
       method: 'GET'
     }).then(errorHandler);
   },
@@ -54,6 +54,30 @@ export const nanoAPI = {
   postTweets(data) {
     return fetch('/api/tweets', {
       method: 'POST',
+      body: data,
+    }).then(errorHandler);
+  },
+
+  followings() {
+    return fetch('/api/follows/followings', {
+      method: 'GET'
+    }).then(errorHandler);
+  },
+
+  follow(id) {
+    const data = new FormData();
+    data.append('to_user_id', id);
+    return fetch('/api/follows', {
+      method: 'POST',
+      body: data,
+    }).then(errorHandler);
+  },
+
+  unfollow(id) {
+    const data = new FormData();
+    data.append('to_user_id', id);
+    return fetch('/api/follows', {
+      method: 'DELETE',
       body: data,
     }).then(errorHandler);
   },

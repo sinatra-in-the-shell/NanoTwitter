@@ -13,16 +13,33 @@ get '/api/timeline/?' do
     # change from SQL to get_timeline methods in timeline_helper.rb
     # has been prepared for separating services
     @timeline = get_timeline(user.id, limit)
-    return if params['uncached']
-    begin
-      $timeline_redis.push_results(user.id, @timeline)
-      json_response 200, @timeline
-    rescue StandardError => e
-      json_response 400, e.message
+    if params['uncached']
+      json_response 200, @timeline.as_json(include:
+        {
+          user: { only: [:username, :display_name] }
+        }
+      )
+    else
+      begin
+        $timeline_redis.push_results(
+          user.id,
+          @timeline.as_json(include:
+            {
+              user: { only: [:username, :display_name] }
+            }
+          )
+        )
+        json_response 200, @timeline.as_json(include:
+          {
+            user: { only: [:username, :display_name] }
+          }
+        )
+      rescue StandardError => e
+        json_response 400, e.message
+      end
     end
   end
 end
-
 
 # OLD SQL for timeline when services are not separated
     # @timeline = Tweet.find_by_sql(["

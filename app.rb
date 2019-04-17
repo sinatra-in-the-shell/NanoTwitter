@@ -29,6 +29,7 @@ helpers do
   Dir["./helpers/*.rb"].each {|file| require file }
 end
 
+
 Sidekiq.configure_client do |config|
   config.redis = { url: ENV['SIDEKIQ_URL'] }
 end

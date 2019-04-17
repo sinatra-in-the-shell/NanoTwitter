@@ -10,6 +10,7 @@ import TweetCollection from './tweet/tweetCollection'
 import TweetEditor from './tweet/tweetEditor'
 import Recommend from './user/recommend'
 import { nanoAPI } from '../nanoAPI'
+import { locationHelper } from '../helpers/location'
 
 const styles = theme => ({
   navbar: {
@@ -39,9 +40,9 @@ const styles = theme => ({
   },
 });
 
-function UserHome(props) {
+function UserMain(props) {
 
-  const { classes } = props;
+  const { classes, match } = props;
 
   return (
     <React.Fragment>
@@ -53,7 +54,7 @@ function UserHome(props) {
             <Profile
               className={classes.profile}
               sourceAPI={nanoAPI.userProfile}
-              username={'i'}
+              username={match.params.username}
             />
           </Grid>
 
@@ -61,12 +62,11 @@ function UserHome(props) {
             <TweetEditor className={classes.editor} />
             <TweetCollection
               className={classes.tcollection}
-              sourceAPI={nanoAPI.timeline}
+              sourceAPI={()=>nanoAPI.userTweets(match.params.username)}
             />
           </Grid>
 
           <Grid item xs={4} md={4} lg={3}>
-            <Recommend />
           </Grid>
         </Grid>
       </main>
@@ -74,8 +74,8 @@ function UserHome(props) {
   );
 }
 
-UserHome.propTypes = {
+UserMain.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UserHome);
+export default withStyles(styles)(UserMain);

@@ -25,8 +25,8 @@ describe "test user and follow" do
   end
 
   it 'should have follow relationships' do
-    @u1.following?(@u2).must_equal true
-    @u1.following?(@u3).must_equal true
+    @u1.followings?(@u2).must_equal true
+    @u1.followings?(@u3).must_equal true
 
     @u3.followers.include?(@u1).must_equal true
     @u3.followers.include?(@u2).must_equal true
