@@ -31,7 +31,7 @@ def load_seed_tweets(count, filename)
   columns = [:user_id, :text, :tweet_type, :created_at, :updated_at]
   row_count = 0
   CSV.foreach(filename) do |row|
-    if entry[0].to_i > count
+    if row[0].to_i > count
       break
     end
 
@@ -43,12 +43,12 @@ def load_seed_tweets(count, filename)
       updated_at: row[2]
     )
     row_count += 1
-    # flush the array every 1000 rows to limit memory usage 
+    # flush the array every 1000 rows to limit memory usage
     if (row_count % 1000).zero?
       Tweet.import(columns, tweets)
       tweets.clear
     end
-  end 
+  end
 end
 
 def create_test_user(count)
