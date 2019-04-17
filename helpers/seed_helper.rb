@@ -10,6 +10,7 @@ def load_seed_users(count, filenmame)
   User.import users
 end
 
+# add to leaders and followers buckets in corresponding redis
 def load_seed_follows(count, filename)
   data = CSV.read(filename, converters: :numeric)
   data.each do |entry|
@@ -17,10 +18,10 @@ def load_seed_follows(count, filename)
     next if entry[1] > count
     begin
       Follow.create(from_user_id: entry[0], to_user_id: entry[1])
-      redis_client = RedisClient.new(ENV['HEROKU_REDIS_COBALT_URL'] || 'redis://localhost:6380')
-      redis_client.push_single(entry[1], User.find(entry[0]))
+      $followers_redis.push_single(entry[1], User.find(entry[0]))
+      $leaders_redis.push_single(entry[0], User.find(entry[1]))
     rescue
-      puts 'data voilated unique follow constrain, skiped'
+      puts 'data voilated unique follow constrain, or something wrong with redis, skiped'
     end
   end
 end

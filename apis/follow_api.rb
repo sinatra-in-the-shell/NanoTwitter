@@ -11,9 +11,9 @@ end
 get '/api/follows/followers/?' do
   user = current_user
 
-  if $friendship_redis.cached?(user.id)
+  if $followers_redis.cached?(user.id)
     begin
-      followers = $friendship_redis.get_json_list(user.id, 0, -1)
+      followers = $followers_redis.get_json_list(user.id, 0, -1)
       json_response 200, followers
     rescue StandardError => e
       json_response 404, e.message
@@ -21,7 +21,7 @@ get '/api/follows/followers/?' do
   else
     @followers = user.followers
     begin
-      $friendship_redis.push_results(user.id, @followers)
+      $followers_redis.push_results(user.id, @followers)
       json_response 200, @followers.to_a
     rescue StandardError => e
       json_response 404, e.message
@@ -40,13 +40,15 @@ get '/api/follows/followings/?' do
 end
 
 post '/api/follows/?' do
-  user = current_user
+  from_user = current_user
+  to_user = User.find(params['to_user_id'])
   @follow = Follow.new(
-    from_user_id: user.id,
-    to_user_id: params['to_user_id']
+    from_user_id: from_user.id,
+    to_user_id: to_user.id
   )
   if @follow.save
-    # $friendship_redis.push_single(params['to_user_id'], user)
+    $followers_redis.push_single(to_user.id, from_user)
+    $leaders_redis.push_single(from_user.id, to_user)
     json_response 200, @follow
   else
     json_response 400, nil, @follow.errors.full_messages

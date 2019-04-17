@@ -11,8 +11,9 @@ end
 
 describe "test timeline" do
   before do
-    redis_client = RedisClient.new(ENV['REDIS_URL'] || 'redis://localhost:6379')
-    redis_client.clear
+    $timeline_redis.clear
+    $leaders_redis.clear
+    $followers_redis.clear
 
     User.delete_all
     Follow.delete_all
@@ -28,8 +29,11 @@ describe "test timeline" do
     @user3.password = '123456'
     @user3.save!
 
-    @user1.follow @user3
-    @user2.follow @user3
+    post '/api/follows', {test_user: @user1.id, to_user_id: @user3.id}
+    post '/api/follows', {test_user: @user2.id, to_user_id: @user3.id}
+
+    pp "user3 followers"
+    pp @user3.followers
 
     Tweet.create user_id: @user3.id,
                  text: 'this is a testing tweet',
@@ -42,7 +46,6 @@ describe "test timeline" do
                  tweet_type: 'orig'
   end
 
-  # TODO: should add a redis for testing
   it 'timeline testing' do
     get '/api/timeline', {test_user: @user1.id}
     timeline = JSON.parse(last_response.body)['data']
@@ -52,5 +55,14 @@ describe "test timeline" do
 
     get '/api/timeline', {test_user: @user2.id}
     assert_equal 3, JSON.parse(last_response.body)['data'].length
+
+    get '/api/timeline', {test_user: @user2.id}
+    assert_equal 3, JSON.parse(last_response.body)['data'].length
+  end
+
+  after do
+    $timeline_redis.clear
+    $leaders_redis.clear
+    $followers_redis.clear
   end
 end

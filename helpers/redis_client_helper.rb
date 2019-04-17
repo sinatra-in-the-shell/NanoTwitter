@@ -11,6 +11,14 @@ class RedisClient
     @redis_client.exists(key)
   end
 
+  def length(key)
+    @redis_client.llen(key)
+  end
+
+  def get_list(key, lrange, rrange)
+    @redis_client.lrange(key, lrange, rrange)
+  end
+
   def get_json_list(key, lrange, rrange)
     cached = @redis_client.lrange(key, lrange, rrange)
     json_array = []
@@ -28,6 +36,10 @@ class RedisClient
 
   def push_single(key, result)
     @redis_client.lpush(key, result.to_json)
+  end
+
+  def pop_single(key)
+    @redis_client.rpop(key)
   end
 
   def clear

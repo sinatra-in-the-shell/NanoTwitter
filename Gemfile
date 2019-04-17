@@ -14,7 +14,9 @@ gem "thin"
 # util
 gem "bcrypt"
 gem "redis"
+gem "sidekiq"
 gem  "dotenv"
+gem "bunny"
 
 # db
 gem "pg"
@@ -25,3 +27,4 @@ gem "byebug"
 gem "faker"
 gem "activerecord-import"
 gem 'newrelic_rpm'
+
