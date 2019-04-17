@@ -12,7 +12,7 @@ end
 describe "test new tweets" do
   before do
     $followers_redis.clear
-    
+
     User.delete_all
     Follow.delete_all
 
@@ -39,10 +39,10 @@ describe "test new tweets" do
   end
 
   it 'followers' do
-    get '/api/followers', {test_user: @user3.id}
+    get '/api/follows/followers', {test_user: @user3.id}
     assert_equal 2, JSON.parse(last_response.body)['data'].length
 
-    get '/api/followers', {test_user: @user3.id}
+    get '/api/follows/followers', {test_user: @user3.id}
     assert_equal 2, JSON.parse(last_response.body)['data'].length
   end
 
