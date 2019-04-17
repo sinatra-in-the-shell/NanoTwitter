@@ -16,6 +16,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
+import Link from '../general/link'
+
 const styles = theme => ({
   media: {
     height: 0,
@@ -65,7 +67,11 @@ class Tweet extends React.Component {
               <MoreVertIcon />
             </IconButton>
           }
-          title={this.props.userDisplayname}
+          title={
+            <Link to={"/u/"+this.props.username}>
+              {this.props.userDisplayname}
+            </Link>
+          }
           subheader={this.props.createdAt}
         />
         <CardContent>

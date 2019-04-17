@@ -1,5 +1,9 @@
 post '/api/register/?' do
-  @user = User.new(email: params[:email], username: params[:username])
+  @user = User.new(
+    email: params[:email],
+    username: params[:username],
+    display_name: params[:display_name]
+  )
   @user.password = params[:password]
   if @user.save
     login @user
@@ -9,7 +13,7 @@ post '/api/register/?' do
   end
 end
 
-post '/api/login/?' do 
+post '/api/login/?' do
   @user = User.find_by(email: params[:email])
   if @user && @user.password == params[:password]
     login @user
