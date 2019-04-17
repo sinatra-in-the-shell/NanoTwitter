@@ -27,20 +27,28 @@ def load_seed_follows(count, filename)
 end
 
 def load_seed_tweets(count, filename)
-  data = CSV.read(filename)
   tweets = []
   columns = [:user_id, :text, :tweet_type, :created_at, :updated_at]
-  data.each do |entry|
-    break if entry[0].to_i > count
+  row_count = 0
+  CSV.foreach(filename) do |row|
+    if entry[0].to_i > count
+      break
+    end
+
     tweets << Tweet.new(
-      user_id: entry[0].to_i,
-      text: entry[1],
+      user_id: row[0].to_i,
+      text: row[1],
       tweet_type: 'orig',
-      created_at: entry[2],
-      updated_at: entry[2]
+      created_at: row[2],
+      updated_at: row[2]
     )
-  end
-  Tweet.import(columns, tweets)
+    row_count += 1
+    # flush the array every 1000 rows to limit memory usage 
+    if (row_count % 1000).zero?
+      Tweet.import(columns, tweets)
+      tweets.clear
+    end
+  end 
 end
 
 def create_test_user(count)
