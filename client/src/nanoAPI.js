@@ -81,4 +81,10 @@ export const nanoAPI = {
       body: data,
     }).then(errorHandler);
   },
+
+  search(keyword) {
+    return fetch('/api/search/tweets?keyword='+keyword+'&maxresults=100', {
+      method: 'GET'
+    }).then(errorHandler);
+  },
 };

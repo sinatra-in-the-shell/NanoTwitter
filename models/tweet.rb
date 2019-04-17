@@ -12,7 +12,7 @@ class Tweet < ActiveRecord::Base
   # scopes
   scope :with_keyword, lambda { |keyword|
     unless keyword.nil?
-      where("text LIKE ?", "%#{keyword}%")
+      basic_search(text: keyword)
     end
   }
   scope :with_skip, lambda { |skip|
@@ -39,4 +39,8 @@ class Tweet < ActiveRecord::Base
   validates :user_id, presence: true
   validates :text, presence: true
   validates :tweet_type, presence: true
+
+  def self.searchable_columns
+    [:text]
+  end
 end

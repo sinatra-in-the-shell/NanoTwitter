@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 
 import Tweet from './tweet'
 
@@ -53,7 +49,6 @@ class TweetCollection extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
 
     return (
       <div className={this.props.className}>

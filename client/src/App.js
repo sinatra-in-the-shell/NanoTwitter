@@ -3,10 +3,11 @@ import { Router, Route, Redirect } from 'react-router';
 import { createBrowserHistory } from "history";
 
 import { sessionHelper } from './helpers/session'
-import SignIn from './components/user/login'
-import Register from './components/user/register'
+import SignIn from './components/login'
+import Register from './components/register'
 import UserHome from './components/home'
 import UserMain from './components/userMain'
+import Search from './components/search'
 import Status from './components/test/status'
 
 export const history = createBrowserHistory();
@@ -18,6 +19,7 @@ function App() {
       <div>
         <PrivateRoute exact path="/" component={UserHome} />
         <PrivateRoute path="/u/:username" component={UserMain} />
+        <PrivateRoute path="/search" component={Search} />
         <Route path="/login" component={SignIn} />
         <Route path='/register' component={Register} />
         <Route path='/test/status' component={Status} />

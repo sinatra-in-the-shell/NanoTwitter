@@ -13,8 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { Redirect } from 'react-router'
-import { sessionHelper } from '../../helpers/session'
-import { nanoAPI } from '../../nanoAPI'
+import { sessionHelper } from '../helpers/session'
+import { nanoAPI } from '../nanoAPI'
 
 const styles = theme => ({
   main: {
@@ -48,11 +48,15 @@ const styles = theme => ({
   },
 });
 
-class Register extends React.Component {
+class SignIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { redirectToReferrer: false };
+    this.state = { redirectToReferrer: false, rememberMe: false };
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleRemember() {
+    this.setState({ rememberMe: !this.state.rememberMe })
   }
 
   handleSubmit(event) {
@@ -60,13 +64,15 @@ class Register extends React.Component {
     const data = new FormData(event.target);
     const me = this;
 
-    nanoAPI.signup(data)
+    data.append('remember_me', this.state.rememberMe);
+
+    nanoAPI.login(data)
     .then(function(json) {
-      sessionHelper.login();
+      sessionHelper.login(me.state.rememberMe);
       me.setState({ redirectToReferrer: true });
     })
     .catch(function(error) {
-      alert(error.message);
+      alert('login failed!\n' + error.message);
     });
   }
 
@@ -80,7 +86,7 @@ class Register extends React.Component {
           <Avatar className={classes.avatar}>
           </Avatar>
           <Typography component="h1" variant="h5">
-            Register
+            Sign in
           </Typography>
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <FormControl margin="normal" required fullWidth>
@@ -88,18 +94,21 @@ class Register extends React.Component {
               <Input id="email" name="email" autoComplete="email" autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="username">Your Username</InputLabel>
-              <Input id="username" name="username" autoComplete="username" autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="display_name">Your Display Name</InputLabel>
-              <Input id="display_name" name="display_name" autoComplete="display_name" autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
-
+            <FormControlLabel
+              control={
+                <Checkbox
+                  value="remember"
+                  color="primary"
+                  onChange={e => {
+                    e.preventDefault();
+                    this.handleRemember();
+                  }} />
+              }
+              label="Remember me"
+            />
             <Button
               type="submit"
               fullWidth
@@ -107,7 +116,7 @@ class Register extends React.Component {
               color="primary"
               className={classes.submit}
             >
-              Register
+              Sign in
             </Button>
           </form>
         </Paper>
@@ -116,8 +125,8 @@ class Register extends React.Component {
   }
 }
 
-Register.propTypes = {
+SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Register);
+export default withStyles(styles)(SignIn);
