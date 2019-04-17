@@ -5,9 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Navbar from './general/navbar'
-import Profile from './user/profile'
 import TweetCollection from './tweet/tweetCollection'
 import { nanoAPI } from '../nanoAPI'
+import { locationHelper } from '../helpers/location'
 
 const styles = theme => ({
   navbar: {
@@ -37,9 +37,10 @@ const styles = theme => ({
   },
 });
 
-function UserMain(props) {
+function Search(props) {
 
-  const { classes, match } = props;
+  const { classes } = props;
+  const keyword = locationHelper.searchparams().search;
 
   return (
     <React.Fragment>
@@ -48,17 +49,16 @@ function UserMain(props) {
       <main className={classes.layout}>
         <Grid container className={classes.root} spacing={24}>
           <Grid item xs={4} md={4} lg={3}>
-            <Profile
-              className={classes.profile}
-              sourceAPI={nanoAPI.userProfile}
-              username={match.params.username}
-            />
           </Grid>
 
           <Grid item xs={4} md={4} lg={6}>
             <TweetCollection
               className={classes.tcollection}
-              sourceAPI={()=>nanoAPI.userTweets(match.params.username)}
+              sourceAPI={function() {
+                return (
+                  nanoAPI.search(keyword)
+                );
+              }}
             />
           </Grid>
 
@@ -70,8 +70,8 @@ function UserMain(props) {
   );
 }
 
-UserMain.propTypes = {
+Search.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UserMain);
+export default withStyles(styles)(Search);

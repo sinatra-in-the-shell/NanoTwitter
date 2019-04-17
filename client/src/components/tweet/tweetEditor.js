@@ -6,8 +6,6 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { Redirect } from 'react-router'
-import { sessionHelper } from '../../helpers/session'
 import { nanoAPI } from '../../nanoAPI'
 
 const styles = theme => ({

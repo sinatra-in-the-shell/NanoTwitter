@@ -4,8 +4,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
@@ -13,8 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { Redirect } from 'react-router'
-import { sessionHelper } from '../../helpers/session'
-import { nanoAPI } from '../../nanoAPI'
+import { sessionHelper } from '../helpers/session'
+import { nanoAPI } from '../nanoAPI'
 
 const styles = theme => ({
   main: {
@@ -48,15 +46,11 @@ const styles = theme => ({
   },
 });
 
-class SignIn extends React.Component {
+class Register extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { redirectToReferrer: false, rememberMe: false };
+    this.state = { redirectToReferrer: false };
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleRemember() {
-    this.setState({ rememberMe: !this.state.rememberMe })
   }
 
   handleSubmit(event) {
@@ -64,15 +58,13 @@ class SignIn extends React.Component {
     const data = new FormData(event.target);
     const me = this;
 
-    data.append('remember_me', this.state.rememberMe);
-
-    nanoAPI.login(data)
+    nanoAPI.signup(data)
     .then(function(json) {
-      sessionHelper.login(me.state.rememberMe);
+      sessionHelper.login();
       me.setState({ redirectToReferrer: true });
     })
     .catch(function(error) {
-      alert('login failed!\n' + error.message);
+      alert(error.message);
     });
   }
 
@@ -86,7 +78,7 @@ class SignIn extends React.Component {
           <Avatar className={classes.avatar}>
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Register
           </Typography>
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <FormControl margin="normal" required fullWidth>
@@ -94,21 +86,18 @@ class SignIn extends React.Component {
               <Input id="email" name="email" autoComplete="email" autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="username">Your Username</InputLabel>
+              <Input id="username" name="username" autoComplete="username" autoFocus />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="display_name">Your Display Name</InputLabel>
+              <Input id="display_name" name="display_name" autoComplete="display_name" autoFocus />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  value="remember"
-                  color="primary"
-                  onChange={e => {
-                    e.preventDefault();
-                    this.handleRemember();
-                  }} />
-              }
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth
@@ -116,7 +105,7 @@ class SignIn extends React.Component {
               color="primary"
               className={classes.submit}
             >
-              Sign in
+              Register
             </Button>
           </form>
         </Paper>
@@ -125,8 +114,8 @@ class SignIn extends React.Component {
   }
 }
 
-SignIn.propTypes = {
+Register.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(Register);

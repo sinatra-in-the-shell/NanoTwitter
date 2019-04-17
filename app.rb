@@ -2,6 +2,8 @@
 require 'sinatra'
 require 'sinatra/cookies'
 require 'sinatra/activerecord'
+require 'textacular'
+ActiveRecord::Base.extend(Textacular)
 ActiveRecord::Base.establish_connection(ENV['DATABASE_URL']) if ENV['DATABASE_URL']!=nil
 
 require 'byebug'

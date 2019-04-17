@@ -28,7 +28,11 @@ get '/api/search/tweets' do
                  .with_skip(skip)
                  .with_max(max_results)
   if @tweets
-    json_response 200, @tweets.to_a
+    json_response 200, @tweets.as_json(include:
+      {
+        user: { only: [:username, :display_name] }
+      }
+    )
   else
     json_response 404, @tweets.error.full_messages
   end
