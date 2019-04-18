@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_27_015129) do
+ActiveRecord::Schema.define(version: 2019_04_18_230813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2019_03_27_015129) do
     t.string "tweet_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "to_tsvector('english'::regconfig, text)", name: "tweets_to_tsvector_idx", using: :gin
     t.index ["comment_to_id"], name: "index_tweets_on_comment_to_id"
     t.index ["retweet_from_id"], name: "index_tweets_on_retweet_from_id"
     t.index ["user_id"], name: "index_tweets_on_user_id"
