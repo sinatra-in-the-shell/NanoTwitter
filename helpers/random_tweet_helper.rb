@@ -10,7 +10,7 @@ def import_tweets (user_id, num_tweets)
                         :retweet_from_id => 0)
   end
   r = Tweet.import(columns, tweets)
-  created_tweets =  Tweet.where(id: r.ids)
+  created_tweets = Tweet.where(id: r.ids)
   user = User.find(user_id)
   created_tweets.each do |ct|
     fanout_helper(user.id, ct)

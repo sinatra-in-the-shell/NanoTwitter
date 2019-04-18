@@ -40,7 +40,7 @@ end
 # POST /test/user/{u}/tweets?count=n
 # {u} can be the user id of some user, or the keyword testuser
 # n is how many randomly generated tweets are submitted on that users behalf
-post '/test/user/:userid/tweets/?' do
+post '/test/user/:user_id/tweets/?' do
   import_tweets(params['user_id'].to_i, params['count'].to_i)
   status 200
 end

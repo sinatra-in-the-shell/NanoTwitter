@@ -24,6 +24,9 @@ class RedisClient
   end
 
   def push_results(key, db_results)
+    if db_results == []
+      return
+    end
     @redis_client.lpush(key, db_results.map{|i| i.to_json})
   end
 
