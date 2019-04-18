@@ -5,8 +5,6 @@ def get_timeline(user_id, limit)
   leaders_ids = leaders.map {|l| l["id"]}
   leaders_tweets = Tweet.where(user_id: leaders_ids).limit(limit)
   sorted = leaders_tweets.sort_by { |t| t[:created_at] }.reverse!
-  $timeline_redis.push_results(user_id, sorted)
-  sorted
 end
 
 def get_leaders(user_id)
