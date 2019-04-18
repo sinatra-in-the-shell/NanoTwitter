@@ -33,6 +33,7 @@ class TweetCollection extends React.Component {
       let tweets = json.data.map(function(tweet) {
         return (
           <Tweet
+            key={tweet.id}
             className={classes.paper}
             text={tweet.text}
             username={tweet.user.username}

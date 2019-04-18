@@ -2,7 +2,6 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
@@ -137,65 +136,63 @@ class Profile extends React.Component {
     }
     return (
       <Card className={this.props.className}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image=""
-            title="User banner"
-          />
-          <CardContent>
+        <CardMedia
+          className={classes.media}
+          image=""
+          title="User banner"
+        />
+        <CardContent>
 
-            <Grid container spacing={0}>
-              <Grid item xs={4} md={4} lg={4}>
-                <Avatar alt="username" src="https://material-ui.com/static/images/avatar/1.jpg" className={this.props.classes.bigAvatar} />
-              </Grid>
-              <Grid item xs={4} md={4} lg={4}>
-                <Typography variant="title">
-                  <Link to={"/u/"+this.state.username}>
-                    {this.state.displayname}
-                  </Link>
-                </Typography>
-                <Typography gutterBottom variant="caption">
-                  <Link to={"/u/"+this.state.username}>
-                    {this.state.username}
-                  </Link>
-                </Typography>
-              </Grid>
-              <Grid item xs={2} md={2} lg={2}>
-                {followButton}
-              </Grid>
+          <Grid container spacing={0}>
+            <Grid item xs={4} md={4} lg={4}>
+              <Avatar alt="username" src="https://material-ui.com/static/images/avatar/1.jpg" className={this.props.classes.bigAvatar} />
+            </Grid>
+            <Grid item xs={4} md={4} lg={4}>
+              <Typography variant="title">
+                <Link to={"/u/"+this.state.username}>
+                  {this.state.displayname}
+                </Link>
+              </Typography>
+              <Typography gutterBottom variant="caption">
+                <Link to={"/u/"+this.state.username}>
+                  {this.state.username}
+                </Link>
+              </Typography>
+            </Grid>
+            <Grid item xs={2} md={2} lg={2}>
+              {followButton}
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={8} className={classes.infobox}>
+            <Grid item xs={4} md={4} lg={4}>
+              <Typography gutterBottom variant="caption" >
+                Tweets
+              </Typography>
+              <Typography variant="title" className={classes.link} >
+                {this.state.tweets}
+              </Typography>
+            </Grid>
+            <Grid item xs={4} md={4} lg={4}>
+              <Typography gutterBottom variant="caption" >
+                Followers
+              </Typography>
+              <Typography variant="title" className={classes.link} >
+                {this.state.followers}
+              </Typography>
+            </Grid>
+            <Grid item xs={4} md={4} lg={4}>
+              <Typography gutterBottom variant="caption" >
+                Following
+              </Typography>
+              <Typography variant="title" className={classes.link}>
+                {this.state.followings}
+              </Typography>
             </Grid>
 
-            <Grid container spacing={8} className={classes.infobox}>
-              <Grid item xs={4} md={4} lg={4}>
-                <Typography gutterBottom variant="caption" >
-                  Tweets
-                </Typography>
-                <Typography variant="title" className={classes.link} >
-                  {this.state.tweets}
-                </Typography>
-              </Grid>
-              <Grid item xs={4} md={4} lg={4}>
-                <Typography gutterBottom variant="caption" >
-                  Followers
-                </Typography>
-                <Typography variant="title" className={classes.link} >
-                  {this.state.followers}
-                </Typography>
-              </Grid>
-              <Grid item xs={4} md={4} lg={4}>
-                <Typography gutterBottom variant="caption" >
-                  Following
-                </Typography>
-                <Typography variant="title" className={classes.link}>
-                  {this.state.followings}
-                </Typography>
-              </Grid>
+          </Grid>
 
-            </Grid>
-
-          </CardContent>
-        </CardActionArea>
+        </CardContent>
       </Card>
     );
   }
