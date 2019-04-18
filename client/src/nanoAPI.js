@@ -1,4 +1,5 @@
 import { sessionHelper } from "./helpers/session"
+import { locationHelper } from "./helpers/location";
 
 function errorHandler(response) {
   return response.json().then(function(json) {
@@ -10,6 +11,14 @@ function errorHandler(response) {
     }
     throw new Error(json.errors);
   });
+}
+
+function testify(url) {
+  let test = locationHelper.searchparams().test_user;
+  if(test) {
+    url = url+'?test_user='+test;
+  }
+  return url;
 }
 
 export const nanoAPI = {
@@ -34,32 +43,32 @@ export const nanoAPI = {
   },
 
   userProfile(username) {
-    return fetch('/api/users/'+username, {
+    return fetch(testify('/api/users/'+username), {
       method: 'GET'
     }).then(errorHandler);
   },
 
   timeline() {
-    return fetch('/api/timeline', {
+    return fetch(testify('/api/timeline'), {
       method: 'GET'
     }).then(errorHandler);
   },
 
   userTweets(username) {
-    return fetch('/api/users/'+username+'/tweets', {
+    return fetch(testify('/api/users/'+username+'/tweets'), {
       method: 'GET'
     }).then(errorHandler);
   },
 
   postTweets(data) {
-    return fetch('/api/tweets', {
+    return fetch(testify('/api/tweets'), {
       method: 'POST',
       body: data,
     }).then(errorHandler);
   },
 
   followings() {
-    return fetch('/api/follows/followings', {
+    return fetch(testify('/api/follows/followings'), {
       method: 'GET'
     }).then(errorHandler);
   },
@@ -67,7 +76,7 @@ export const nanoAPI = {
   follow(id) {
     const data = new FormData();
     data.append('to_user_id', id);
-    return fetch('/api/follows', {
+    return fetch(testify('/api/follows'), {
       method: 'POST',
       body: data,
     }).then(errorHandler);
@@ -76,14 +85,19 @@ export const nanoAPI = {
   unfollow(id) {
     const data = new FormData();
     data.append('to_user_id', id);
-    return fetch('/api/follows', {
+    return fetch(testify('/api/follows'), {
       method: 'DELETE',
       body: data,
     }).then(errorHandler);
   },
 
   search(keyword) {
-    return fetch('/api/search/tweets?keyword='+keyword+'&maxresults=100', {
+    let url = '/api/search/tweets?keyword='+keyword+'&maxresults=50'
+    let test = locationHelper.searchparams().test_user;
+    if(test) {
+      url = url+'&test_user='+test;
+    }
+    return fetch(url, {
       method: 'GET'
     }).then(errorHandler);
   },
