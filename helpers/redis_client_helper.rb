@@ -8,7 +8,20 @@ class RedisClient
   end
 
   def cached?(key)
-    @redis_client.exists(key)
+    if @redis_client.exists(key)
+      @redis_client.del(key.to_s+'l', 't')
+      return true
+    elsif @redis_client.exists(key.to_s+'l')
+      loop do
+        sleep 0.01
+        break if @redis_client.exists(key)
+      end
+      @redis_client.del(key.to_s+'l', 't')
+      return true
+    else
+      @redis_client.set(key.to_s+'l', 't')
+    end
+    false
   end
 
   def length(key)
