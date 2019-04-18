@@ -20,11 +20,11 @@ class RedisClient
   end
 
   def get_json_list(key, lrange, rrange)
-    JSON.parse @redis_client.lrange(key, lrange, rrange)
+    @redis_client.lrange(key, lrange, rrange).map{|i| JSON.parse i}
   end
 
   def push_results(key, db_results)
-    @redis_client.lpush(key, db_results.to_json)
+    @redis_client.lpush(key, db_results.map{|i| i.to_json})
   end
 
   def push_single(key, result)
