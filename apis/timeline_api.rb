@@ -10,33 +10,26 @@ get '/api/timeline/?' do
       json_response 400, e.message
     end
   else 
+    @timeline = Tweet.find_by_sql(["
+      SELECT DISTINCT tweets.*, users.username
+      FROM tweets, follows, users
+      WHERE
+        follows.from_user_id = ? AND
+        users.id = tweets.user_id AND
+        (tweets.user_id = follows.to_user_id OR
+        tweets.user_id = ?)
+      ORDER BY tweets.updated_at DESC
+      LIMIT ?
+    ", user.id, user.id, limit])
+
     # change from SQL to get_timeline methods in timeline_helper.rb
     # has been prepared for separating services
-    @timeline = get_timeline(user.id, limit)
+    # @timeline = get_timeline(user.id, limit)
     if params['uncached']
-      json_response 200, @timeline.as_json(include:
-        {
-          user: { only: [:username, :display_name] }
-        }
-      )
+      json_response 200, @timeline
     else
-      begin
-        $timeline_redis.push_results(
-          user.id,
-          @timeline.as_json(include:
-            {
-              user: { only: [:username, :display_name] }
-            }
-          )
-        )
-        json_response 200, @timeline.as_json(include:
-          {
-            user: { only: [:username, :display_name] }
-          }
-        )
-      rescue StandardError => e
-        json_response 400, e.message
-      end
+      $timeline_redis.push_results(user.id, @timeline)
+      json_response 200, @timeline
     end
   end
 end
