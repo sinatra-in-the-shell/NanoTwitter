@@ -1,4 +1,4 @@
-class RabitClient
+class RabbitClient
   attr_accessor :calls, :connection, :channel, :helper,
                 :server_queue_name, :reply_queue, :exchange
 
