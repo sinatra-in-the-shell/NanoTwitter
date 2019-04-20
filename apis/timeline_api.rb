@@ -9,13 +9,12 @@ get '/api/timeline/?' do
     rescue StandardError => e
       json_response 400, e.message
     end
-  else 
+  else
     @timeline = Tweet.find_by_sql(["
-      SELECT DISTINCT tweets.*, users.username
-      FROM tweets, follows, users
+      SELECT DISTINCT tweets.*
+      FROM tweets, follows
       WHERE
         follows.from_user_id = ? AND
-        users.id = tweets.user_id AND
         (tweets.user_id = follows.to_user_id OR
         tweets.user_id = ?)
       ORDER BY tweets.updated_at DESC

@@ -4,6 +4,7 @@ def load_seed_users(count, filenmame)
   (0..count - 1).each do |i|
     users << User.new(id: data[i][0].to_i,
                       username: data[i][1],
+                      display_name: data[i][1],
                       email: Faker::Internet.unique.email,
                       password: '1234567')
   end
@@ -28,7 +29,11 @@ end
 
 def load_seed_tweets(count, filename)
   tweets = []
-  columns = [:user_id, :text, :tweet_type, :created_at, :updated_at]
+  columns = [
+    :user_id, :text, :tweet_type,
+    :created_at, :updated_at,
+    :username, :display_name
+  ]
   row_count = 0
   CSV.foreach(filename) do |row|
     if row[0].to_i > count
@@ -45,6 +50,14 @@ def load_seed_tweets(count, filename)
     row_count += 1
     # flush the array every 1000 rows to limit memory usage
     if (row_count % 1000).zero?
+      users = User.where(id: tweets.map{|t| t.user_id})
+                  .map{|u|
+                    [u.id, {username: u.username, display_name: u.display_name}]
+                  }
+      tweets.each{|t|
+        t.username = users[t.user_id][:username]
+        t.display_name = users[t.user_id][:display_name]
+      }
       Tweet.import(columns, tweets)
       tweets.clear
     end
