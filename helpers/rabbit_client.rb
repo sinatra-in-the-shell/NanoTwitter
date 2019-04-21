@@ -3,7 +3,11 @@ class RabbitClient
                 :server_queue_name, :reply_queue, :exchange
 
   def initialize(rabbit_url, server_queue_name)
-    @connection = Bunny.new(url: rabbit_url)
+    if rabbit_url
+      @connection = Bunny.new(url: rabbit_url)
+    else
+      @connection = Bunny.new
+    end
     @connection.start
 
     @channel = connection.create_channel
