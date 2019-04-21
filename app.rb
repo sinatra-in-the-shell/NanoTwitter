@@ -45,9 +45,9 @@ $leaders_redis.clear
 $timeline_redis.clear
 
 
-pp "*** RABBITMQ URL: #{ENV['RABBITMQ_URL']} ***"
-pp ENV['RABBITMQ_URL']
-$rabbit_client = RabbitClient.new(ENV['RABBITMQ_URL'], 'tweet_server')
+pp "*** RABBITMQ URL:} ***"
+pp ENV['CLOUDAMQP_URL']
+$rabbit_client = RabbitClient.new(ENV['CLOUDAMQP_URL'], 'tweet_server')
 
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
