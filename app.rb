@@ -44,6 +44,8 @@ $followers_redis.clear
 $leaders_redis.clear
 $timeline_redis.clear
 
+
+pp '*** RABBITMQ URL: #{ENV['RABBITMQ_URL']} ***'
 $rabbit_client = RabbitClient.new(ENV['RABBITMQ_URL'], 'tweet_server')
 
 before do
