@@ -6,7 +6,7 @@ class RabbitClient
     if rabbit_url
       pp "rrrrrrrrrrrrrrrrabbit"
       pp rabbit_url
-      @connection = Bunny.new(url: rabbit_url)
+      @connection = Bunny.new rabbit_url
     else
       @connection = Bunny.new
     end
