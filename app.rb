@@ -44,14 +44,10 @@ $followers_redis.clear
 $leaders_redis.clear
 $timeline_redis.clear
 
-pp $followers_redis
-pp $leaders_redis
-pp $timeline_redis
+pp "*** RABBITMQ URL:} ***"
+pp ENV['RABBITMQ_URL']
 
-# pp "*** RABBITMQ URL:} ***"
-# pp ENV['RABBITMQ_URL']
-
-# $rabbit_client = RabbitClient.new(ENV['RABBITMQ_URL'], 'tweet_server')
+$rabbit_client = RabbitClient.new(ENV['RABBITMQ_URL'], 'tweet_server')
 
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
