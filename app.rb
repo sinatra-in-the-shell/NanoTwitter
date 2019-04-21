@@ -44,6 +44,8 @@ $followers_redis.clear
 $leaders_redis.clear
 $timeline_redis.clear
 
+$rabbit_client = RabbitClient.new(ENV['RABBITMQ_URL'], 'tweet_server')
+
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
            || request.path_info.include?('test')\

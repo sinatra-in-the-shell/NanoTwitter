@@ -42,3 +42,11 @@ get '/api/tweets/:id/?' do
     json_response 404, nil
   end
 end
+
+post '/api/tweets/rpc/?' do
+  params['method'] = 'new_tweet'
+  params.delete 'test_user'
+  res = $rabbit_client.call params
+  pp res
+  json_response 200, JSON.parse(res)
+end
