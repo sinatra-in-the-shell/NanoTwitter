@@ -42,8 +42,8 @@ class TweetCollection extends React.Component {
             key={tweet.id}
             className={classes.paper}
             text={tweet.text}
-            username={tweet.user.username}
-            userDisplayname={tweet.user.display_name}
+            username={tweet.username}
+            userDisplayname={tweet.display_name}
             createdAt={tweet.created_at}
           />
         )

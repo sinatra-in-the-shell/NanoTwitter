@@ -5,7 +5,9 @@ post '/api/tweets/?' do
     comment_to_id: params['comment_to_id'],
     retweet_from_id: params['retweet_from_id'],
     text: params['text'],
-    tweet_type: params['tweet_type']
+    tweet_type: params['tweet_type'],
+    username: @user.username,
+    display_name: @user.display_name
   )
   #find hashtags in the tweet
   params['text'].scan(/#\w+/).flatten.each do |tag|
@@ -39,4 +41,12 @@ get '/api/tweets/:id/?' do
   else
     json_response 404, nil
   end
+end
+
+post '/api/tweets/rpc/?' do
+  params['method'] = 'new_tweet'
+  params.delete 'test_user'
+  res = $rabbit_client.call params
+  pp res
+  json_response 200, JSON.parse(res)
 end

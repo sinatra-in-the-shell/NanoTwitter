@@ -32,9 +32,9 @@ helpers do
 end
 
 
-Sidekiq.configure_client do |config|
-  config.redis = { url: ENV['SIDEKIQ_URL'] }
-end
+# Sidekiq.configure_client do |config|
+#   config.redis = { url: ENV['SIDEKIQ_URL'] }
+# end
 
 # init redis client, maybe put into another file for cleaness
 $followers_redis = RedisClient.new(ENV['FOLLOWERS_REDIS'])
@@ -43,6 +43,8 @@ $timeline_redis = RedisClient.new(ENV['TIMELINE_REDIS'])
 $followers_redis.clear
 $leaders_redis.clear
 $timeline_redis.clear
+
+$rabbit_client = RabbitClient.new(ENV['CLOUDAMQP_URL'], 'tweet_server')
 
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
