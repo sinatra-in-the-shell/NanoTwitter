@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
 
 import Navbar from './general/navbar'
 import Profile from './user/profile'
@@ -58,7 +59,11 @@ function UserHome(props) {
           </Grid>
 
           <Grid item xs={4} md={4} lg={6}>
-            <TweetEditor className={classes.editor} />
+            <Paper className={classes.editor}>
+              <TweetEditor
+                targetAPI={nanoAPI.postTweets}
+              />
+            </Paper>
             <TweetCollection
               className={classes.tcollection}
               sourceAPI={nanoAPI.timeline}

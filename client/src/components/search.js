@@ -8,6 +8,7 @@ import Navbar from './general/navbar'
 import TweetCollection from './tweet/tweetCollection'
 import { nanoAPI } from '../nanoAPI'
 import { locationHelper } from '../helpers/location'
+import { history } from "../App";
 
 const styles = theme => ({
   navbar: {
@@ -37,37 +38,49 @@ const styles = theme => ({
   },
 });
 
-function Search(props) {
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      keyword: locationHelper.searchparams().search
+    };
+    const me = this;
+    history.listen((location, action)=>{
+      me.setState({ keyword: locationHelper.searchparams().search });
+    });
+  }
 
-  const { classes } = props;
-  const keyword = locationHelper.searchparams().search;
+  render() {
+    const { classes } = this.props;
+    const me = this;
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <Navbar position="static" />
-      <main className={classes.layout}>
-        <Grid container className={classes.root} spacing={24}>
-          <Grid item xs={4} md={4} lg={3}>
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <Navbar position="static" />
+        <main className={classes.layout}>
+          <Grid container className={classes.root} spacing={24}>
+            <Grid item xs={4} md={4} lg={3}>
+            </Grid>
+
+            <Grid item xs={4} md={4} lg={6}>
+              <TweetCollection
+                className={classes.tcollection}
+                sourceAPI={function() {
+                  return (
+                    nanoAPI.search(me.state.keyword)
+                  );
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={4} md={4} lg={3}>
+            </Grid>
           </Grid>
-
-          <Grid item xs={4} md={4} lg={6}>
-            <TweetCollection
-              className={classes.tcollection}
-              sourceAPI={function() {
-                return (
-                  nanoAPI.search(keyword)
-                );
-              }}
-            />
-          </Grid>
-
-          <Grid item xs={4} md={4} lg={3}>
-          </Grid>
-        </Grid>
-      </main>
-    </React.Fragment>
-  );
+        </main>
+      </React.Fragment>
+    )
+  }
 }
 
 Search.propTypes = {
