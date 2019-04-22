@@ -21,8 +21,7 @@ get '/api/timeline/?' do
     #   LIMIT ?
     # ", user.id, user.id, limit])
 
-    @timeline = Tweet.where(user_id：user.followings.map｛|u| u.id｝)
-    .order（created_at：:desc).includes（:retweet_from)
+    @timeline = Tweet.where(user_id：user.followings.map{|u| u.id}).order(created_at: :desc).includes(:retweet_from)
 
     # change from SQL to get_timeline methods in timeline_helper.rb
     # has been prepared for separating services
