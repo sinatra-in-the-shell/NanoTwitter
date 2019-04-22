@@ -17,6 +17,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import Link from '../general/link'
+import TweetCollection from './tweetCollection'
+import TweetEditor from './tweetEditor'
+import { nanoAPI } from '../../nanoAPI'
 
 const styles = theme => ({
   media: {
@@ -39,27 +42,40 @@ const styles = theme => ({
   avatar: {
     backgroundColor: red[500],
   },
+  tcollection: {
+    flexGrow: 1,
+  },
 });
 
 class Tweet extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { expanded: false };
+    this.state = { expanded: false, comments: null };
   }
 
   handleExpandClick = () => {
+    const { classes } = this.props;
+
+    if(this.state.comments==null) {
+      const comments = <TweetCollection
+        className={classes.tcollection}
+        sourceAPI={()=>nanoAPI.getComments(this.props.tid)}
+      />
+      this.setState({ comments: comments });
+    }
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
   render() {
     const { classes } = this.props;
+    const me = this;
 
     return (
       <Card className={this.props.className} >
         <CardHeader
           avatar={
             <Avatar aria-label="Recipe" className={classes.avatar}>
-              R
+              {me.props.userDisplayname[0].toUpperCase()}
             </Avatar>
           }
           action={
@@ -97,9 +113,12 @@ class Tweet extends React.Component {
             <ExpandMoreIcon />
           </IconButton>
         </CardActions>
-        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+        <Collapse in={this.state.expanded} timeout="auto">
           <CardContent>
-
+            <TweetEditor
+              targetAPI={(data)=>nanoAPI.postComments(me.props.tid, data)}
+            />
+            {this.state.comments}
           </CardContent>
         </Collapse>
       </Card>

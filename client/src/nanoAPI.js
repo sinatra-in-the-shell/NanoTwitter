@@ -60,8 +60,43 @@ export const nanoAPI = {
     }).then(errorHandler);
   },
 
+  getComments(id) {
+    return fetch(testify('/api/tweets/'+id+'/comments'), {
+      method: 'GET'
+    }).then(errorHandler);
+  },
+
   postTweets(data) {
+    data.append('tweet_type', 'orig');
     return fetch(testify('/api/tweets'), {
+      method: 'POST',
+      body: data,
+    }).then(errorHandler);
+  },
+
+  postComments(id, data) {
+    data.append('comment_to_id', id);
+    data.append('tweet_type', 'comm');
+    return fetch(testify('/api/tweets'), {
+      method: 'POST',
+      body: data,
+    }).then(errorHandler);
+  },
+
+  postRetweets(id) {
+    const data = new FormData();
+    data.append('retweet_from_id', id);
+    data.append('tweet_type', 'retw');
+    return fetch(testify('/api/tweets'), {
+      method: 'POST',
+      body: data,
+    }).then(errorHandler);
+  },
+
+  like(id) {
+    const data = new FormData();
+    data.append('tweet_id', id);
+    return fetch(testify('/api/likes'), {
       method: 'POST',
       body: data,
     }).then(errorHandler);
