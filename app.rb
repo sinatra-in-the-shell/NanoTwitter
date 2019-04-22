@@ -44,7 +44,7 @@ $followers_redis.clear
 $leaders_redis.clear
 $timeline_redis.clear
 
-$rabbit_client = RabbitClient.new(ENV['CLOUDAMQP_URL'], 'tweet_server')
+$rabbit_client = RabbitClient.new(ENV['RABBITMQ_URL'], 'tweet_server')
 
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
@@ -52,9 +52,10 @@ before do
            || request.path_info.include?('loaderio-b2296ad8f5d2ab4dfcc4ce34a0d36fa8') \
            || params['test_user']
   if not logged_in?
-    if request.path_info.include?('api')
-      halt 401, {errors: 'not logged in'}.to_json
-    elsif request.get?
+    # if request.path_info.include?('api') 
+    #   halt 401, {errors: 'not logged in'}.to_json
+    # els
+    if request.get?
       redirect '/login', 303
     else
       halt 401, 'not logged in'
