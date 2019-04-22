@@ -19,6 +19,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 
 import { nanoAPI } from '../../nanoAPI'
 import { sessionHelper } from '../../helpers/session'
+import { history } from "../../App";
 
 const styles = theme => ({
   root: {
@@ -113,6 +114,13 @@ class Navbar extends React.Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
+  handleSearch = (e) => {
+    if(e.target.value.trim()==='') return;
+    if(e.key==='Enter') {
+      history.push("/search?search="+e.target.value.trim());
+    }
+  }
+
   handleSignOut = () => {
     this.handleMenuClose();
 
@@ -198,6 +206,7 @@ class Navbar extends React.Component {
                   root: classes.inputRoot,
                   input: classes.inputInput,
                 }}
+                onKeyDown={this.handleSearch}
               />
             </div>
             <div className={classes.grow} />

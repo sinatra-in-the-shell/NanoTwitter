@@ -33,7 +33,9 @@ function Recommend(props) {
       <List className={classes.root}>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <Avatar alt="Remy Sharp">
+              R
+            </Avatar>
           </ListItemAvatar>
           <ListItemText
             primary="Brunch this weekend?"
@@ -49,7 +51,9 @@ function Recommend(props) {
         </ListItem>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            <Avatar alt="Remy Sharp">
+              R
+            </Avatar>
           </ListItemAvatar>
           <ListItemText
             primary="Summer BBQ"
@@ -65,7 +69,9 @@ function Recommend(props) {
         </ListItem>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/3.jpg" />
+            <Avatar alt="Remy Sharp">
+              R
+            </Avatar>
           </ListItemAvatar>
           <ListItemText
             primary="Oui Oui"

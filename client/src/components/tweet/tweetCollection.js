@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import Tweet from './tweet'
+import Tweet from './tweet';
 
 const styles = theme => ({
   root: {
@@ -23,6 +23,12 @@ class TweetCollection extends React.Component {
     this.fetchTweets();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.sourceAPI !== this.props.sourceAPI) {
+      this.fetchTweets();
+    }
+  }
+
   fetchTweets() {
     const sourceAPI = this.props.sourceAPI;
     const { classes } = this.props;
@@ -33,8 +39,9 @@ class TweetCollection extends React.Component {
       let tweets = json.data.map(function(tweet) {
         return (
           <Tweet
-            key={tweet.id}
             className={classes.paper}
+            key={tweet.id}
+            tid={tweet.id}
             text={tweet.text}
             username={tweet.username}
             userDisplayname={tweet.display_name}

@@ -7,10 +7,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import indigo from '@material-ui/core/colors/indigo';
+import red from '@material-ui/core/colors/red';
 import Grid from '@material-ui/core/Grid';
 
 import Link from '../general/link'
 import { nanoAPI } from '../../nanoAPI'
+import { colorHelper } from '../../helpers/color'
 
 const styles = theme => ({
     media: {
@@ -22,12 +24,13 @@ const styles = theme => ({
       width: 75,
       height: 75,
       border: '3px solid #ffffff',
+      backgroundColor: red[500],
     },
     infobox: {
       marginTop: 10
     },
     link: {
-      color: indigo[400]
+      color: indigo[400],
     }
   });
 
@@ -118,6 +121,7 @@ class Profile extends React.Component {
 
   render() {
     const { classes } = this.props;
+
     let followButton;
     if(this.state.followed==="Loading") {
       followButton =
@@ -136,16 +140,20 @@ class Profile extends React.Component {
     }
     return (
       <Card className={this.props.className}>
-        <CardMedia
+        <CardContent
           className={classes.media}
-          image=""
           title="User banner"
         />
         <CardContent>
 
           <Grid container spacing={0}>
             <Grid item xs={4} md={4} lg={4}>
-              <Avatar alt="username" src="https://material-ui.com/static/images/avatar/1.jpg" className={this.props.classes.bigAvatar} />
+              <Avatar
+                alt={this.state.displayname}
+                className={this.props.classes.bigAvatar}
+                background-color={colorHelper.getColor(this.state.displayname)}>
+                {this.state.displayname[0].toUpperCase()}
+              </Avatar>
             </Grid>
             <Grid item xs={4} md={4} lg={4}>
               <Typography variant="title">

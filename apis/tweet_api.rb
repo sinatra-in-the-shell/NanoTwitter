@@ -23,12 +23,10 @@ post '/api/tweets/?' do
   end
 end
 
-get '/api/tweets/?' do
-  skip = params['skip']
-  max_results = params['maxresults']
-  @tweets = Tweet.with_skip(skip).with_max(max_results)
+get '/api/tweets/:id/comments/?' do
+  @tweets = Tweet.find(params[:id]).comments
   if @tweets
-    json_response 200, @tweets.to_a
+    json_response 200, @tweets
   else
     json_response 404, nil
   end
@@ -43,10 +41,42 @@ get '/api/tweets/:id/?' do
   end
 end
 
+get '/api/tweets/?' do
+  skip = params['skip']
+  max_results = params['maxresults']
+  @tweets = Tweet.with_skip(skip).with_max(max_results)
+  if @tweets
+    json_response 200, @tweets.to_a
+  else
+    json_response 404, nil
+  end
+end
+
 post '/api/tweets/rpc/?' do
   params['method'] = 'new_tweet'
   params.delete 'test_user'
   res = $rabbit_client.call params
   pp res
   json_response 200, JSON.parse(res)
+end
+
+post '/api/likes/?' do
+  @like = Like.find(
+    user_id: current_user.id,
+    tweet_id: params['tweet_id']
+  )
+  if @like
+    res = @like.destroy
+  else
+    @like = Like.new(
+      user_id: current_user.id,
+      tweet_id: params['tweet_id']
+    )
+    res = @like.save
+  end
+  if res
+    json_response 200
+  else
+    json_response 400
+  end
 end
