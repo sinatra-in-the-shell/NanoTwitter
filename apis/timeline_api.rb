@@ -13,10 +13,11 @@ get '/api/timeline/?' do
     @timeline = Tweet.where(user_id: user.followings.map{|u| u.id})
                      .order(created_at: :desc)
                      .includes(:retweet_from, :likes, :retweets)
+                     .limit(50)
                      .as_json(
                        include: :retweet_from,
                        methods: [:like_num, :retweet_num]
-                     ).limit(50)
+                     )
     # change from SQL to get_timeline methods in timeline_helper.rb
     # has been prepared for separating services
     # @timeline = get_timeline(user.id, limit)
