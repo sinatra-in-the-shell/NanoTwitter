@@ -4,5 +4,4 @@ class Follow < ActiveRecord::Base
   validates :from_user_id, presence: true
   validates :to_user_id, presence: true
 
-  ## TODO: relationship uniqueness check
 end
