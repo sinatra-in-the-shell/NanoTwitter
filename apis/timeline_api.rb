@@ -16,7 +16,7 @@ get '/api/timeline/?' do
                      .as_json(
                        include: :retweet_from,
                        methods: [:like_num, :retweet_num]
-                     )
+                     ).limit(50)
     # change from SQL to get_timeline methods in timeline_helper.rb
     # has been prepared for separating services
     # @timeline = get_timeline(user.id, limit)
