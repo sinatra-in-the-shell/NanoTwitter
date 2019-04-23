@@ -61,7 +61,7 @@ post '/api/tweets/rpc/?' do
 end
 
 post '/api/likes/?' do
-  @like = Like.find(
+  @like = Like.find_by(
     user_id: current_user.id,
     tweet_id: params['tweet_id']
   )

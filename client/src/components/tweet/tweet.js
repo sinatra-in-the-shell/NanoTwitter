@@ -29,6 +29,9 @@ const styles = theme => ({
   actions: {
     display: 'flex',
   },
+  retweeting: {
+    fontSize: 14,
+  },
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
@@ -51,6 +54,8 @@ class Tweet extends React.Component {
   constructor(props) {
     super(props);
     this.state = { expanded: false, comments: null };
+    this.handleLike = this.handleLike.bind(this);
+    this.handleRetweet = this.handleRetweet.bind(this);
   }
 
   handleExpandClick = () => {
@@ -66,16 +71,71 @@ class Tweet extends React.Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
-  render() {
-    const { classes } = this.props;
-    const me = this;
+  handleLike = () => {
+    nanoAPI.like(this.props.tid)
+    .then(function(json) {
+      alert('Success');
+    })
+    .catch(function(error) {
+      alert(error.message);
+    });
+  }
 
-    return (
-      <Card className={this.props.className} >
+  handleRetweet = () => {
+    let id = this.props.tid;
+    if(this.props.retweetFrom) {
+      id = this.props.retweetFrom.id;
+    }
+
+    const data = new FormData();
+    data.append('text', this.props.text);
+
+    nanoAPI.postRetweets(id, data)
+    .then(function(json) {
+      alert('Success');
+    })
+    .catch(function(error) {
+      alert(error.message);
+    });
+  }
+
+  getHeader = () => {
+    const { classes } = this.props;
+    if(this.props.retweetFrom){
+      const re = this.props.retweetFrom;
+      return (
+        <div>
+          <CardContent>
+            <Typography className={classes.retweeting} color="textSecondary" gutterBottom>
+              {this.props.userDisplayname+" retweeting"}
+            </Typography>
+          </CardContent>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="Recipe" className={classes.avatar}>
+                {re.display_name[0].toUpperCase()}
+              </Avatar>
+            }
+            action={
+              <IconButton>
+                <MoreVertIcon />
+              </IconButton>
+            }
+            title={
+              <Link to={"/u/"+re.username}>
+                {re.display_name}
+              </Link>
+            }
+            subheader={re.created_at}
+          />
+        </div>
+      )
+    } else {
+      return (
         <CardHeader
           avatar={
             <Avatar aria-label="Recipe" className={classes.avatar}>
-              {me.props.userDisplayname[0].toUpperCase()}
+              {this.props.userDisplayname[0].toUpperCase()}
             </Avatar>
           }
           action={
@@ -90,17 +150,34 @@ class Tweet extends React.Component {
           }
           subheader={this.props.createdAt}
         />
+      )
+    }
+  }
+
+  render() {
+    const { classes } = this.props;
+    const me = this;
+
+    return (
+      <Card className={this.props.className} >
+        {this.getHeader()}
         <CardContent>
           <Typography component="p">
             {this.props.text}
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
+          <IconButton
+            aria-label="Add to favorites"
+            onClick={this.handleLike}>
             <FavoriteIcon />
+            {this.props.likes}
           </IconButton>
-          <IconButton aria-label="Share">
+          <IconButton
+            aria-label="Share"
+            onClick={this.handleRetweet}>
             <ShareIcon />
+            {this.props.retweets}
           </IconButton>
           <IconButton
             className={classnames(classes.expand, {

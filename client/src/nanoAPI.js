@@ -83,8 +83,7 @@ export const nanoAPI = {
     }).then(errorHandler);
   },
 
-  postRetweets(id) {
-    const data = new FormData();
+  postRetweets(id, data) {
     data.append('retweet_from_id', id);
     data.append('tweet_type', 'retw');
     return fetch(testify('/api/tweets'), {

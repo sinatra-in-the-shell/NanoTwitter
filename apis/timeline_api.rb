@@ -10,19 +10,13 @@ get '/api/timeline/?' do
       json_response 400, e.message
     end
   else
-    # @timeline = Tweet.find_by_sql(["
-    #   SELECT DISTINCT tweets.*
-    #   FROM tweets, follows
-    #   WHERE
-    #     follows.from_user_id = ? AND
-    #     (tweets.user_id = follows.to_user_id OR
-    #     tweets.user_id = ?)
-    #   ORDER BY tweets.updated_at DESC
-    #   LIMIT ?
-    # ", user.id, user.id, limit])
-
-    @timeline = Tweet.where(user_id: user.followings.map{|u| u.id}).order(created_at: :desc).includes(:retweet_from)
-
+    @timeline = Tweet.where(user_id: user.followings.map{|u| u.id})
+                     .order(created_at: :desc)
+                     .includes(:retweet_from, :likes, :retweets)
+                     .as_json(
+                       include: :retweet_from,
+                       methods: [:like_num, :retweet_num]
+                     )
     # change from SQL to get_timeline methods in timeline_helper.rb
     # has been prepared for separating services
     # @timeline = get_timeline(user.id, limit)

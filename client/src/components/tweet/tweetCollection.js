@@ -46,6 +46,9 @@ class TweetCollection extends React.Component {
             username={tweet.username}
             userDisplayname={tweet.display_name}
             createdAt={tweet.created_at}
+            retweetFrom={tweet.retweet_from}
+            likes={tweet.like_num}
+            retweets={tweet.retweet_num}
           />
         )
       });
