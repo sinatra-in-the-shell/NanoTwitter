@@ -4,11 +4,9 @@ class RabbitClient
 
   def initialize(rabbit_url, server_queue_name)
     if rabbit_url
-      pp "rrrrrrrrrrrrrrrrabbit"
-      pp rabbit_url
       @connection = Bunny.new rabbit_url
     else
-      @connection = Bunny.new
+      @connection = Bunny.new(tls: false)
     end
     @connection.start
 
