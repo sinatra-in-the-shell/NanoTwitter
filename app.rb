@@ -37,6 +37,7 @@ end
 #   config.redis = { url: ENV['SIDEKIQ_URL'] }
 # end
 
+
 # init redis client, maybe put into another file for cleaness
 $followers_redis = RedisClient.new(ENV['FOLLOWERS_REDIS'])
 $leaders_redis = RedisClient.new(ENV['LEADERS_REDIS'])
