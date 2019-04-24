@@ -52,7 +52,7 @@ get '/api/tweets/?' do
   end
 end
 
-post '/api/tweets/rpc/?' do
+post '/test/api/tweets/rpc/?' do
   params['method'] = 'new_tweet'
   params.delete 'test_user'
   res = $rabbit_client.call params
