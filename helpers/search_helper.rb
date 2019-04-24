@@ -30,17 +30,17 @@ def search_tag_from_database(params)
                   .with_max(max_results)
     puts "[REDIS MISS] searched tweets by #{keyword}"
     puts "[DATABASE RESULT] got result:"
-    pp tweets
+    pp tweets[0, 5]
     if tweets
       $search_redis.push_results(keyword + '_tweets', tweets)
       $search_redis.expire(keyword + '_tweets', 10)
-      json_response 200, @tweets.as_json(include:
+      json_response 200, tweets.as_json(include:
         {
           user: { only: [:username, :display_name] }
         }
       )
     else
-      json_response 404, @tweets.error.full_messages
+      json_response 404, tweets.error.full_messages
     end
   end
 
