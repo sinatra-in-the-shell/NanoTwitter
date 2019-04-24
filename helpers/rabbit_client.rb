@@ -6,7 +6,7 @@ class RabbitClient
     if rabbit_url
       @connection = Bunny.new rabbit_url
     else
-      @connection = Bunny.new
+      @connection = Bunny.new(tls: false)
     end
     @connection.start
 
