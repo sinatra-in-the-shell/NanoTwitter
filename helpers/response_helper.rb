@@ -11,3 +11,11 @@ def json_response status_code, data=nil, errors=nil
     errors: errors
   }.to_json
 end
+
+def json_array_response(db_result)
+  if db_result
+    json_response 200, db_result.to_a
+  else
+    json_response 404, db_result.error.full_messages
+  end
+end

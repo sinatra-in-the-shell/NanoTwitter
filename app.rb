@@ -37,13 +37,16 @@ end
 #   config.redis = { url: ENV['SIDEKIQ_URL'] }
 # end
 
+
 # init redis client, maybe put into another file for cleaness
 $followers_redis = RedisClient.new(ENV['FOLLOWERS_REDIS'])
 $leaders_redis = RedisClient.new(ENV['LEADERS_REDIS'])
 $timeline_redis = RedisClient.new(ENV['TIMELINE_REDIS'])
+$search_redis = RedisClient.new(ENV['SEARCH_REDIS'])
 $followers_redis.clear
 $leaders_redis.clear
 $timeline_redis.clear
+$search_redis.clear
 
 begin
   follow_server
