@@ -43,9 +43,6 @@ $followers_redis = RedisClient.new(ENV['FOLLOWERS_REDIS'])
 $leaders_redis = RedisClient.new(ENV['LEADERS_REDIS'])
 $timeline_redis = RedisClient.new(ENV['TIMELINE_REDIS'])
 $search_redis = RedisClient.new(ENV['SEARCH_REDIS'])
-puts "REDIS INITIALIZED:"
-print "Search Redis:"
-pp $search_redis
 $followers_redis.clear
 $leaders_redis.clear
 $timeline_redis.clear
