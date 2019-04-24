@@ -1,7 +1,7 @@
 # Gemfile
 source "https://rubygems.org"
 
-ruby '2.6.0'
+ruby '2.6.2'
 
 # base
 gem "sinatra"
@@ -9,7 +9,7 @@ gem 'sinatra-contrib'
 gem "activerecord"
 gem "sinatra-activerecord"
 gem "rake"
-gem "puma"
+gem "puma", "2.16.0"
 
 # util
 gem "bcrypt"
