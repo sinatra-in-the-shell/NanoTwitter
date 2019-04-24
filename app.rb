@@ -42,9 +42,11 @@ end
 $followers_redis = RedisClient.new(ENV['FOLLOWERS_REDIS'])
 $leaders_redis = RedisClient.new(ENV['LEADERS_REDIS'])
 $timeline_redis = RedisClient.new(ENV['TIMELINE_REDIS'])
+$search_redis = RedisClient.new(ENV['SEARCH_REDIS'])
 $followers_redis.clear
 $leaders_redis.clear
 $timeline_redis.clear
+$search_redis.clear
 
 $rabbit_client = RabbitClient.new(ENV['RABBITMQ_URL'], 'tweet_server')
 
@@ -54,7 +56,7 @@ before do
            || request.path_info.include?('loaderio-b2296ad8f5d2ab4dfcc4ce34a0d36fa8') \
            || params[:test_user]
   if not logged_in?
-    # if request.path_info.include?('api') 
+    # if request.path_info.include?('api')
     #   halt 401, {errors: 'not logged in'}.to_json
     # els
     if request.get?
