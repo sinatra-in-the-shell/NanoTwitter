@@ -29,6 +29,8 @@ def search_tag_from_database(params)
                   .with_skip(skip)
                   .with_max(max_results)
     puts "[REDIS MISS] searched tweets by #{keyword}"
+    puts "[DATABASE RESULT] got result:"
+    pp tweets
     if tweets
       $search_redis.push_results(keyword + '_tweets', tweets)
       $search_redis.expire(keyword + '_tweets', 10)

@@ -20,7 +20,7 @@ end
 def get_followers(user_id)
   if $followers_redis.cached? user_id
     followers = $followers_redis.get_json_list(user_id, 0, -1)
-  else 
+  else
     followers = User.find(user_id).followers
     $followers_redis.push_results(user_id, followers)
     followers.map{|i| JSON.parse i.to_json}
