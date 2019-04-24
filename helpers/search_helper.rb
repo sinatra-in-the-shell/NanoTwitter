@@ -32,13 +32,14 @@ def search_tag_from_database(params)
     puts "[DATABASE RESULT] got result:"
     pp tweets[0, 5]
     if tweets
-      $search_redis.push_results(keyword + '_tweets', tweets)
-      $search_redis.expire(keyword + '_tweets', 10)
-      json_response 200, tweets.as_json(include:
+      result = tweets.as_json(include:
         {
           user: { only: [:username, :display_name] }
         }
       )
+      $search_redis.push_results(keyword + '_tweets', result)
+      $search_redis.expire(keyword + '_tweets', 20)
+      json_response 200, result
     else
       json_response 404, tweets.error.full_messages
     end
@@ -59,7 +60,7 @@ def search_tag_from_database(params)
     json_array_response users
   end
 
-  def get_tweet_from_redis(keyword, max_results)
+  def get_cache_from_search_redis(keyword, max_results)
     puts "[REDIS HIT] searched #{keyword}"
     tweets = $search_redis.get_json_list(keyword, 0, max_results - 1)
     json_response 200, tweets
