@@ -31,14 +31,16 @@ class Status extends React.Component {
   }
 
   render() {
-    const {status} = this.state
+    console.log(this.state.status)
+    const {data} = this.state.status
+    console.log(data)
     return (
       <div>
         <ul>
-          <li>Test User ID: {status.test_id}</li>
-          <li>User Count: {status.user_count}</li>
-          <li>Follow Count: {status.follow_count}</li>
-          <li>Tweet Count: {status.tweet_count}</li>
+          <li>Test User ID: {data.test_id}</li>
+          <li>User Count: {data.user_count}</li>
+          <li>Follow Count: {data.follow_count}</li>
+          <li>Tweet Count: {data.tweet_count}</li>
         </ul>
       </div>
     )
