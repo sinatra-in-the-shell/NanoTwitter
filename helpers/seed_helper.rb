@@ -50,13 +50,17 @@ def load_seed_tweets(count, filename)
     row_count += 1
     # flush the array every 1000 rows to limit memory usage
     if (row_count % 1000).zero?
-      users = User.where(id: tweets.map{|t| t.user_id})
-                  .map{|u|
-                    [u.id, {username: u.username, display_name: u.display_name}]
-                  }
+      # query all users at ones
+      users = User.all
+        .map{|u|
+          {id: u.id, username: u.username, display_name: u.display_name}
+        }
+
       tweets.each{|t|
-        t.username = users[t.user_id][:username]
-        t.display_name = users[t.user_id][:display_name]
+        # get user we need
+        user = users[t[:user_id]-1]
+        t.username = user[:username]
+        t.display_name = user[:display_name]
       }
       Tweet.import(columns, tweets)
       tweets.clear
