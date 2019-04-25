@@ -55,6 +55,9 @@ def load_seed_tweets(count, filename)
                     [u.id, {username: u.username, display_name: u.display_name}]
                   }
       tweets.each{|t|
+        pp 'class of t: ', t.class.name
+        pp 'class of users: ', users.class.name
+        pp 'class of user: ', user[t.user_id].class.name
         t.username = users[t.user_id][:username]
         t.display_name = users[t.user_id][:display_name]
       }
