@@ -1,5 +1,5 @@
 # Test Interfaces
-get '/test/status/?' do
+get '/api/test/status/?' do
   begin
     @testuser = User.find_by(email: "testuser@sample.com")
     @res = {

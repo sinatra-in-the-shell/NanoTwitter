@@ -33,6 +33,7 @@ def flush_tweets_into_database(tweets)
                   .map{|u|
                     [u.id, {username: u.username, display_name: u.display_name}]
                   }
+  pp users
   tweets.each{|t|
     t.username = users[t.user_id][:username]
     t.display_name = users[t.user_id][:display_name]
