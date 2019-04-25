@@ -48,14 +48,14 @@ $leaders_redis.clear
 $timeline_redis.clear
 $search_redis.clear
 
-# begin
-#   follow_server
-#   tweet_client
-# rescue Interrupt => _
-#   follow_server.stop
-#   tweet_client.stop
-#   pp "** rabbit interupted **"
-# end
+begin
+  follow_server
+  tweet_client
+rescue Interrupt => _
+  follow_server.stop
+  tweet_client.stop
+  pp "** rabbit interupted **"
+end
 
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
