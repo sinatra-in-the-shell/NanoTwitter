@@ -38,9 +38,10 @@ def flush_tweets_into_database(tweets, flushed_user_num)
   # [[1, {:username=>"Bonnie", :display_name=>"Bonnie"}],
   #  [2, {:username=>"Wilfredo", :display_name=>"Wilfredo"}]]
   tweets.each{|t|
-    t.username = users[t.user_id - 1][1][:username]
-    t.display_name = users[t.user_id - 1][1][:display_name]
+    t.username = users[flushed_user_num + t.user_id - 1][1][:username]
+    t.display_name = users[flushed_user_num + t.user_id - 1][1][:display_name]
   }
+  flushed_user_num += users.length
   Tweet.import(columns, tweets)
   tweets.clear
 end
@@ -53,6 +54,7 @@ def load_seed_tweets(count, filename)
     :username, :display_name
   ]
   row_count = 0
+  flush_count = 0
   CSV.foreach(filename) do |row|
     if row[0].to_i > count
       break
@@ -68,10 +70,10 @@ def load_seed_tweets(count, filename)
     row_count += 1
     # flush the array every 1000 rows to limit memory usage
     if (row_count % 1000).zero?
-      flush_tweets_into_database(tweets)
+      flush_tweets_into_database(tweets, flush_count)
     end
   end
-  flush_tweets_into_database(tweets)
+  flush_tweets_into_database(tweets, flush_count)
 end
 
 def create_test_user(count)
