@@ -85,3 +85,23 @@ def reset_all
   Follow.destroy_all
   Tweet.destroy_all
 end
+
+
+def flush_tweets_into_database(tweets, columns)
+  return if tweets.nil?
+  users = User.where(id: tweets.map{|t| t.user_id})
+                  .map{|u|
+                    [u.id, {username: u.username, display_name: u.display_name}]
+                  }
+  first_id = users[0][0]
+  pp users
+  # [[1, {:username=>"Bonnie", :display_name=>"Bonnie"}],
+  #  [2, {:username=>"Wilfredo", :display_name=>"Wilfredo"}]]
+  tweets.each{|t|
+    tuser_info = users[t.user_id - first_id][1]
+    t.username = tuser_info[:username]
+    t.display_name = tuser_info[:display_name]
+  }
+  Tweet.import(columns, tweets)
+  tweets.clear
+end
