@@ -35,11 +35,12 @@ def flush_tweets_into_database(tweets, columns, flushed_user_num)
                     [u.id, {username: u.username, display_name: u.display_name}]
                   }
   pp users
+  pp tweets
   # [[1, {:username=>"Bonnie", :display_name=>"Bonnie"}],
   #  [2, {:username=>"Wilfredo", :display_name=>"Wilfredo"}]]
   tweets.each{|t|
-    t.username = users[flushed_user_num + t.user_id - 1][1][:username]
-    t.display_name = users[flushed_user_num + t.user_id - 1][1][:display_name]
+    t.username = users[flushed_user_num + t.user_id][1][:username]
+    t.display_name = users[flushed_user_num + t.user_id][1][:display_name]
   }
   flushed_user_num += users.length
   Tweet.import(columns, tweets)
