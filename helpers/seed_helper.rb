@@ -34,7 +34,7 @@ def flush_tweets_into_database(tweets, columns)
                     [u.id, {username: u.username, display_name: u.display_name}]
                   }.to_h
   pp users
-  # {1=>{:username=>"Bonnie", :display_name=>"Bonnie"}, 
+  # {1=>{:username=>"Bonnie", :display_name=>"Bonnie"},
   #  2=>{:username=>"Wilfredo", :display_name=>"Wilfredo"}}
   tweets.each{|t|
     tuser_info = users[t.user_id]
