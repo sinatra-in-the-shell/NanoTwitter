@@ -73,7 +73,7 @@ def load_seed_tweets(count, filename)
       flush_tweets_into_database(tweets, columns)
     end
   end
-  flush_tweets_into_database(tweets, columns)
+  flush_tweets_into_database(tweets, columns) unless tweets.empty?
 end
 
 def create_test_user(count)
