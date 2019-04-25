@@ -29,8 +29,8 @@
         {
             "names": ["commands"],
             "values": [
-                ["search/tweets?keyword=person"],
-                ["search/tweets?keyword=drive"]
+                ["search/tweets?search=person"],
+                ["search/tweets?search=drive"]
             ]
         }
     ]
