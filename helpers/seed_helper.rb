@@ -28,21 +28,21 @@ def load_seed_follows(count, filename)
 end
 
 
-def flush_tweets_into_database(tweets, columns, flushed_user_num)
+def flush_tweets_into_database(tweets, columns)
   return if tweets.nil?
   users = User.where(id: tweets.map{|t| t.user_id})
                   .map{|u|
                     [u.id, {username: u.username, display_name: u.display_name}]
                   }
+  first_id = users[0][0]
   pp users
-  pp tweets
   # [[1, {:username=>"Bonnie", :display_name=>"Bonnie"}],
   #  [2, {:username=>"Wilfredo", :display_name=>"Wilfredo"}]]
   tweets.each{|t|
-    t.username = users[flushed_user_num + t.user_id][1][:username]
-    t.display_name = users[flushed_user_num + t.user_id][1][:display_name]
+    tuser_info = users[t.user_id - first_id][1]
+    t.username = tuser_info[:username]
+    t.display_name = tuser_info[:display_name]
   }
-  flushed_user_num += users.length
   Tweet.import(columns, tweets)
   tweets.clear
 end
@@ -55,7 +55,6 @@ def load_seed_tweets(count, filename)
     :username, :display_name
   ]
   row_count = 0
-  flush_count = 0
   CSV.foreach(filename) do |row|
     if row[0].to_i > count
       break
@@ -71,10 +70,10 @@ def load_seed_tweets(count, filename)
     row_count += 1
     # flush the array every 1000 rows to limit memory usage
     if (row_count % 1000).zero?
-      flush_tweets_into_database(tweets, columns, flush_count)
+      flush_tweets_into_database(tweets, columns)
     end
   end
-  flush_tweets_into_database(tweets, columns, flush_count)
+  flush_tweets_into_database(tweets, columns)
 end
 
 def create_test_user(count)
