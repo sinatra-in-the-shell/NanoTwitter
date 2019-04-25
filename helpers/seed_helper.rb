@@ -27,6 +27,20 @@ def load_seed_follows(count, filename)
   end
 end
 
+def flush_tweets_into_database(tweets)
+  return if tweets.nil?
+  users = User.where(id: tweets.map{|t| t.user_id})
+                  .map{|u|
+                    [u.id, {username: u.username, display_name: u.display_name}]
+                  }
+  tweets.each{|t|
+    t.username = users[t.user_id][:username]
+    t.display_name = users[t.user_id][:display_name]
+  }
+  Tweet.import(columns, tweets)
+  tweets.clear
+end
+
 def load_seed_tweets(count, filename)
   tweets = []
   columns = [
@@ -50,18 +64,10 @@ def load_seed_tweets(count, filename)
     row_count += 1
     # flush the array every 1000 rows to limit memory usage
     if (row_count % 1000).zero?
-      users = User.where(id: tweets.map{|t| t.user_id})
-                  .map{|u|
-                    [u.id, {username: u.username, display_name: u.display_name}]
-                  }
-      tweets.each{|t|
-        t.username = users[t.user_id][:username]
-        t.display_name = users[t.user_id][:display_name]
-      }
-      Tweet.import(columns, tweets)
-      tweets.clear
+      flush_tweets_into_database(tweets)
     end
   end
+  flush_tweets_into_database(tweets)
 end
 
 def create_test_user(count)

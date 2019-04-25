@@ -1,12 +1,16 @@
 # Test Interfaces
 get '/test/status/?' do
-  @testuser = User.find_by(email: "testuser@sample.com")
-  @res = {
-    test_id: @testuser.id,
-    user_count: User.count,
-    follow_count: Follow.count,
-    tweet_count: Tweet.count
-  }
+  begin
+    @testuser = User.find_by(email: "testuser@sample.com")
+    @res = {
+      test_id: @testuser.id,
+      user_count: User.count,
+      follow_count: Follow.count,
+      tweet_count: Tweet.count
+    }
+  rescue StandardError => e
+    json_response 404, nil, 'test user not found'
+  end
   json_response 200, @res
 end
 
