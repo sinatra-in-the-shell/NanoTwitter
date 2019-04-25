@@ -2,18 +2,18 @@ development:
   adapter: postgresql
   encoding: unicode
   database: development
-  pool: 2
+  pool: 10
 
 test:
   adapter: postgresql
   encoding: unicode
   database: test
-  pool: 2
+  pool: 10
 
 production:
   adapter: postgresql
   encoding: unicode
-  pool: 5
+  pool: 10
   host: <%= ENV['DATABASE_HOST'] %>
   database: <%= ENV['DATABASE_NAME'] %>
   username: <%= ENV['DATABASE_USER'] %>
