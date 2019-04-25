@@ -16,14 +16,14 @@ class Status extends React.Component {
   componentDidMount() {
     this.fetchData();
   }
-  
+
   fetchData() {
-    return fetch('/api/status')
+    return fetch('/api/test/status')
     .then(
       response => response.json()
     ).then(
       json => {
-        this.setState({status: json})
+        this.setState({status: json.data})
       }
     ).catch(
       error => {console.log(error)}
