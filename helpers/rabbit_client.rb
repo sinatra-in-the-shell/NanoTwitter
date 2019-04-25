@@ -27,13 +27,13 @@ class RabbitClient
       reply_to: reply_queue.name
     )
     loop do
-      sleep 0.01
-      timeout -= 0.01
+      sleep 0.1
+      timeout -= 0.1
       break if calls[call_id]
       break if timeout <= 0
     end
 
-    calls.delete call_id
+    JSON.parse calls.delete(call_id)
   end
 
   def stop

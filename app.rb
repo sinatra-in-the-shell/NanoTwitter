@@ -25,7 +25,7 @@ require 'puma'
 Dir["./models/*.rb"].each {|file| require file }
 
 # set :server, "thin"
-configure { set :server, :puma }
+configure { set :server, :thin }
 
 enable :sessions
 
@@ -48,7 +48,14 @@ $leaders_redis.clear
 $timeline_redis.clear
 $search_redis.clear
 
-$rabbit_client = RabbitClient.new(ENV['RABBITMQ_URL'], 'tweet_server')
+begin
+  follow_server
+  tweet_client
+rescue Interrupt => _
+  follow_server.stop
+  tweet_client.stop
+  pp "** rabbit interupted **"
+end
 
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
