@@ -27,16 +27,19 @@ def load_seed_follows(count, filename)
   end
 end
 
-def flush_tweets_into_database(tweets)
+
+def flush_tweets_into_database(tweets, flushed_user_num)
   return if tweets.nil?
   users = User.where(id: tweets.map{|t| t.user_id})
                   .map{|u|
                     [u.id, {username: u.username, display_name: u.display_name}]
                   }
   pp users
+  # [[1, {:username=>"Bonnie", :display_name=>"Bonnie"}],
+  #  [2, {:username=>"Wilfredo", :display_name=>"Wilfredo"}]]
   tweets.each{|t|
-    t.username = users[t.user_id][:username]
-    t.display_name = users[t.user_id][:display_name]
+    t.username = users[t.user_id - 1][1][:username]
+    t.display_name = users[t.user_id - 1][1][:display_name]
   }
   Tweet.import(columns, tweets)
   tweets.clear
