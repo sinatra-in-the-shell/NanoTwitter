@@ -22,7 +22,7 @@ describe "test new tweets" do
     # @user = User.create(username: 'gz', password: 'sdfsdfsf')
 
     tweet_text = Faker::String.random.gsub("\u0000", '')
-    post '/api/tweets', { user: @user, 
+    post '/api/tweets', { user: @user,
                           comment_to_id: 0,
                           retweet_from_id: 0,
                           text: tweet_text,
@@ -36,12 +36,12 @@ describe "test new tweets" do
     Tweet.delete_all
   end
 
-  it 'get all tweets' do 
+  it 'get all tweets' do
     post '/api/register', {username: 'frank', password: '123456'}
     @user = User.find_by_username('frank')
 
     (0..3).each do |i|
-      post '/api/tweets', { user: @user, 
+      post '/api/tweets', { user: @user,
                             comment_to_id: 0,
                             retweet_from_id: 0,
                             text: Faker::String.random.gsub("\u0000", ''),

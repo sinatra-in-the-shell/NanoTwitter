@@ -30,9 +30,10 @@ def search_tweet_from_database(params)
                 .before_date(to_date)
                 .with_skip(skip)
                 .with_max(max_results)
+                .reorder(created_at: :desc)
+  pp tweets
   puts "[REDIS MISS] searched tweets by #{keyword}"
   puts "[DATABASE RESULT] got result:"
-  pp tweets[0, 5]
   if tweets
     result = tweets.as_json(include:
       {
