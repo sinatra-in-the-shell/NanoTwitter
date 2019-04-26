@@ -14,7 +14,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  pool: 10
+  pool: 15
   database: <%= ENV['RDS_DB_NAME'] %>
   username: <%= ENV['RDS_USERNAME'] %>
   password: <%= ENV['RDS_PASSWORD'] %>
