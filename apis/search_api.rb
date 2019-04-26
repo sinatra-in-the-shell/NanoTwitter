@@ -14,6 +14,13 @@ end
 get '/api/search/tweets' do
   @keyword = params['keyword'] + '_tweets'
   @max_results = params['maxresults'].to_i
+  if params['service']=='yes'
+    res = tweet_client.call(
+      method: 'search_tweets',
+      args: params.to_h
+    )
+    return json_response res['status'], res['data'], res['errors']
+  end
   if $search_redis.cached?(@keyword)
     get_cache_from_search_redis(@keyword, @max_results)
   else

@@ -33,6 +33,10 @@ class RabbitClient
       break if timeout <= 0
     end
 
+    if calls[call_id].nil?
+      return JSON.parse rabbit_response(504, nil, 'time out')
+    end
+
     JSON.parse calls.delete(call_id)
   end
 

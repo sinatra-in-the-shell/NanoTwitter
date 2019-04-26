@@ -3,15 +3,14 @@ get '/api/timeline/?' do
   limit = params['limit'] || 50
 
   if params['service']=='yes'
-    @timeline = tweet_client.call(
-      {
-        method: 'get_timeline',
-        args: {
-          user_id: user.id,
-          limit: limit
-        }
+    res = tweet_client.call(
+      method: 'get_timeline',
+      args: {
+        user_id: user.id,
+        limit: limit
       }
     )
+    return json_response res['status'], res['data'], res['errors']
   elsif $timeline_redis.cached?(user.id)
     begin
       @timeline = $timeline_redis.get_json_list(user.id, 0, -1)

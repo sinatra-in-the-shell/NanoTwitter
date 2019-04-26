@@ -1,7 +1,7 @@
 post '/api/tweets/?' do
   @user = current_user
   @tweet = Tweet.new(
-    user: @user,
+    user_id: @user.id,
     comment_to_id: params['comment_to_id'],
     retweet_from_id: params['retweet_from_id'],
     text: params['text'],
@@ -9,6 +9,15 @@ post '/api/tweets/?' do
     username: @user.username,
     display_name: @user.display_name
   )
+
+  if params['service']=='yes'
+    res = tweet_client.call(
+      method: 'new_tweet',
+      args: @tweet.as_json
+    )
+    return json_response res['status'], res['data'], res['errors']
+  end
+
   #find hashtags in the tweet
   params['text'].scan(/#\w+/).flatten.each do |tag|
     @tag = Hashtag.find_by_name(tag)
@@ -50,14 +59,6 @@ get '/api/tweets/?' do
   else
     json_response 404, nil
   end
-end
-
-post '/test/api/tweets/rpc/?' do
-  params['method'] = 'new_tweet'
-  params.delete 'test_user'
-  res = $rabbit_client.call params
-  pp res
-  json_response 200, JSON.parse(res)
 end
 
 post '/api/likes/?' do

@@ -66,8 +66,10 @@ end
 
 def get_cache_from_search_redis(keyword, max_results)
   puts "[REDIS HIT] searched #{keyword}"
-  res = $search_redis.get_json_list(keyword, 0, max_results - 1)
-  json_response 200, tweets
-rescue StandardError => e
-  json_response 400, nil, e.message
+  begin
+    res = $search_redis.get_json_list(keyword, 0, max_results - 1)
+    json_response 200, res
+  rescue StandardError => e
+    json_response 400, e.message
+  end
 end
