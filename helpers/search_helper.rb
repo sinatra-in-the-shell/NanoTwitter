@@ -31,18 +31,18 @@ def search_tweet_from_database(params)
                 .with_skip(skip)
                 .with_max(max_results)
                 .reorder(created_at: :desc)
+                .as_json(
+                  include: :retweet_from,
+                  methods: [:like_num, :retweet_num]
+                )
+
   pp tweets
   puts "[REDIS MISS] searched tweets by #{keyword}"
   puts "[DATABASE RESULT] got result:"
   if tweets
-    result = tweets.as_json(include:
-      {
-        user: { only: [:username, :display_name] }
-      }
-    )
-    $search_redis.push_results(keyword + '_tweets', result)
+    $search_redis.push_results(keyword + '_tweets', tweets)
     $search_redis.expire(keyword + '_tweets', 20)
-    json_response 200, result
+    json_response 200, tweets
   else
     json_response 404, nil, 'not founbd'
   end
