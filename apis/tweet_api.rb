@@ -1,16 +1,10 @@
 post '/api/tweets/?' do
+  # TODO: Save tweet into database only when Redis missed.
+  #       Otherwise only save in Redis.
   @user = current_user
-  @tweet = Tweet.new(
-    user_id: @user.id,
-    comment_to_id: params['comment_to_id'],
-    retweet_from_id: params['retweet_from_id'],
-    text: params['text'],
-    tweet_type: params['tweet_type'],
-    username: @user.username,
-    display_name: @user.display_name
-  )
 
-  if params['service']=='yes'
+  @tweet = create_new_tweet(@user, params)
+  if params['service'] == 'yes'
     res = tweet_client.call(
       method: 'new_tweet',
       args: @tweet.as_json
@@ -19,11 +13,8 @@ post '/api/tweets/?' do
   end
 
   #find hashtags in the tweet
-  params['text'].scan(/#\w+/).flatten.each do |tag|
-    @tag = Hashtag.find_by_name(tag)
-    @tag = Hashtag.create(name: tag) if @tag == nil
-    @tweet.hashtags << @tag
-  end
+  scan_and_create_hashtags(@tweet)
+
   if @tweet.save
     fanout_helper(@user.id, @tweet)
     json_response 200, @tweet

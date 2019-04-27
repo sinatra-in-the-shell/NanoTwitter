@@ -26,6 +26,7 @@ class RabbitClient
       correlation_id: call_id,
       reply_to: reply_queue.name
     )
+    
     loop do
       sleep 0.1
       timeout -= 0.1

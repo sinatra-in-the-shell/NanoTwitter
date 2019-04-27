@@ -54,3 +54,28 @@ end
 #   status 200
 # end
 
+#actually a post method
+get '/test/tweet/?' do
+  @testuser = User.find_by(email: 'testuser@sample.com')
+  count = params['count'].to_i || 1
+  @tweets = []
+  count.times do |_|
+    @tweet = post_random_tweet(@testuser)
+    scan_and_create_hashtags(@tweet)
+    if params['service'] == 'yes'
+      res = tweet_client.call(
+        method: 'new_tweet',
+        args: @tweet.as_json
+      )
+      return json_response res['status'], res['data'], res['errors']
+    end
+
+    if @tweet.save
+      @tweets << @tweet
+      fanout_helper(@testuser.id, @tweet)
+    else
+      json_response 400, nil, @tweet.errors.full_messages
+    end
+  end
+  json_response 200, @tweets, 'succeed'
+end
