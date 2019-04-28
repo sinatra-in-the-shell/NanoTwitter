@@ -42,11 +42,11 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      keyword: locationHelper.searchparams().search
+      keyword: locationHelper.searchparams().keyword
     };
     const me = this;
     history.listen((location, action)=>{
-      me.setState({ keyword: locationHelper.searchparams().search });
+      me.setState({ keyword: locationHelper.searchparams().keyword });
     });
   }
 
