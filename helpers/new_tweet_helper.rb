@@ -29,7 +29,7 @@ def post_random_tweet (user)
     retweet_from_id: nil,
     text: tweet_content,
     tweet_type: 'orig',
-    username: @testuser.username,
-    display_name: @testuser.display_name
+    username: user.username,
+    display_name: user.display_name
   )
 end
