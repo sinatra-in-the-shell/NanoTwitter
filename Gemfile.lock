@@ -33,7 +33,6 @@ GEM
     mustermann (1.0.3)
     newrelic_rpm (6.2.0.354)
     pg (1.1.4)
-    puma (3.12.1)
     rack (2.0.6)
     rack-protection (2.0.5)
       rack
@@ -81,7 +80,6 @@ DEPENDENCIES
   faker
   newrelic_rpm
   pg
-  puma
   rack-test
   rake
   redis
@@ -95,4 +93,4 @@ RUBY VERSION
    ruby 2.6.0p0
 
 BUNDLED WITH
-   1.17.2
+   2.0.1
