@@ -38,8 +38,8 @@
                 ["timeline?x=y"],
                 ["timeline?x=y"],
                 ["timeline?x=y"],
-                ["search/tweets?search=person"],
-                ["search/tweets?search=drive"],
+                ["search/tweets?keyword=person"],
+                ["search/tweets?keyword=drive"],
                 ["test/tweet?count=1"]
             ]
         }
