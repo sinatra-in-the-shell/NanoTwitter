@@ -25,7 +25,7 @@ require 'puma'
 Dir["./models/*.rb"].each {|file| require file }
 
 # set :server, "thin"
-configure { set :server, :puma }
+configure { set :server, :thin }
 
 enable :sessions
 
@@ -37,15 +37,25 @@ end
 #   config.redis = { url: ENV['SIDEKIQ_URL'] }
 # end
 
+
 # init redis client, maybe put into another file for cleaness
 $followers_redis = RedisClient.new(ENV['FOLLOWERS_REDIS'])
 $leaders_redis = RedisClient.new(ENV['LEADERS_REDIS'])
 $timeline_redis = RedisClient.new(ENV['TIMELINE_REDIS'])
+$search_redis = RedisClient.new(ENV['SEARCH_REDIS'])
 $followers_redis.clear
 $leaders_redis.clear
 $timeline_redis.clear
+$search_redis.clear
 
-$rabbit_client = RabbitClient.new(ENV['RABBITMQ_URL'], 'tweet_server')
+begin
+  follow_server
+  tweet_client
+rescue Interrupt => _
+  follow_server.stop
+  tweet_client.stop
+  pp "** rabbit interupted **"
+end
 
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \
@@ -54,7 +64,7 @@ before do
            || request.path_info.include?('loaderio-f327e7f357ac6b550d41b17057a990c6') \
            || params[:test_user]
   if not logged_in?
-    # if request.path_info.include?('api') 
+    # if request.path_info.include?('api')
     #   halt 401, {errors: 'not logged in'}.to_json
     # els
     if request.get?
