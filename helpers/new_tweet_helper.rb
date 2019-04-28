@@ -20,9 +20,9 @@ def scan_and_create_hashtags(tweet)
 end
 
 def post_random_tweet (user)
-  tweet_pool = CSV.read('db/seed/sample_tweets.csv')
+  $tweet_pool ||= CSV.read('db/seed/sample_tweets.csv')
   # ["992", "#Apple reportedly raises up to $1.2B in first Taiwanese bond."]
-  tweet_content = tweet_pool.sample[1]
+  tweet_content = $tweet_pool.sample[1]
   @tweet = Tweet.new(
     user_id: user.id,
     comment_to_id: nil,
