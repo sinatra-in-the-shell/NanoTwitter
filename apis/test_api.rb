@@ -56,11 +56,11 @@ end
 
 #actually a post method
 get '/test/tweet/?' do
-  @testuser = User.find_by(email: 'testuser@sample.com')
+  @user = current_user
   count = params['count'].to_i || 1
   @tweets = []
   count.times do |_|
-    @tweet = post_random_tweet(@testuser)
+    @tweet = post_random_tweet(@user)
     scan_and_create_hashtags(@tweet)
     if params['service'] == 'yes'
       res = tweet_client.call(
@@ -72,7 +72,7 @@ get '/test/tweet/?' do
 
     if @tweet.save
       @tweets << @tweet
-      fanout_helper(@testuser.id, @tweet)
+      fanout_helper(@user.id, @tweet)
     else
       json_response 400, nil, @tweet.errors.full_messages
     end
