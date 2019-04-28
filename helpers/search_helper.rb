@@ -36,7 +36,7 @@ def search_tweet_from_database(params)
                   methods: [:like_num, :retweet_num]
                 )
 
-  pp tweets
+  # pp tweets
   puts "[REDIS MISS] searched tweets by #{keyword}"
   puts "[DATABASE RESULT] got result:"
   if tweets

@@ -20,7 +20,7 @@ require 'securerandom'
 require 'dotenv/load'
 require 'bunny'
 require 'securerandom'
-require 'puma'
+# require 'puma'
 
 Dir["./models/*.rb"].each {|file| require file }
 
