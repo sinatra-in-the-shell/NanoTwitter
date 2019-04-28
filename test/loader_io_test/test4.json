@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "variables": [{
+            "names": ["login"],
+            "values": [
+                [
+                    "test_user=4"
+                ],
+                [
+                    "test_user=100"
+                ],
+                [
+                    "test_user=200"
+                ],
+                [
+                    "test_user=400"
+                ],
+                [
+                    "test_user=600"
+                ],
+                [
+                    "test_user=750"
+                ],
+                [
+                    "test_user=950"
+                ]
+            ]
+        },
+        {
+            "names": ["commands"],
+            "values": [
+                ["test/tweet?count=1"]
+            ]
+        }
+    ]
+}
