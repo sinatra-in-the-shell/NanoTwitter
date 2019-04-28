@@ -9,7 +9,7 @@ gem 'sinatra-contrib'
 gem "activerecord"
 gem "sinatra-activerecord"
 gem "rake"
-gem "puma"
+# gem "puma"
 
 # util
 gem "bcrypt"
