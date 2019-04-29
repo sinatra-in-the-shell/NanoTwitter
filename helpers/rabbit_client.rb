@@ -6,7 +6,7 @@ class RabbitClient
     if rabbit_url
       @connection = Bunny.new rabbit_url
     else
-      @connection = Bunny.new(tls: false)
+      @connection = Bunny.new tls: false
     end
     @connection.start
 
@@ -28,8 +28,8 @@ class RabbitClient
     )
     
     loop do
-      sleep 0.1
-      timeout -= 0.1
+      sleep 0.01
+      timeout -= 0.01
       break if calls[call_id]
       break if timeout <= 0
     end

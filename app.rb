@@ -25,7 +25,7 @@ require 'securerandom'
 Dir["./models/*.rb"].each {|file| require file }
 
 # set :server, "thin"
-configure { set :server, :puma }
+configure { set :server, :thin }
 
 enable :sessions
 

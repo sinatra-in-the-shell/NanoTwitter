@@ -4,7 +4,7 @@ class RabbitServer
     if rabbit_url
       @connection = Bunny.new rabbit_url
     else
-      @connection = Bunny.new
+      @connection = Bunny.new tls: false
     end
     @connection.start
     @channel = @connection.create_channel
@@ -30,8 +30,6 @@ class RabbitServer
     queue.subscribe do |delivery_info, properties, payload|
       req = JSON.parse payload
       result = helper.process req
-      pp '** RESULT ** :'
-      pp result
 
       exchange.publish(
         result,

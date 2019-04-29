@@ -24,7 +24,11 @@ post '/api/tweets/?' do
 end
 
 get '/api/tweets/:id/comments/?' do
-  @tweets = Tweet.find(params[:id]).comments
+  @tweets = Tweet.where(comment_to_id: params[:id])
+                 .includes(:likes, :retweets)
+                 .as_json(
+                   methods: [:like_num, :retweet_num]
+                 )
   if @tweets
     json_response 200, @tweets
   else
