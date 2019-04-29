@@ -1,7 +1,7 @@
 def follow_server
   unless $follow_server
     $follow_server = RabbitServer.new ENV['CLOUDAMQP_COBALT_URL']
-    $follow_server.start 'follow_queue', FollowHelper.new
+    $follow_server.start 'follow_queue', FollowHelper
     pp "follow server started"
   end
   $follow_server

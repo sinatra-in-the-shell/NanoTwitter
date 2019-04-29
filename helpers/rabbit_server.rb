@@ -28,14 +28,16 @@ class RabbitServer
 
   def subscribe_to_queue
     queue.subscribe do |delivery_info, properties, payload|
-      req = JSON.parse payload
-      result = helper.process req
+      thr = Thread.new {
+        req = JSON.parse payload
+        result = helper.new.process req
 
-      exchange.publish(
-        result,
-        routing_key: properties.reply_to,
-        correlation_id: properties.correlation_id
-      )
+        exchange.publish(
+          result,
+          routing_key: properties.reply_to,
+          correlation_id: properties.correlation_id
+        )
+      }
     end
   end
 end
