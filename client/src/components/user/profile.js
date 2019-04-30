@@ -150,8 +150,7 @@ class Profile extends React.Component {
             <Grid item xs={4} md={4} lg={4}>
               <Avatar
                 alt={this.state.displayname}
-                className={this.props.classes.bigAvatar}
-                background-color={colorHelper.getColor(this.state.displayname)}>
+                className={this.props.classes.bigAvatar}>
                 {this.state.displayname[0].toUpperCase()}
               </Avatar>
             </Grid>
