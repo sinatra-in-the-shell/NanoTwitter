@@ -78,6 +78,5 @@ end
 Dir["./apis/*.rb"].each {|file| require file }
 
 get '/*' do
-  puts "logged in"
   send_file File.expand_path('index.html', settings.public_folder)
 end

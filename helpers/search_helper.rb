@@ -12,7 +12,7 @@ def search_tag_from_database(params)
   puts "[REDIS MISS] searched tags by #{keyword}"
   if tags
     $search_redis.push_results(keyword + '_tags', tags)
-    $search_redis.expire(keyword + '_tags', 10)
+    $search_redis.expire(keyword + '_tags', 60)
     json_response 200, tags
   else
     json_response 404, nil, 'not found'
