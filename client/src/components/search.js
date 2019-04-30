@@ -42,11 +42,15 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      keyword: locationHelper.searchparams().keyword
+      keyword: locationHelper.searchparams().keyword,
+      maxresults: locationHelper.searchparams().maxresults
     };
     const me = this;
     history.listen((location, action)=>{
-      me.setState({ keyword: locationHelper.searchparams().keyword });
+      me.setState({
+        keyword: locationHelper.searchparams().keyword,
+        maxresults: locationHelper.searchparams().maxresults
+      });
     });
   }
 
@@ -68,7 +72,7 @@ class Search extends React.Component {
                 className={classes.tcollection}
                 sourceAPI={function() {
                   return (
-                    nanoAPI.search(me.state.keyword)
+                    nanoAPI.search(me.state.keyword, me.state.maxresults)
                   );
                 }}
               />
