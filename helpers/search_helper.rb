@@ -41,7 +41,7 @@ def search_tweet_from_database(params)
   puts "[DATABASE RESULT] got result:"
   if tweets
     $search_redis.push_results(keyword + '_tweets', tweets)
-    $search_redis.expire(keyword + '_tweets', 20)
+    $search_redis.expire(keyword + '_tweets', 60)
     json_response 200, tweets
   else
     json_response 404, nil, 'not founbd'
@@ -58,7 +58,7 @@ def search_user_from_database(params)
   puts "[REDIS MISS] searched users by #{keyword}"
   if users
     $search_redis.push_results(keyword + '_users', users)
-    $search_redis.expire(keyword + '_users', 10)
+    $search_redis.expire(keyword + '_users', 60)
     json_response 200, users
   else
     json_response 404, nil, 'not found'
