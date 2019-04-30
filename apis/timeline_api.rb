@@ -30,6 +30,7 @@ get '/api/timeline/?' do
     # has been prepared for separating services
     # @timeline = get_timeline(user.id, limit)
     $timeline_redis.push_results(user.id, @timeline)
+    $timeline_redis.expire(user.id, 1)
   end
   if @timeline
     json_response 200, @timeline

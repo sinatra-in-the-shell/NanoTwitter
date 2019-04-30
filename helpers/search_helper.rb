@@ -41,7 +41,7 @@ def search_tweet_from_database(params)
   puts "[DATABASE RESULT] got result:"
   if tweets
     $search_redis.push_results(keyword + '_tweets', tweets)
-    $search_redis.expire(keyword + '_tweets', 60)
+    $search_redis.expire(keyword + '_tweets', 1)
     json_response 200, tweets
   else
     json_response 404, nil, 'not founbd'
