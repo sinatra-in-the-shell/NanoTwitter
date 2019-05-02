@@ -115,5 +115,5 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 * Implemented full text search on all the tweets, built index for database, cached results in Redis - Ziyu Liu
 * Built front end for search - Fengzengcheng Zeng
 * Added test route for posting new random tweet - Ziyu Liu
-* Perform load testing on heroku - Ziyu Liu, Fengzengcheng Zeng
+* Performed load testing on heroku - Ziyu Liu, Fengzengcheng Zeng
 * Deployed a branch on Amazon Elastic Beanstalk and performed load testing - Yirun Zhou
