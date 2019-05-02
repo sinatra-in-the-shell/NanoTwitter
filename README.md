@@ -51,7 +51,7 @@ ruby app.rb
 rake test
 ```
 
-### Architecture:
+## Architecture:
 * The frontend of NanoTwitter is built with React.js to present a modern UI and allow AJAX requests. 
 * The backend of NanoTwitter is built with Sinatra, which is running on a Puma server. The application is deployed on Heroku and uses PgSQL as database and includes multiple redis addon for cache. 
 * For the three major requests (timeline, search and post tweet), the application will only hit the database if there is a cache miss. The data retrieved from data base will be cached in corresponding redis server until it’s expired or invalidated by other APIs.
@@ -120,3 +120,8 @@ The project is hooked to [Codeship](https://app.codeship.com/projects/329361) an
 * Added test route for posting new random tweet - Ziyu Liu
 * Performed load testing on heroku - Ziyu Liu, Fengzengcheng Zeng
 * Deployed a branch on Amazon Elastic Beanstalk and performed load testing - Yirun Zhou
+
+## Relevant URLs
+* GitHub: https://github.com/sinatra-in-the-shell/NanoTwitter
+* Heroku: https://nano-twitter-sits.herokuapp.com/
+* Codeship: https://app.codeship.com/sinatra-in-the-shell
