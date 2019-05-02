@@ -1,6 +1,6 @@
 # NanoTwitter
-[![Maintainability](https://api.codeclimate.com/v1/badges/321abe06b5c265e41552/maintainability)](https://codeclimate.com/github/sinatra-in-the-shell/nt-TweetService/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/321abe06b5c265e41552/test_coverage)](https://codeclimate.com/github/sinatra-in-the-shell/nt-TweetService/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/3f9ef55531a702550a62/maintainability)](https://codeclimate.com/github/sinatra-in-the-shell/NanoTwitter/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3f9ef55531a702550a62/test_coverage)](https://codeclimate.com/github/sinatra-in-the-shell/NanoTwitter/test_coverage)
 * Course project for Cosi105b - Software Engineering for Scalability.
 * Implement an SNS website including most basic funtions of Twitter. Use [Sinatra](http://sinatrarb.com/) + [React](https://reactjs.org/) as primary tech tools.
 
