@@ -20,12 +20,12 @@ describe "test user register and login" do
       email: 'frank@g.com',
       password: '123456'
     }
-    assert_equal last_response.status, 200
+    assert_equal 200, last_response.status
     @user = User.find_by_username("frank")
     assert @user.valid?
-    post '/api/login', {username: 'frank', password: 'abcdef'}
-    assert_equal last_response.status, 401
-    post '/api/login', {username: 'frank', password: '123456'}
-    assert_equal last_response.status, 200
+    post '/api/login', {email: 'frank@g.com', password: 'abcdef'}
+    assert_equal 401, last_response.status
+    post '/api/login', {email: 'frank@g.com', password: '123456'}
+    assert_equal 200, last_response.status
   end
 end
