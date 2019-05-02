@@ -39,23 +39,30 @@ end
 
 
 # init redis client, maybe put into another file for cleaness
-$followers_redis = RedisClient.new(ENV['FOLLOWERS_REDIS'])
-$leaders_redis = RedisClient.new(ENV['LEADERS_REDIS'])
-$timeline_redis = RedisClient.new(ENV['TIMELINE_REDIS'])
-$search_redis = RedisClient.new(ENV['SEARCH_REDIS'])
-$followers_redis.clear
-$leaders_redis.clear
-$timeline_redis.clear
-$search_redis.clear
-
 begin
-  follow_server
-  tweet_client
-rescue Interrupt => _
-  follow_server.stop
-  tweet_client.stop
-  pp "** rabbit interupted **"
+  $followers_redis = RedisClient.new(ENV['FOLLOWERS_REDIS'])
+  $leaders_redis = RedisClient.new(ENV['LEADERS_REDIS'])
+  $timeline_redis = RedisClient.new(ENV['TIMELINE_REDIS'])
+  $search_redis = RedisClient.new(ENV['SEARCH_REDIS'])
+  $followers_redis.clear
+  $leaders_redis.clear
+  $timeline_redis.clear
+  $search_redis.clear
+rescue StandardError => e
+  $followers_redis = nil
+  $leaders_redis = nil
+  $timeline_redis = nil
+  $search_redis = nil
+  puts "Failed to connect to redis."
 end
+# begin
+#   follow_server
+#   tweet_client
+# rescue Interrupt => _
+#   follow_server.stop
+#   tweet_client.stop
+#   pp "** rabbit interupted **"
+# end
 
 before do
   pass if (%w[login register].include?(request.path_info.split('/').last)) \

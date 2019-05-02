@@ -11,9 +11,9 @@ end
 
 describe "test timeline" do
   before do
-    $timeline_redis.clear
-    $leaders_redis.clear
-    $followers_redis.clear
+    $timeline_redis&.clear
+    $leaders_redis&.clear
+    $followers_redis&.clear
 
     User.delete_all
     Follow.delete_all
@@ -61,8 +61,8 @@ describe "test timeline" do
   end
 
   after do
-    $timeline_redis.clear
-    $leaders_redis.clear
-    $followers_redis.clear
+    $timeline_redis&.clear
+    $leaders_redis&.clear
+    $followers_redis&.clear
   end
 end

@@ -1,6 +1,6 @@
 post '/api/register/?' do
   @user = User.new(
-    id: User.maximum(:id) + 1,
+    id: (User.maximum('id') || 0) + 1,
     email: params[:email],
     username: params[:username],
     display_name: params[:display_name]

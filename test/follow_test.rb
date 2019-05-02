@@ -11,7 +11,7 @@ end
 
 describe "test new tweets" do
   before do
-    $followers_redis.clear
+    $followers_redis&.clear
 
     User.delete_all
     Follow.delete_all
@@ -47,6 +47,6 @@ describe "test new tweets" do
   end
 
   after do
-    $followers_redis.clear
+    $followers_redis&.clear
   end
 end
