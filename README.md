@@ -12,7 +12,7 @@
     - [Build Frontend](#build-frontend)
     - [Run](#run)
     - [Test](#test)
-    - [Architecture:](#architecture)
+  - [Architecture:](#architecture)
   - [Deployment:](#deployment)
   - [Documentations:](#documentations)
   - [Version Changelogs](#version-changelogs)
@@ -24,6 +24,7 @@
     - [NT0.6](#nt06)
     - [NT0.7](#nt07)
     - [NT1.0](#nt10)
+  - [Relevant URLs](#relevant-urls)
 
 ## Team Member
 * Fengzhencheng Zeng fzeng@brandeis.edu
