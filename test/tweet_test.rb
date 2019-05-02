@@ -15,7 +15,12 @@ describe "test new tweets" do
   end
 
   it 'new tweet' do
-    post '/api/register', {username: 'frank', password: '123456'}
+    post '/api/register', {
+      username: 'frank',
+      display_name: 'frank',
+      email: 'frank@g.com',
+      password: '123456'
+    }
     @user = User.find_by_username('frank')
 
     #directly access db will fail, why???
@@ -37,7 +42,12 @@ describe "test new tweets" do
   end
 
   it 'get all tweets' do
-    post '/api/register', {username: 'frank', password: '123456'}
+    post '/api/register', {
+      username: 'frank',
+      display_name: 'frank',
+      email: 'frank@g.com',
+      password: '123456'
+    }
     @user = User.find_by_username('frank')
 
     (0..3).each do |i|

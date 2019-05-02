@@ -14,7 +14,12 @@ describe "test user register and login" do
   end
 
   it 'should be able to register and login' do
-    post '/api/register', {username: 'frank', password: '123456'}
+    post '/api/register', {
+      username: 'frank',
+      display_name: 'frank',
+      email: 'frank@g.com',
+      password: '123456'
+    }
     assert_equal last_response.status, 200
     @user = User.find_by_username("frank")
     assert @user.valid?

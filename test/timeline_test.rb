@@ -19,13 +19,25 @@ describe "test timeline" do
     Follow.delete_all
     Tweet.delete_all
 
-    @user1 = User.new(email: 'frank@brandeis.edu', username: 'frank')
+    @user1 = User.new(
+      email: 'frank@brandeis.edu',
+      username: 'frank',
+      display_name: 'frank'
+    )
     @user1.password = '123456'
     @user1.save!
-    @user2 = User.new(email: 'yirunzhou@brandeis.edu', username: 'yirun')
+    @user2 = User.new(
+      email: 'yirunzhou@brandeis.edu',
+      username: 'yirun',
+      display_name: 'yirun'
+    )
     @user2.password = '123456'
     @user2.save!
-    @user3 = User.new(email: 'ziyuliu@brandeis.edu', username: 'ziyu')
+    @user3 = User.new(
+      email: 'ziyuliu@brandeis.edu',
+      username: 'ziyu',
+      display_name: 'ziyu'
+    )
     @user3.password = '123456'
     @user3.save!
 

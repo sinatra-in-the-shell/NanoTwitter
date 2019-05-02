@@ -11,9 +11,15 @@ describe "test user and notif" do
     Tweet.delete_all
     Notification.delete_all
 
-    @u1 = User.create(id: 1, username: 'sjdsf', email: '111@...')
-    @u2 = User.create(id: 2, username: 'aaasf', email: '112@...')
-    @u3 = User.create(id: 3, username: 'sjdff', email: '113@...')
+    @u1 = User.new(id: 1, username: 'sjdsf', display_name: 'sjdsf', email: '111@...')
+    @u1.password = '123456'
+    @u2 = User.new(id: 2, username: 'aaasf', display_name: 'aaasf', email: '112@...')
+    @u2.password = '123456'
+    @u3 = User.new(id: 3, username: 'sjdff', display_name: 'sjdff', email: '113@...')
+    @u3.password = '123456'
+    @u1.save
+    @u2.save
+    @u3.save
 
     @t1 = Tweet.create(id: 101, user_id: 1, text: 'sdasfsdf', tweet_type: 'ori')
     @t2 = Tweet.create(id: 102, user_id: 2, text: 'dfkii', tweet_type: 'rt', retweet_from_id: 101)
