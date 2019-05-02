@@ -1,9 +1,11 @@
 post '/api/register/?' do
   @user = User.new(
+    id: User.maximum(:id) + 1,
     email: params[:email],
     username: params[:username],
     display_name: params[:display_name]
   )
+  
   @user.password = params[:password]
   if @user.save
     login @user
