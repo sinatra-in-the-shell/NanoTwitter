@@ -19,6 +19,8 @@
     - [NT0.4](#nt04)
     - [NT0.5](#nt05)
     - [NT0.6](#nt06)
+    - [NT0.7](#nt07)
+    - [NT1.0](#nt10)
 
 ## Team Member
 * Fengzhencheng Zeng fzeng@brandeis.edu
@@ -45,6 +47,12 @@ ruby app.rb
 ```
 rake test
 ```
+
+### Architecture:
+* The frontend of NanoTwitter is built with React.js to present a modern UI and allow AJAX requests. 
+* The backend of NanoTwitter is built with Sinatra, which is running on a Puma server. The application is deployed on Heroku and uses PgSQL as database and includes multiple redis addon for cache. 
+* For the three major requests (timeline, search and post tweet), the application will only hit the database if there is a cache miss. The data retrieved from data base will be cached in corresponding redis server until it’s expired or invalidated by other APIs.
+
 
 ## Deployment:
 The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-sits.herokuapp.com/).
@@ -102,3 +110,10 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 * Implemented multiple api call method for frontend api library [nanoAPI](https://github.com/sinatra-in-the-shell/NanoTwitter/blob/master/client/src/nanoAPI.js) - Fengzhencheng Zeng
 * Fixed credential system so that advanced login are fully functional - Fengzhencheng Zeng
 * Added test status page at frontend - Ziyu Liu
+
+### NT1.0
+* Implemented full text search on all the tweets, built index for database, cached results in Redis - Ziyu Liu
+* Built front end for search - Fengzengcheng Zeng
+* Added test route for posting new random tweet - Ziyu Liu
+* Performed load testing on heroku - Ziyu Liu, Fengzengcheng Zeng
+* Deployed a branch on Amazon Elastic Beanstalk and performed load testing - Yirun Zhou
