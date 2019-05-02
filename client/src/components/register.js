@@ -78,7 +78,7 @@ class Register extends React.Component {
           <Avatar className={classes.avatar}>
           </Avatar>
           <Typography component="h1" variant="h5">
-            Register
+            Sign up
           </Typography>
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <FormControl margin="normal" required fullWidth>
@@ -105,7 +105,7 @@ class Register extends React.Component {
               color="primary"
               className={classes.submit}
             >
-              Register
+              Sign up
             </Button>
           </form>
         </Paper>

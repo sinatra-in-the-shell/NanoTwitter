@@ -3,8 +3,10 @@ class User < ActiveRecord::Base
   attr_accessor :remember_token
 
   # validation
-  validates :email, uniqueness: true
-  validates :username, uniqueness: true
+  validates :email, uniqueness: true, presence: true
+  validates :username, uniqueness: true, presence: true
+  validates :display_name, presence: true
+  validates :password_hash, presence: true
 
   # relations
   has_many :active_relationships, class_name: 'Follow',
