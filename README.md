@@ -7,9 +7,10 @@
   - [Table of Contents](#table-of-contents)
   - [Team Member](#team-member)
   - [To Build and Run](#to-build-and-run)
-    - [Build](#build)
+    - [Build Frontend](#build-frontend)
     - [Run](#run)
     - [Test](#test)
+    - [Architecture:](#architecture)
   - [Deployment:](#deployment)
   - [Documentations:](#documentations)
   - [Version Changelogs](#version-changelogs)
@@ -30,7 +31,9 @@
 ## To Build and Run
 Ruby, bundler, npm/yarn, postgresql is required to be installed first.
 
-### Build
+4 Redis server is required to be installed and running to enable caching function.
+
+### Build Frontend
 ```
 bundle install
 rake db:create db:migrate
@@ -55,7 +58,7 @@ rake test
 
 
 ## Deployment:
-The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-sits.herokuapp.com/).
+The project is hooked to [Codeship](https://app.codeship.com/projects/329361) and deployed on [Heroku](https://nano-twitter-sits.herokuapp.com/).
 
 ## Documentations:
 * [Route](/doc/ROUTE.md)

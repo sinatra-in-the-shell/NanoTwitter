@@ -66,7 +66,7 @@ class Profile extends React.Component {
       me.setState({
         userid: user.id,
         username: user.username,
-        displayname: user.display_name,
+        displayname: user.display_name || user.username,
         tweets: user.tweet_number,
         followers: user.follower_number,
         followings: user.following_number,
