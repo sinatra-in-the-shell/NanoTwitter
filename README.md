@@ -54,10 +54,6 @@ ruby app.rb
 rake test
 ```
 
-### Code Climate Badges:
-[![Maintainability](https://api.codeclimate.com/v1/badges/3f9ef55531a702550a62/maintainability)](https://codeclimate.com/github/sinatra-in-the-shell/NanoTwitter/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/3f9ef55531a702550a62/test_coverage)](https://codeclimate.com/github/sinatra-in-the-shell/NanoTwitter/test_coverage)
-
 ## Architecture:
 * The frontend of NanoTwitter is built with React.js to present a modern UI and allow AJAX requests. 
 * The backend of NanoTwitter is built with Sinatra, which is running on a Puma server. The application is deployed on Heroku and uses PgSQL as database and includes multiple redis addon for cache. 
