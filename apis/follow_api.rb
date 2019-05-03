@@ -64,6 +64,8 @@ delete '/api/follows/?' do
   )
   if @follow
     if @follow.destroy
+      from_user = @follow.from_user
+      to_user = @follow.to_user
       $timeline_redis&.del(from_user.id)
       $followers_redis&.push_results(to_user.id, to_user.followers)
       $leaders_redis&.push_results(from_user.id, from_user.followings)
