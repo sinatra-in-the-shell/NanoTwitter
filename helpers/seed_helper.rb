@@ -81,7 +81,7 @@ def create_test_user(count)
     email: 'testuser@sample.com'
   )
   testuser.password = 'password'
-    puts testuser.errors.message unless testuser.save
+    puts testuser.errors.messages unless testuser.save
 end
 
 def reset_all
