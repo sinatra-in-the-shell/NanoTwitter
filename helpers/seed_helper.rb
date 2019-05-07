@@ -68,8 +68,8 @@ def load_seed_tweets(count, filename)
       updated_at: row[2]
     )
     row_count += 1
-    # flush the array every 100 rows to limit memory usage
-    if (row_count % 100).zero?
+    # flush the array every 500 rows to limit memory usage
+    if (row_count % 500).zero?
       flush_tweets_into_database(tweets, columns)
     end
   end
