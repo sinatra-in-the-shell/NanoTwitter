@@ -42,11 +42,11 @@ class Tweet < ActiveRecord::Base
   validates :tweet_type, presence: true
 
   def like_num
-    self.likes.count
+    self.likes.to_a.count
   end
 
   def retweet_num
-    self.retweets.count
+    self.retweets.to_a.count
   end
 
   def self.searchable_columns

@@ -17,29 +17,34 @@ class FollowHelper
   private
 
     def followers args
-      user = User.find args['id'].to_i
+      user = User.find args['user_id'].to_i
 
       if $followers_redis.cached?(user.id)
         begin
           @followers = $followers_redis.get_json_list(user.id, 0, -1)
-          @followers.to_json
         rescue StandardError => e
-          e.message
+          return rabbit_response 500, nil, e.message
         end
       else
         @followers = user.followers
-        begin
+        if @followers
           $followers_redis.push_results(user.id, @followers)
-          @followers.to_json
-        rescue StandardError => e
-          e.message
         end
+      end
+      if @followers
+        rabbit_response 200, @followers
+      else
+        rabbit_response 404, nil, 'not found'
       end
     end
 
     def followings args
-      user = User.find args['id'].to_i
+      user = User.find args['user_id'].to_i
       @followings = user.followings
-      @followings.to_json
+      if @followings
+        rabbit_response 200, @followings
+      else
+        rabbit_response 404, nil, 'not found'
+      end
     end
 end

@@ -1,4 +1,6 @@
 # NanoTwitter
+[![Maintainability](https://api.codeclimate.com/v1/badges/3f9ef55531a702550a62/maintainability)](https://codeclimate.com/github/sinatra-in-the-shell/NanoTwitter/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3f9ef55531a702550a62/test_coverage)](https://codeclimate.com/github/sinatra-in-the-shell/NanoTwitter/test_coverage)
 * Course project for Cosi105b - Software Engineering for Scalability.
 * Implement an SNS website including most basic funtions of Twitter. Use [Sinatra](http://sinatrarb.com/) + [React](https://reactjs.org/) as primary tech tools.
 
@@ -7,9 +9,10 @@
   - [Table of Contents](#table-of-contents)
   - [Team Member](#team-member)
   - [To Build and Run](#to-build-and-run)
-    - [Build](#build)
+    - [Build Frontend](#build-frontend)
     - [Run](#run)
     - [Test](#test)
+  - [Architecture:](#architecture)
   - [Deployment:](#deployment)
   - [Documentations:](#documentations)
   - [Version Changelogs](#version-changelogs)
@@ -19,6 +22,9 @@
     - [NT0.4](#nt04)
     - [NT0.5](#nt05)
     - [NT0.6](#nt06)
+    - [NT0.7](#nt07)
+    - [NT1.0](#nt10)
+  - [Relevant URLs](#relevant-urls)
 
 ## Team Member
 * Fengzhencheng Zeng fzeng@brandeis.edu
@@ -28,7 +34,9 @@
 ## To Build and Run
 Ruby, bundler, npm/yarn, postgresql is required to be installed first.
 
-### Build
+4 Redis server is required to be installed and running to enable caching function.
+
+### Build Frontend
 ```
 bundle install
 rake db:create db:migrate
@@ -46,8 +54,14 @@ ruby app.rb
 rake test
 ```
 
+## Architecture:
+* The frontend of NanoTwitter is built with React.js to present a modern UI and allow AJAX requests. 
+* The backend of NanoTwitter is built with Sinatra, which is running on a Puma server. The application is deployed on Heroku and uses PgSQL as database and includes multiple redis addon for cache. 
+* For the three major requests (timeline, search and post tweet), the application will only hit the database if there is a cache miss. The data retrieved from data base will be cached in corresponding redis server until it’s expired or invalidated by other APIs.
+
+
 ## Deployment:
-The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-sits.herokuapp.com/).
+The project is hooked to [Codeship](https://app.codeship.com/projects/329361) and deployed on [Heroku](https://nano-twitter-sits.herokuapp.com/).
 
 ## Documentations:
 * [Route](/doc/ROUTE.md)
@@ -102,3 +116,15 @@ The project is hooked to Codeship and deployed on [Heroku](https://nano-twitter-
 * Implemented multiple api call method for frontend api library [nanoAPI](https://github.com/sinatra-in-the-shell/NanoTwitter/blob/master/client/src/nanoAPI.js) - Fengzhencheng Zeng
 * Fixed credential system so that advanced login are fully functional - Fengzhencheng Zeng
 * Added test status page at frontend - Ziyu Liu
+
+### NT1.0
+* Implemented full text search on all the tweets, built index for database, cached results in Redis - Ziyu Liu
+* Built front end for search - Fengzengcheng Zeng
+* Added test route for posting new random tweet - Ziyu Liu
+* Performed load testing on heroku - Ziyu Liu, Fengzengcheng Zeng
+* Deployed a branch on Amazon Elastic Beanstalk and performed load testing - Yirun Zhou
+
+## Relevant URLs
+* GitHub: https://github.com/sinatra-in-the-shell/NanoTwitter
+* Heroku: https://nano-twitter-sits.herokuapp.com/
+* Codeship: https://app.codeship.com/sinatra-in-the-shell

@@ -29,18 +29,17 @@
         {
             "names": ["commands"],
             "values": [
-                ["timeline?x=y;limit=10"],
-                ["timeline?x=y;limit=10"],
-                ["timeline?x=y;limit=10"],
-                ["timeline?x=y;limit=10"],
-                ["timeline?x=y;limit=10"],
-                ["timeline?x=y;limit=10"],
-                ["timeline?x=y;limit=10"],
-                ["timeline?x=y;limit=10"],
-                ["timeline?x=y;limit=10"],
-                ["search/tweets?keyword=person;maxresults=10"],
-                ["search/tweets?keyword=drive;maxresults=10"],
-                ["test/tweet?count=1;maxresults=10"]
+                ["timeline?x=y"],
+                ["timeline?x=y"],
+                ["timeline?x=y"],
+                ["timeline?x=y"],
+                ["timeline?x=y"],
+                ["timeline?x=y"],
+                ["timeline?x=y"],
+                ["timeline?x=y"],
+                ["timeline?x=y"],
+                ["search/tweets?keyword=person"],
+                ["search/tweets?keyword=drive"]
             ]
         }
     ]

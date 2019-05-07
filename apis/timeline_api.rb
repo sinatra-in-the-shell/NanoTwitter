@@ -3,16 +3,15 @@ get '/api/timeline/?' do
   limit = params['limit'] || 50
 
   if params['service']=='yes'
-    @timeline = tweet_client.call(
-      {
-        method: 'get_timeline',
-        args: {
-          user_id: user.id,
-          limit: limit
-        }
+    res = tweet_client.call(
+      method: 'get_timeline',
+      args: {
+        user_id: user.id,
+        limit: limit
       }
     )
-  elsif $timeline_redis.cached?(user.id)
+    return json_response res['status'], res['data'], res['errors']
+  elsif $timeline_redis&.cached?(user.id)
     begin
       @timeline = $timeline_redis.get_json_list(user.id, 0, -1)
     rescue StandardError => e
@@ -30,7 +29,8 @@ get '/api/timeline/?' do
     # change from SQL to get_timeline methods in timeline_helper.rb
     # has been prepared for separating services
     # @timeline = get_timeline(user.id, limit)
-    $timeline_redis.push_results(user.id, @timeline)
+    $timeline_redis&.push_results(user.id, @timeline)
+    $timeline_redis&.expire(user.id, 1)
   end
   if @timeline
     json_response 200, @timeline

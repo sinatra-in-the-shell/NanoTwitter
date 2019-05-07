@@ -15,6 +15,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Redirect } from 'react-router'
 import { sessionHelper } from '../helpers/session'
 import { nanoAPI } from '../nanoAPI'
+import Link from './general/link'
 
 const styles = theme => ({
   main: {
@@ -45,6 +46,9 @@ const styles = theme => ({
   },
   submit: {
     marginTop: theme.spacing.unit * 3,
+  },
+  signup: {
+    marginTop: theme.spacing.unit,
   },
 });
 
@@ -110,13 +114,22 @@ class SignIn extends React.Component {
               label="Remember me"
             />
             <Button
-              type="submit"
               fullWidth
+              type="submit"
               variant="contained"
               color="primary"
               className={classes.submit}
             >
               Sign in
+            </Button>
+            <Button
+              fullWidth
+              variant="contained"
+              className={classes.signup}
+            >
+              <Link to='/register'>
+                Sign up
+              </Link>
             </Button>
           </form>
         </Paper>

@@ -125,8 +125,12 @@ export const nanoAPI = {
     }).then(errorHandler);
   },
 
-  search(keyword) {
-    let url = '/api/search/tweets?keyword='+keyword+'&maxresults=50'
+  search(keyword, maxresults) {
+    let max = 50;
+    if(maxresults) {
+      max = maxresults;
+    }
+    let url = '/api/search/tweets?keyword='+keyword+'&maxresults='+max;
     let test = locationHelper.searchparams().test_user;
     if(test) {
       url = url+'&test_user='+test;

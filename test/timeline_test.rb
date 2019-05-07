@@ -11,29 +11,41 @@ end
 
 describe "test timeline" do
   before do
-    $timeline_redis.clear
-    $leaders_redis.clear
-    $followers_redis.clear
+    $timeline_redis&.clear
+    $leaders_redis&.clear
+    $followers_redis&.clear
 
     User.delete_all
     Follow.delete_all
     Tweet.delete_all
 
-    @user1 = User.new(email: 'frank@brandeis.edu', username: 'frank')
+    @user1 = User.new(
+      email: 'frank@brandeis.edu',
+      username: 'frank',
+      display_name: 'frank'
+    )
     @user1.password = '123456'
     @user1.save!
-    @user2 = User.new(email: 'yirunzhou@brandeis.edu', username: 'yirun')
+    @user2 = User.new(
+      email: 'yirunzhou@brandeis.edu',
+      username: 'yirun',
+      display_name: 'yirun'
+    )
     @user2.password = '123456'
     @user2.save!
-    @user3 = User.new(email: 'ziyuliu@brandeis.edu', username: 'ziyu')
+    @user3 = User.new(
+      email: 'ziyuliu@brandeis.edu',
+      username: 'ziyu',
+      display_name: 'ziyu'
+    )
     @user3.password = '123456'
     @user3.save!
 
     post '/api/follows', {test_user: @user1.id, to_user_id: @user3.id}
     post '/api/follows', {test_user: @user2.id, to_user_id: @user3.id}
 
-    pp "user3 followers"
-    pp @user3.followers
+    # pp "user3 followers"
+    # pp @user3.followers
 
     Tweet.create user_id: @user3.id,
                  text: 'this is a testing tweet',
@@ -61,8 +73,8 @@ describe "test timeline" do
   end
 
   after do
-    $timeline_redis.clear
-    $leaders_redis.clear
-    $followers_redis.clear
+    $timeline_redis&.clear
+    $leaders_redis&.clear
+    $followers_redis&.clear
   end
 end

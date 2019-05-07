@@ -1,20 +1,9 @@
 post '/api/tweets/?' do
   @user = current_user
-  @tweet = Tweet.new(
-    user: @user,
-    comment_to_id: params['comment_to_id'],
-    retweet_from_id: params['retweet_from_id'],
-    text: params['text'],
-    tweet_type: params['tweet_type'],
-    username: @user.username,
-    display_name: @user.display_name
-  )
+  @tweet = create_new_tweet(@user, params)
   #find hashtags in the tweet
-  params['text'].scan(/#\w+/).flatten.each do |tag|
-    @tag = Hashtag.find_by_name(tag)
-    @tag = Hashtag.create(name: tag) if @tag == nil
-    @tweet.hashtags << @tag
-  end
+  scan_and_create_hashtags(@tweet)
+
   if @tweet.save
     fanout_helper(@user.id, @tweet)
     json_response 200, @tweet
@@ -24,7 +13,11 @@ post '/api/tweets/?' do
 end
 
 get '/api/tweets/:id/comments/?' do
-  @tweets = Tweet.find(params[:id]).comments
+  @tweets = Tweet.where(comment_to_id: params[:id])
+                 .includes(:likes, :retweets)
+                 .as_json(
+                   methods: [:like_num, :retweet_num]
+                 )
   if @tweets
     json_response 200, @tweets
   else
@@ -50,14 +43,6 @@ get '/api/tweets/?' do
   else
     json_response 404, nil
   end
-end
-
-post '/test/api/tweets/rpc/?' do
-  params['method'] = 'new_tweet'
-  params.delete 'test_user'
-  res = $rabbit_client.call params
-  pp res
-  json_response 200, JSON.parse(res)
 end
 
 post '/api/likes/?' do

@@ -11,3 +11,11 @@ def json_response status_code, data=nil, errors=nil
     errors: errors
   }.to_json
 end
+
+def rabbit_response status_code, data=nil, errors=nil
+  res = {
+    status: status_code,
+    data: data,
+    errors: errors
+  }.to_json
+end

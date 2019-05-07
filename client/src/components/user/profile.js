@@ -66,7 +66,7 @@ class Profile extends React.Component {
       me.setState({
         userid: user.id,
         username: user.username,
-        displayname: user.display_name,
+        displayname: user.display_name || user.username,
         tweets: user.tweet_number,
         followers: user.follower_number,
         followings: user.following_number,
@@ -150,8 +150,7 @@ class Profile extends React.Component {
             <Grid item xs={4} md={4} lg={4}>
               <Avatar
                 alt={this.state.displayname}
-                className={this.props.classes.bigAvatar}
-                background-color={colorHelper.getColor(this.state.displayname)}>
+                className={this.props.classes.bigAvatar}>
                 {this.state.displayname[0].toUpperCase()}
               </Avatar>
             </Grid>

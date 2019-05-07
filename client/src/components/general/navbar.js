@@ -117,7 +117,7 @@ class Navbar extends React.Component {
   handleSearch = (e) => {
     if(e.target.value.trim()==='') return;
     if(e.key==='Enter') {
-      history.push("/search?search="+e.target.value.trim());
+      history.push("/search?keyword="+e.target.value.trim());
     }
   }
 

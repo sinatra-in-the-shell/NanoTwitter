@@ -18,18 +18,16 @@
 #     setup_reply_queue
 #   end
 
-#   def call(user_id, limit) 
+#   def call(user_id, limit)
 #     req_message = {
 #       'id' => SecureRandom.hex,
 #       'jsonrpc' => '2.0',
 #       'params' => [user_id, limit]
 #     }
-    
 #     exchange.publish(JSON.generate(req_message),
 #                      routing_key: server_queue_name,
 #                      correlation_id: req_message[:id],
 #                      reply_to: reply_queue.name)
-
 #     lock.synchronize { condition.wait(lock) }
 
 #     response

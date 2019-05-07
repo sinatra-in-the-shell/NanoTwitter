@@ -4,7 +4,7 @@ class RabbitServer
     if rabbit_url
       @connection = Bunny.new rabbit_url
     else
-      @connection = Bunny.new
+      @connection = Bunny.new tls: false
     end
     @connection.start
     @channel = @connection.create_channel
@@ -28,16 +28,16 @@ class RabbitServer
 
   def subscribe_to_queue
     queue.subscribe do |delivery_info, properties, payload|
-      req = JSON.parse payload
-      result = helper.process req
-      pp '** RESULT ** :'
-      pp result
+      thr = Thread.new {
+        req = JSON.parse payload
+        result = helper.new.process req
 
-      exchange.publish(
-        result,
-        routing_key: properties.reply_to,
-        correlation_id: properties.correlation_id
-      )
+        exchange.publish(
+          result,
+          routing_key: properties.reply_to,
+          correlation_id: properties.correlation_id
+        )
+      }
     end
   end
 end
