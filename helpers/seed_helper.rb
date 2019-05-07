@@ -78,7 +78,8 @@ def create_test_user(count)
   testuser = User.new(
     id: count + 1,
     username: 'testuser',
-    email: 'testuser@sample.com'
+    email: 'testuser@sample.com',
+    display_name: 'testuser_displayname'
   )
   testuser.password = 'password'
     puts testuser.errors.messages unless testuser.save
